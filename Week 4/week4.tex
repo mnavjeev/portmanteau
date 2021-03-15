@@ -132,10 +132,10 @@ This being said, the condition in Theorem~\ref{thm:vdv1.5.6} is hard to check. I
 	\label{thm:vdv1.5.7}
 	A sequence of random maps, \(X_n:\Omega_n\to \ell^\infty(T)\) is asymptotically tight if and only if  \(X_n(t)\) is asymptotically tight in  \(\SR\) for each \(t\) and there exists a semimetric  \(\rho\) on  \(T\) such that  \((T,\rho)\) is totally bounded and  \(X_n\) is asymptotically uniformly  \(\rho\)-equicontinuous. 
 \end{theorem}
-\begin{proof} First prove sufficiency then neccesity:
+\begin{proof} First prove sufficiency then necessity:
 
 	\((\impliedby)\) Fix \(\eps,\eta > 0\). Then, there is a  \(\delta > 0\) such that  \[\lim\sup\P^\star\left(\sup_{\rho(s,t)<\delta}\left|X_n(s)-X_n(t)\right|>\eps\right)<\eta.\] 
-	Since \(T\) is totally bounded, then there are finitely many balls of radius  \(\delta\) that cover  \(T\),  \(B_1, \dots, B_{K(\delta)}\). Make these balls disjoint by taking succesive ``set-minuses" and then we have a partition of \(T\). Then
+	Since \(T\) is totally bounded, then there are finitely many balls of radius  \(\delta\) that cover  \(T\),  \(B_1, \dots, B_{K(\delta)}\). Make these balls disjoint by taking successive ``set-minuses" and then we have a partition of \(T\). Then
 	\begin{align*}
 		\lim\sup\P^\star\left(\max_i\sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|>\eps\right) \leq \lim\sup\P^\star\left(\sup_{\rho(s,t) <\delta} \left|X_n(s)-X_n(t)\right|>\eps\right) <\eta
 	\end{align*}
@@ -149,15 +149,50 @@ This being said, the condition in Theorem~\ref{thm:vdv1.5.6} is hard to check. I
 	 \[
 		 \rho_m(s,t) = \sup_{z\in K_m} \left|z(s)-z(t)\right|
 	.\] 
-	Then \((T,\rho_m)\) is totally bounded. How? Cover \(K_m\) by finitely many balls of arbitrarily small radius \(\eta\) centered at \(z_1,\dots,z_k\).\footnote{This is possible by compactness. Cover \(K_m\) by balls of radius \(\eta\) and then take a finite subcover.} Partition \(\SR^k\) into cubes of edge \(\eta\) and for every cube pick at most one  \(t\in T\) such that  \(\left(z_1(1),\dots,z_k(t)\right)\) is in the cube. Since \(z_1,\dots,z_k\) are uniformly bounded,\footnote{Recall that each \(z_i\) is in  \(\ell^\infty(T)\) which is the space of all bounded functions from  \(T\to\SR\). A finite connection of bounded functions is uniformly bounded} this gives finitely many points \(t_1,\dots,t_p\). Now, the balls \(\{t:p_m(t,t_i)<3\eta\}\) cover \(T\): \(t\) is in the ball around  \(t_i\) for which  \(\left(z_1(t),\dots,z_k(t)\right)\) and
-	\(\left(z_1(t_i),\dots,z_k(t_i)\right)\) fall in the same cube. This in turn follows from the fact that \(\rho_m(t,t_i)\) can be bounded by  \(2\sup_{z\in K_m}\inf_i \left\|z-z_i\right\|_T + \sup_j \left|z_j(t_i)-z_j(t)\right|\) \footnote{}. (COMPLETE THIS)
+	Then \((T,\rho_m)\) is totally bounded. How? Cover \(K_m\) by finitely many balls of arbitrarily small radius \(\eta\) centered at \(z_1,\dots,z_k\).\footnote{This is possible by compactness. Cover \(K_m\) by balls of radius \(\eta\) and then take a finite subcover.} Partition \(\SR^k\) into cubes of edge \(\eta\) and for every cube pick at most one  \(t\in T\) such that  \(\left(z_1(1),\dots,z_k(t)\right)\) is in the cube. Since \(z_1,\dots,z_k\) are uniformly bounded,\footnote{Recall that each \(z_i\) is in  \(\ell^\infty(T)\) which is the space of all bounded functions from  \(T\to\SR\). A finite collection of bounded functions is uniformly bounded} this gives finitely many points \(t_1,\dots,t_p\). Now, the balls \(\{t:p_m(t,t_i)<3\eta\}\) cover \(T\): \(t\) is in the ball around  \(t_i\) for which  \(\left(z_1(t),\dots,z_k(t)\right)\) and
+	\(\left(z_1(t_i),\dots,z_k(t_i)\right)\) fall in the same cube. This in turn follows from the fact that \(\rho_m(t,t_i)\) can be bounded by  \(2\sup_{z\in K_m}\inf_i \left\|z-z_i\right\|_T + \sup_j \left|z_j(t_i)-z_j(t)\right|\). \footnote{Recall that \(\|f\|_T = \sup_{t\in T} |f(t)|\),\(\rho_m(t,t_i) = \sup_{z\in K_m}\left|z(t)-z(t_i)\right|\), \(z_1,\dots,z_K\) are the points (bounded functions of \(T\)) around which balls of radius \(\eta\) cover  \(K_m\), and  \(t_1,\dots,t_p\) are points of \(T\) such that the vector valued function \(\left(z_1(\cdot),\dots,z_k(\cdot)\right)\) takes values only in cubes of edge length \(\eta\) of which one of \(t_1,\dots,t_p\) is an element. Then, applying the triangle inequality and the above statements:
+	\begin{align*}
+		\rho_m(t,t_i) &= \sup_{z\in K_m }\left|z(t)-z(t_i)\right| \\
+					  &\leq  \sup_{z \in K_m} \left|z(t)-z_j(t_i)\right| +  \left|z_j(t_i) - z(t)\right| \\
+					  &\leq  \sup_{z \in K_m} \left|z(t)-z_j(t_i)\right| +  \left|z_j(t_i) - z_j(t)\right| + \left|z_j(t)-z(t)\right| \\
+					  &\leq 2\sup_{z\in K_m}\left\|z-z_j\right\|_T + \left|z_j(t_i) - z_j(t)\right|
+	\end{align*}
+	Since this holds for all \(j\), we obtain
+	 \[
+		 \rho_m(t,t_i) \leq 2\sup_{z\in K_m}\inf_{j} \left\|z-z_j\right\|_T + \sup_j \left|z_j(t)-z_j(t_i)\right|
+	.\] 
+For any \(t\) such that  \(\left(z_1(t),\dots,z_k(t)\right)\) falls in the same cube as \(\left(z_1(t_i),\dots,z_k(t_i)\right)\), the first quantity is (strictly) bounded by \(2\eta\) by the definition of \(z_1,\dots,z_k\) whereas the second quantity is bounded by \(\eta\) because \(t\) falls in the same cube as \(t_i\). Now, since, for each \(t\in T\), \(\left(z_1(t),\dots,z_k(t)\right) \in T\) must fall in the same cube as \(\left(z_1(t_i),\dots,z_k(t_i)\right)\) for some \(i \in \{1,\dots,p\}\) we have that \(t \in \{\tilde t: \rho_m(t_i,\tilde t) < 3\eta\}\) for some \(i \in \{1,\dots,p\}\).  Since \(\eta\) is arbitrary, this shows that  \((T,\rho_m)\) is totally bounded.}
+
+Now set 
+\begin{equation*}
+	\rho(s,t) = \sum_{m=1}^\infty 2^{-m}\left(\rho_m(s,t)\land 1\right).
+\end{equation*}
+Fix some \(\eta > 0\). Take a natural number \(m\) with  \(2^{-m} <\eta\). Cover \(T\) with finitely many  \(\rho_m\)-balls of radius  \(m\).\footnote{This is possible because \((T,\rho_m)\) is totally bounded by the above argument}. Let \(t_1,\dots,t_p\) be their centers, Since \(\rho_1\leq \rho_2 \leq  \dots\),\footnote{Because \(K_1 \subseteq K_2 \subseteq K_3 \dots\)} there is for every  \(t\) a  \(t_i\) with 
+ \[
+	 \rho(t,t_i) \leq  \sum_{k=1}^m 2^{-k}\rho_k(t,t_i) + 2^{-m} < 2\eta
+ .\footnote{If \(t\) is distance at most \(\eta\) from  \(t_i\) under  \(\rho_m\), it is also distance at most \(\eta\) from \(t_i\) under  \(\rho_k\) for  \(k\leq m\)}\] 
+ So \((T,\rho)\) is totally bounded as well. It is clear from definitions that \(\left|z(s) - z(t)\right|\leq \rho_m(s,t)\) for every \(z \in K_m\) and that \(\left(\rho_m(s,t)\land 1\right) \leq 2^m\rho(s,t)\).\footnote{In the definition of \(\rho\) multiply left side and right side by  \(2^m\). A semimetric is always (weakly) positive.} Further, if \(\left\|z_0-z\right\|_T <\eps\) for \(z\in K_m\), then  \(|z_0(s)-z_0(t)|<2\eps + |z(s)-z(t)|\) for any pair  \(s,t\). \footnote{Same triangle inequality decomposition as above:
+ \begin{align*}
+	 \left|z_0(s)-z_0(t)\right| &\leq  \left|z_0(s)-z(s)\right| + \left|z(s)-z_0(t)\right| \\
+								&\leq \left|z_0(s)-z(z)\right| + \left|z(s) - z(t)\right| + \left|z(t)-z_0(t)\right| \\
+								&\leq 2\left\|z_0-z\right\|_T + \left|z(s)-z(t)\right|
+ \end{align*}} 
+ This gives us that 
+ \[
+	 K_m^\eps \subset \left\{z : \sup_{\rho(s,t) < 2^{-m}\eps} \left|z(s)-z(t)\right|\leq 3\eps\right\}
+ .\] 
+ The system of implications to get this is: if \(z \in K_m\) and \(\eps < 1\) then \(\rho(s,t) < 2^{-m}\eps \implies \rho_m(s,t) \leq \eps \implies\left|z(s)-z(t)\right|\leq \eps\). That this holds for all \(z \in K_m\) gives that for  \(z\in K_m^\eps\), \(\rho(s,t)<2^{-m}\eps \implies \left|z(s)-z(t)\right| \leq  3\eps\). Taking \(\eps \leq 1\) is without loss of generality. To finish not that this gives us that, for given \(\eps\) and  \(m\) and for  \(\delta < 2^{-m}\eps\)
+  \[
+	  \lim\inf \P_\star\left(\sup_{\rho(s,t)<\delta} \left|X_n(s)-X_n(t)\right|<3\eps\right)\geq 1-\frac{1}{m} 
+ .\]
+ This shows the backwards direction of Theorem~\ref{thm:vdv1.5.6} as well. As a note, this whole argument can be used with nets instead of sequences. 
 \end{proof}
 \begin{remark*}
-	Important not to forget the totally bounded part of the theorem. For example, in the example of the emprical CDF case, we need to show that \(\SR\) is totally bounded. The good news is we have choice of semi-metric.
+	Important not to forget the totally bounded part of the theorem. For example, in the example of the empirical CDF case, we need to show that \(\SR\) is totally bounded. The good news is we have choice of semi-metric.
 \end{remark*}
 
 \begin{remark*}[Connection to Arzela-Ascoli]
-	\underline{Arzela-Ascoli}: Let \(T\) be a set with metric  \(\rho\) that is compact. Tet  \(C(T)\) be the set of all real valued continous functions on  \(T\). Then  \(A \subset C(T)\) is compact under  \(\left|\cdot\right|_\infty\) if and only if it is equicontinuous and bounded.
+	\underline{Arzela-Ascoli}: Let \(T\) be a set with metric  \(\rho\) that is compact. Tet  \(C(T)\) be the set of all real valued continuous functions on  \(T\). Then  \(A \subset C(T)\) is compact under  \(\left|\cdot\right|_\infty\) if and only if it is equicontinuous and bounded.
 
 	We can think of Theorem~\ref{thm:vdv1.5.7} as a stochastic version of this. That is for
 	\[
