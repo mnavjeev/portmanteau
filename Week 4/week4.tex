@@ -1,0 +1,169 @@
+% Week 4 notes, starting off at the end of the theorem 2.5
+
+\textbf{Intuition: Why is Tightness + Convergence of Marginals Enough?}
+
+\begin{itemize}
+	\item Tightness: \(P(X\in K)\geq 1-\eps\) for some \underline{\textit{compact}} set \(K\).
+	\begin{itemize}
+		\item In a metric space, compact means for any \(\eps >0 \) there are a finite set of points that approximate the whole set well. 
+		\begin{itemize}
+			\item But! For a finite set of points we have convergence of marginals
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+
+Showing convergence of marginal distributions is straightforward by CLT. Next, we cover how to show tightness. Then Theorem~\ref{thm:vdv1.5.4} gives convergence of the entire process.To verify tightness we want a better description than the definition of asymptotic tightness. Two approaches
+\begin{enumerate}
+	\item Finite Approximation \(\to\) simpler
+	\item Arzela-Ascoli Theorem \(\to\)  larger interest (asymptotic equicontinuity)
+\end{enumerate}
+
+\subsubsection{Finite Approximation}
+
+The general idea here is that, for any \(\eps > 0\), we can partition the index set \(T\) (as in \(\ell^\infty(T)\)) into a finite number of sets \(T_i\) so that the variation in each set is  \(< \eps\). Formally, for any \(\eta > 0\),
+\[
+	 \lim\sup_{n\to\infty} \P\left(\max_i \sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|>\eps\right)<\eta
+.\]
+
+\textbf{Intuition: Why should we expect this to work?}
+\begin{itemize}
+	\item Tightness means that you concentrate on a compact set
+	\begin{itemize}
+		\item Compact set is well described by a finite \# of functions 
+	\end{itemize}
+\end{itemize}
+
+\begin{theorem}[Theorem 1.5.6 VdV\&W]
+	\label{thm:vdv1.5.6}
+	A sequence of random maps \(X_n \in \ell^\infty(T)\) is asymptotically tight if and only if \(X_n(t)\) is asymptotically tight in  \(\SR\) for every  \(t\) and, for all  \(\eps,\eta > 0\) there is a partition  \(T = \cup_{i=1}^n T_i\) such that 
+	 \begin{equation}
+		\label{eq:fa-1}
+		\lim\sup_{n\to\infty}\P^\star\left(\max_i \sup_{s,t\in T_i} \left|X_n(s) -X_n(t)\right|>\eps\right)<\eta\tag{FA-1}
+	\end{equation}
+\end{theorem}
+\begin{proof}
+	Cover sufficiency. Necessity follows from Theorem 1.5.7 in Van DerVaart and Wellner.
+	Suppose that \eqref{eq:fa-1} holds. Fix \(\eps > 0\) and let the partition \(T = \bigcup_{i=1}^k T_i\) satisfy \eqref{eq:fa-1} for some \(\eta > 0\). We want to show that \(\sup_t \left|X_n(t)\right|\) is asymptotically tight. Then:
+	\begin{align*}
+		\lim\sup \P^\star\left(\sup_{t\in T}\left|X_n(t)\right|>M\right)
+		&\leq \lim\sup \P^\star\left(\sup_{t\in T} > M, \text{ and } \eqref{eq:fa-1}\text{ holds }\right)\\
+		&\;\;\;\;\;+ \lim\sup \P^\star\left(\eqref{eq:fa-1}\text{ doesn't hold}\right) \\
+		&\leq \lim\sup\P^\star\left(\max_{1\leq i\leq k}\left|x_n(t_i)\right|+\eps > M\right) + \eta
+	\end{align*}
+	Where in the last line we use the bounded variation within each set \(T_i\) and pick some arbitrary elements  \(t_i \in T_i\). Now note that each  \(X_n(t_i)\) is asymptotically tight by assumption so that  \(\max_{1\leq i\leq k_i}\left|X_n(t_i)\right|\) is asymptotically tight.\footnote{ Couple of quick arguments to get this one:
+	\begin{enumerate}
+		\item If each \(X_{i,n}\) in \(\{X_{i,n}\}_{i=1}^K\) is asymptotically tight then the vector \(\begin{bmatrix} X_1&\dots&X_K \end{bmatrix} \) is asymptotically tight. This is because the Cartesian product of a finite number of compact sets is compact (with respect to the product topology).
+		\item If \(X_n\) is asymptotically tight and \(g\) is a continuous function then  \(g(X_n)\) is asymptotically tight. This is shown in Example~\ref{ex:p7} and basically follows from the fact that a continuous function applied to a compact set yields a compact set. The maximum operator is continuous. 
+	\end{enumerate}}.
+	This means that we can pick \(M\) so that
+	 \[
+		 \limsup \P^\star\left(\sup_t \left|X_n(t)\right|>M\right)<\eta
+	.\] 
+	or, to put this another way, for every \(\eta > 0\) we can show that there is an  \(M\) such that:
+	 \[
+		 \lim\sup \P^\star\left(\sup_t \left|X_n(t)\right|>M\right)<\eta
+	.\]
+	So we have shown that \(\sup_t\left|X_n(t)\right|\) is bounded in probability. Since \(\sup_t\left|X_n(t)\right|\) is a map onto the real line, bounded in probability coincides with asymptotic tightness (Heine-Borel).
+
+	Now we want to construct a candidate compact set \(K\) for the process  \(X_n\). Fix \(\zeta > 0\) and a sequence  \(\eps_n\downarrow 0\). First, pick an \(M\) such that
+	 \[
+		 \lim\sup_{n\to\infty}\P^\star\left(\sup_t\left|X_n(t)\right|>M\right)<\zeta
+	.\] 
+	we know such an \(M\) exists by the above argument. For each \(\eps_m\) partition  \(T = \bigcup_{i=1}^{K(m)}T_i\) such that
+	 \[
+		 \lim\sup_{n\to\infty}\P^\star\left(\sup_{1\leq i\leq K(m)}\sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|>\eps_m\right)<\frac{\zeta}{2^m} 
+	.\] 
+	For each \(\eps_m\) let  \(\{z_1,\dots,z_{p(m)}\}\) be the set of functions in \(\ell^\infty(T)\) that are constant on  \(T_i\) and only take values  \(0, \pm\eps_m, \pm 2\eps_m,\dots,M\). It is only important for now that, for any \(m\),  \(p(m)\) is finite (though large). Let
+	\[
+		K_m  = \bigcup_{i=1}^{p(m)} \overline{B}(z_i,\eps_m)
+	.\]
+	where \(\overline{B}(z_i,\eps_m)\) is the closed ball of radius  \(\eps_m\) around  \(z_i\). Note that if  \(\sup_t \left|X_n(t)\right| \leq M\) and \[\sup_{1\leq i\leq k(m)}\sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|\leq \eps_m\] then \(X_n \in K_m\). Let  \(K = \bigcap_{m=1}^\infty K_m\). Then  \(K\) is closed and totally bounded. Closure follows because each  \(K_m\) is closed (finite union of closed sets)  and an arbitrary intersection of closed sets is closed (because the arbitrary union of open sets is open). To see totally bounded fix \(\delta > 0\). Then for each  \(\eps_m <\delta\) we have that  \(K_m = \bigcup_{i=1}^{p(m)}\bar{B}(z_i,\eps_m)\). Since \(K_m \supset K\) these balls cover  \(K\).
+
+	We now have a candidate \(K\). We now want to show that, for every  \(\delta > 0\),  \(K^\delta \supset \bigcap_{i=1}^m K_i\) for some \(m\). Suppose not. Then there is a sequence  \(\{z_{m}\} \) with \(z_{m} \not\in K^\delta\) and \(z_m \in \bigcap_{i=1}^m K_i\) for every \(m\).\footnote{ Pick \(z_m \in \bigcap_{i=1}^m K_i\setminus K^\delta\) } This sequence has a subsequence contained in one of the balls making up \(K_1\), this subsequence in one of the balls in  \(K_1\) has a further subsequence contained in one of the balls making up  \(K_2\), that subsequence contains a subsequence eventually contained in \(K_3\), and so on.
+	\footnote{ Why? Each \(\{z_m\}\) is in \(\bigcap_{i=1}^m K_i\). Fix some \(n\), then eventually the sequence is contained in  \(\bigcap_{i=1}^n K_n\) and so is contained in  \(K_n\) since  \(K_n \supset \bigcap_{i=1}^n K_n\). This means the sequence \(\{z_m\} \) has infinite members in \(K_n\).  \(K_n\) is the union of a finite number of sets, so one of these sets must contain infinite members}
+	Consider the ``diagonal" sequence formed by taking the first element of the first subsequence, the second element of the second sequence, and so on. Eventually, this would be contained in a ball of radius \(\eps_m\) for any  \(m\).\footnote{Key here is the boundedness of the functions we are considering.}Because \(\eps_m \downarrow 0\) this means the sequence is Cauchy. Since  \(\ell^\infty(T)\) is a complete (Banach) space this sequence converges and must converge to an element in \(K\). This contradicts the fact that  \(d(z_m, K) \geq \delta\) for every \(m\).
+
+	Finally, combining our previous results, we want to show that
+	\(
+	    \liminf\P_\star\left(X_n\in K^\delta\right)\geq 1- 2\zeta
+		.\) 
+	for every \(\delta >0\). This is equivalent to saying that  \(\lim\sup \P^\star\left(X_n\not\in K^\delta\right)<2\delta\). Recall that
+	\[
+		\sup_t \left|X_n(t)\right| \leq  M\andbox \sup_i\sup_{s,t\in T_i} \left|X_n(s)-X_n(t)\right| \leq \eps_m \implies X_n \in K_m 
+	.\]
+	Then, to show asymptotic tightness:
+	\begin{align*}
+		\lim\sup_{n\to\infty} \P^\star\left(X_n\not\in \bigcup_{i=1}^n K_i\right) 
+		&\leq \lim\sup \P^\star\left(X_n \not\in \bigcup_{i=1}^mK_i;\sup_t\left|X_n(t)\right|\leq M\right) + \underbrace{\lim\sup \P^\star\left(\sup_t \left|X_n(t)\right|>M\right)}_{<\zeta}\\
+		&\leq \lim\sup \P^\star\left(\sup_{i}\sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|>\eps_m\text{ for some }m\right)+\zeta \\
+		&\leq \sum_{j=1}^m \lim\sup \P^\star\left(\sup_i\sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|>\eps_j\right)+\zeta \\
+		&\leq  \sum_{j=1}^m \frac{\zeta}{2^j} + \zeta \\
+		&< 2\zeta
+	\end{align*}
+\end{proof}
+
+Proof is involved but useful as it shows the equivalence between asymptotic tightness and a finite approximation notion. The proof also builds some intuition for why tightness is important, at each step we are essentially showing that the whole behavior of the set is well describes (up to a tolerance of size \(\eps\)) by a finite set of marginals. Weak convergence of the marginals is much easier to show.
+
+This being said, the condition in Theorem~\ref{thm:vdv1.5.6} is hard to check. In particular, there is no guidance given on how to select the partition \(\{T_i\}_{i=1}^m\). The next way to characterize tightness builds on asymptotic equicontiuity. The idea is the correct way to pick the partition is linked to some form of continuity: pick small \(T_i\) so that  \(X_n\) does not move much on \(T_i\). 
+
+\begin{definition}[Asymptotic \(\rho\)-equicontinuity in probability]
+	\label{def:p-equicont}
+	Suppose \(\rho\) is a semimetric on  \(T\). Then a sequence of maps \(X_n:\Omega_n \to \ell^\infty(T)\) is asymptotically \(\rho\)-equicontinuous if for every  \(\eps,\eta>0\) there exists a  \(\delta >0\) such that
+	\[
+		\lim\sup_{n\to\infty} \P^\star\left(\sup_{d(s,t)<\delta} \left|X_n(s)-X_n(t)>\eps\right|\right)<\eta
+	.\] 
+\end{definition}
+\begin{remark*}
+	This is basically setting \(T_i = \{(s,t):p(s,t) <\delta\} \)	
+\end{remark*}
+\begin{example*}
+	Let \(X_n(t) = \frac{1}{\sqrt{n}}\sum_{i=1}^n \left[\mathds{1}\{X_i\leq t\}-\P(X\leq t) \right]\). Then \(\left|X_n(t) - X_n(t')\right|\approx 0\) for all \(|t-t'|<\delta\). Note that here, for every \(n\),  \(X_n(t)\) is still a discontinuous function of  \(t\), it's just that the jumps get closer together or smaller. 
+\end{example*}
+\begin{example*}
+	Suppose that \(\gamma = g(X,\beta_0)+\eps\) with  \(\E[\eps|X]=0\). By the vector LLN, we can say that \(\hat\beta-\beta_0 \to_p 0.\)
+	
+	In contrast, \textit{asymptotic equicontinuity} will allow to say that:
+	\[
+		\hat\beta\to_p \beta_0 \implies \left|\frac{1}{\sqrt{n}} \sum_{i=1}^n \left\{\left(g(x_i,\hat\beta) - \E[g(x,\hat\beta)] \right) - \left(g(x_i,\beta_0) - \E\left[g(x,\beta_0)\right]\right)\right\}\right|=o_p(1)
+	.\]
+	which is a more powerful result.
+\end{example*}
+\begin{theorem}[Theorem 1.5.7 Vdv\&W]
+	\label{thm:vdv1.5.7}
+	A sequence of random maps, \(X_n:\Omega_n\to \ell^\infty(T)\) is asymptotically tight if and only if  \(X_n(t)\) is asymptotically tight in  \(\SR\) for each \(t\) and there exists a semimetric  \(\rho\) on  \(T\) such that  \((T,\rho)\) is totally bounded and  \(X_n\) is asymptotically uniformly  \(\rho\)-equicontinuous. 
+\end{theorem}
+\begin{proof} First prove sufficiency then neccesity:
+
+	\((\impliedby)\) Fix \(\eps,\eta > 0\). Then, there is a  \(\delta > 0\) such that  \[\lim\sup\P^\star\left(\sup_{\rho(s,t)<\delta}\left|X_n(s)-X_n(t)\right|>\eps\right)<\eta.\] 
+	Since \(T\) is totally bounded, then there are finitely many balls of radius  \(\delta\) that cover  \(T\),  \(B_1, \dots, B_{K(\delta)}\). Make these balls disjoint by taking succesive ``set-minuses" and then we have a partition of \(T\). Then
+	\begin{align*}
+		\lim\sup\P^\star\left(\max_i\sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|>\eps\right) \leq \lim\sup\P^\star\left(\sup_{\rho(s,t) <\delta} \left|X_n(s)-X_n(t)\right|>\eps\right) <\eta
+	\end{align*}
+	and we can apply the results of Theorem~\ref{thm:vdv1.5.6}.
+
+	\((\implies)\) If \(X_n\) is asymptotically tight, then  \(g(X_n)\) is asymptotically tight for each continuous function  \(g\). Let \(K_1 \subset K_2 \subset \dots\) be compact sets with:
+	\[
+	    \lim\inf \P_\star\left(X_n \in K_m^\eps\right)\geq 1-1/m
+	.\footnote{ We can choose nested compact sets with this property because the union of a finite number of compact sets is compact and the probability functional is increasing with respect to the subset ordering.}\]
+	For each \(m\) define a semimetric  \(\rho_m\) on  \(T\) by:
+	 \[
+		 \rho_m(s,t) = \sup_{z\in K_m} \left|z(s)-z(t)\right|
+	.\] 
+	Then \((T,\rho_m)\) is totally bounded. How? Cover \(K_m\) by finitely many balls of arbitrarily small radius \(\eta\) centered at \(z_1,\dots,z_k\).\footnote{This is possible by compactness. Cover \(K_m\) by balls of radius \(\eta\) and then take a finite subcover.} Partition \(\SR^k\) into cubes of edge \(\eta\) and for every cube pick at most one  \(t\in T\) such that  \(\left(z_1(1),\dots,z_k(t)\right)\) is in the cube. Since \(z_1,\dots,z_k\) are uniformly bounded,\footnote{Recall that each \(z_i\) is in  \(\ell^\infty(T)\) which is the space of all bounded functions from  \(T\to\SR\). A finite connection of bounded functions is uniformly bounded} this gives finitely many points \(t_1,\dots,t_p\). Now, the balls \(\{t:p_m(t,t_i)<3\eta\}\) cover \(T\): \(t\) is in the ball around  \(t_i\) for which  \(\left(z_1(t),\dots,z_k(t)\right)\) and
+	\(\left(z_1(t_i),\dots,z_k(t_i)\right)\) fall in the same cube. This in turn follows from the fact that \(\rho_m(t,t_i)\) can be bounded by  \(2\sup_{z\in K_m}\inf_i \left\|z-z_i\right\|_T + \sup_j \left|z_j(t_i)-z_j(t)\right|\) \footnote{}. (COMPLETE THIS)
+\end{proof}
+\begin{remark*}
+	Important not to forget the totally bounded part of the theorem. For example, in the example of the emprical CDF case, we need to show that \(\SR\) is totally bounded. The good news is we have choice of semi-metric.
+\end{remark*}
+
+\begin{remark*}[Connection to Arzela-Ascoli]
+	\underline{Arzela-Ascoli}: Let \(T\) be a set with metric  \(\rho\) that is compact. Tet  \(C(T)\) be the set of all real valued continous functions on  \(T\). Then  \(A \subset C(T)\) is compact under  \(\left|\cdot\right|_\infty\) if and only if it is equicontinuous and bounded.
+
+	We can think of Theorem~\ref{thm:vdv1.5.7} as a stochastic version of this. That is for
+	\[
+		\lim\inf \P_\star\left(\sup_{p(s,t)<\delta}\left|X_n(s) - X_n(t)\right|\leq \eps\right) \geq 1-\eta
+	.\] 
+	The set of functions satisfying this condition is equicontinuous. So then, if \(X_n\) falls here it is in a compact set by  Arzela-Ascoli (Theorem~\ref{thm:aa}). Showing this is a focus later.
+\end{remark*}
+
+

@@ -1,0 +1,37 @@
+\subsection{Weak Convergence in Space of Bounded Functions}%
+\label{subsec:vdv1.5}
+
+So far, we have defined weak convergence. But, how do we show that \(X_n \overset{L}{\to}X\)? In \(\SR^K\) we have the central limit theorem, but no direct analog for random maps into \(L^\infty\).
+
+First, some definitions. 
+
+\begin{definition}[Marginal Random Variable]
+	\label{def:marginalRV}
+	Let \(X_n\) be a random map into  \(L^\infty(T)\) (the space of all bounded functions from \(T\to\SR\)). Then, \(X_n(t)\) is the marginal distribution of  \(X_n\) at  \(t\). We can view  \(X_n(t)\) as the composition of  \(X_n\) with  \(\pi_t\) or directly as a real-valued random variable.
+\end{definition}
+
+A general strategy will be to deal with the marginals directly. By the central limit theorem, we have conditions for the weak convergence of \(X_n(t)\). Want to know what these results imply for the random map \(X_n\).
+
+\begin{lemma}[Lemma 1.5.1, VdV\&W]
+	\label{lemma:vdv1.5.1}
+	Let \(X_n:\Omega \to L^\infty(T)\) be asymptotically tight. Then it is asymptotically measurable if and only if  \(X_n(t)\) is asymptotically measurable for every  \(t \in T\).	
+\end{lemma}
+
+\begin{lemma}[Lemma 1.5.3, VdV\&W]
+	\label{lemma:vdv1.5.3}
+	Let \(X\) and  \(Y\) be tight Borel measurable maps into \(L^\infty(T)\). Then  \(X \overset{L}{=}Y\) if and only if \(X(t)\overset{L}{=}Y(t)\) for all \(t\in T\).	
+\end{lemma}
+
+\begin{theorem}[Theorem 1.5.4, VdV\&W]
+	\label{thm:vdv1.5.4}
+	Let \(X_n:\Omega_n \to L^\infty(T)\) be arbitrary. Then \(X_n\) weakly converges to a tight limit if and only if  \(X_n\) is asymptotically right and the marginals  \(\left(X_n(t_1),\dots,X_n(t_k)\right)\) converge weakly to a limit for every finite subset \(t_1,\dots,t_k\).	
+\end{theorem}
+
+\begin{proof}
+	Forward direction is simple, backwards direction requires more work:
+
+	(\(\implies\)) Suppose that \(X_n\overset{L}{\to}X\) and \(X\) is tight. By Lemma~\ref{lemma:vdv1.3.8}, this means that \(X_n\) is asymptotically tight. Let \(T_k:L^\infty(T)\to\SR^k\) be the projection onto the coordinates \(t_1,\dots,t_K\). This is a continuous function so by continuous mapping theorem we have convergence of the marginals for any finite collection.
+
+	(\(\impliedby\)) Suppose that \(X_n\) is asymptotically tight and the marginals converge. Then, by Lemma~ \ref{lemma:vdv1.5.1}, \(X_n\) is asymptotically measurable. By Pohorov's theorem, there is a subsequence \(X_{n_k}\overset{L}{\to}X\) for some \(X\). Suppose \(X_n \overset{L}{\not\to}X\). Then, there is a subsequence \(X_{n_k'}\) that stays away from  \(X\) (in law). However, the marginals converge. This means that the marginals of  \(Y\) are the same as the marginals of  \(X\). By Lemma~ \ref{lemma:vdv1.5.3}, \(X \overset{L}{=} Y\).
+\end{proof}
+
