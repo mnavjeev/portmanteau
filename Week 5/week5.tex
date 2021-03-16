@@ -1,0 +1,107 @@
+\section{Empirical Processes}
+
+These notes follow Section 2 in VdV\&W. So far, we have discussed theory for \(X_n \overset{L}{\to} X\) where both \(X_n\) and  \(X\) are random elements in  \(\ell^\infty(T)\). The classic example that we have kept in mind is convergence of the empirical CDF process, \(X_n(t) = \frac{1}{\sqrt{n}}\sum_{i=1}^n \left(\mathds{1}\{X_i \leq t\} - \P(X\leq t)\right)\). In this next section we will build on the theory developed to show the convergence of some empirical processes on \(\ell^\infty\).
+
+\begin{definition}[Empirical Measure]
+	\label{def:empirical-measure}
+	For a random sample \(\{X_i\}_{i=1}^n\), the empirical measure \(\P_n\) is the measure constructed from the sample (putting mass \(1/n\) at each  \(X_i\)). That is, for any set \(C\):
+	 \[
+		 \P_n(C) := \frac{1}{n}\sum_{i=1}^n \mathds{1}\{X_i \in C\}  
+	.\]
+	We can also write this in terms of the degenerate measures on each \(X_i\):
+	 \[
+		 \P_n := \frac{1}{n}\sum_{i=1}^n \delta_{X_i} 
+	.\] 
+\end{definition}
+
+\begin{definition}[Empirical Process]
+	\label{def:empirical-process}
+	For a random sample \(\{X_i\}_{i=1}^n\) drawn from common distribution \(P\), the empirical process \(\mathbb{G}_n\) is the scaled and demeaned measure on \(X\) given by:
+	\[\mathbb{G}_n(C) := \frac{1}{\sqrt{n}}\sum_{i=1}^n \left(\mathds{1}\{X_i \in C\} - P(X_i \in C)\right).\]
+	This is often related to the empirical measure in Definition~\ref{def:empirical-measure} by
+	\[
+		\mathbb{G}_n = \sqrt{n}\left(\P_n - P\right)
+	.\]
+	Or written in terms of the degenerate measures on each \(X_i\):
+	 \[
+		 \mathbb{G}_n = \frac{1}{\sqrt{n}}\sum_{i=1}^n \left(\delta_{X_i}-P\right) 
+	.\] 
+\end{definition}
+
+\begin{remark}[Notation]
+    \label{rem:ep-notation}
+	We will make the following notations to save space later on. For a measure \(\mathbb{Q}\) on a space let \(\mathbb{Q}f = \E_{\mathbb{Q}}[f(X)]\). In the above \(\P_nf = \E_{n}[f(X)] = \frac{1}{n}\sum_{i=1}^n f(X_i) \) and \(\mathbb{G}_n f = \frac{1}{\sqrt{n}}\sum_{i=1}^n \left(f(X_i) - Pf\right)\).
+
+	With this notation:
+	\begin{align*}
+		\P_nf\overset{\text{a.s}}{\longrightarrow}Pf&\hbox{  }\text{ is just saying }\hbox{ }\frac{1}{n}\sum_{i=1}^n f(X_i)\overset{\text{a.s}}{\longrightarrow}\E\left[f(X)\right]\\ 
+		\mathbb{G}_nf\overset{L}{\longrightarrow}N(0,\sigma^2)&\hbox{  }\text{ is just saying }\hbox{  }\frac{1}{\sqrt{n}}\sum_{i=1}^n \left(f(X_i)-\E\left[f(X)\right]\right)\overset{L}{\longrightarrow}N(0,\sigma^2) 
+	\end{align*}
+	By LLN and CLT we have that for any function \(f\),  \(\P_nf \to_{a.s}Pf\) and \(\mathbb{G}_nf \overset{L}{\to}N\left(0,P\left(f-Pf\right)^2\right)\)
+\end{remark}
+
+\begin{example}[Classes of Functions]
+	\label{ex:calF}
+	LLN and CLT establish the behavior of the empirical measure \(\P_nf\) and the empirical process \(\mathbb{G}_nf\) for a fixed function \(f\) (which could even be vector valued). However, we often want to study the behavior of the empirical measure of empirical process over a class of functions  \(\calF\). In this case we can think of  \(\mathbb{G}_n(\calF)\) or \(\P_n(\calF)\) as random maps onto \(\ell^\infty(\calF)\). The marginal, \(\mathbb{G}_nf\) or \(\P_nf\), is then the behavior of the empirical measure/process for a single function \(f\in\calF\).
+
+	Mapping this back to the empirical CDF example of before let \(\calF = \left\{f_t:\SR\to \SR\mid f_t(x) = \mathds{1}\{x\leq t\}, t \in T\right\}\). Before, we considered convergence of the whole CDF through the map \(X_n:\Omega_n \to \ell^\infty(T)\) with the marginals \(X_n(t) = \frac{1}{n}\sum_{i=1}^n \mathds{1}\{X_i \leq t\}  \). With these new definitions/notations, we equivalently consider convergence of the entire CDF through the map \(\P_n(\calF):\Omega_n \to \ell^\infty(\calF)\) with marginals \(\P_nf_t = \frac{1}{n}\sum_{i=1}^n \mathds{1}\{X_i \leq t\} \).
+
+	This sort of notation/generality is useful as we can consider the behavior of the empirical measure or empirical process over a larger class of functions. For example, if we wanted to study an entire semiparametric model we may consider the behavior of \(\mathbb{G}_n(\calF)\) where 
+	\[
+		\calF = \left\{f(x;\theta)\text{ for some }\theta\in\Theta\right\}
+	.\]
+	Or, if we wanted to consider convergence after imposing some shape restriction, we may take
+	\[
+		\calF = \left\{f:X\to\SR\mid f\text{ is monotonic}\right\}
+	.\] 
+\end{example}
+
+\begin{remark}[Notation]
+	Sometimes we use \(\wcov\) to denote weak convergence/convergence in law instead of  \(\overset{L}{\to}\).	
+\end{remark}
+
+\begin{remark}[Definition of \(\ell^\infty\) Space]
+    \label{rem:def-recall}
+	It is useful to review the \(\ell^\infty(T)\) space for an arbitrary index space  \(T\). Define:
+	\begin{equation}
+		\label{eq:ell-infty}
+		\ell^\infty(T) = \left\{f:T\to\SR: \sup_{t\in T}\left|f(t)\right| <\infty\right\}
+	\end{equation}
+	and equip this space with the sup-norm, \(\left\|f\right\|_T = \sup_{t\in T}\left|f(t)\right|\). Note that, for any \(\calF\),  \(\mathbb{G}_n(\calF)\) can be viewed as a random map into \(\ell^\infty(\calF)\) for each \(n\). Boundedness comes from the finiteness of the sample. We will sometimes make the notation \(\left\|\mathbb{Q}\right\|_\calF = \sup_{f\in\calF}\left|\mathbb{Q}f\right|\) for a given measure \(\mathbb{Q}\).
+\end{remark}
+
+Now make some important definitions and then talk about how they relate to what we want to show. 
+
+\begin{definition}[Glivenko-Cantelli Class]
+	\label{def:gc-class}
+	A class of functions, \(\calF\), for which
+	\begin{equation}
+		\label{eq:gc-def}
+		\left\|\P_n-P\right\|_\calF \to_p 0
+	\end{equation}
+	is called a Glivenko-Cantelli class, or a \(P\)-Glivenko-Cantelli class to emphasize the dependence on the underlying measure \(P\) from which the sample is drawn.
+\end{definition}
+
+\begin{definition}[Donsker Class]
+	\label{def:donsker-class}
+	A class of functions, \(\calF\), for which
+	 \begin{equation}
+		\label{eq:donsker-def}
+		\mathbb{G}_n(\calF) \overset{L}{\longrightarrow} \mathbb{G}(\calF)
+	\end{equation}
+	where \(\mathbb{G}\) is a tight, Borel measurable element in \(\ell^\infty(\calF)\), is called a Donsker class, or  \(P\)-Donsker class to emphasize the dependence on the underlying measure  \(P\) from which the sample is drawn.
+\end{definition}
+
+A Donsker class is trivially Glivenko-Cantelli. 
+
+\begin{example}[Some Donsker Classes]
+	Some examples of function classes:
+	\begin{enumerate}
+		\item If \(\calF\) consists of a single function with finite variance then \(\calF\) is Donsker by the Central Limit Theorem. That is  \(\mathbb{G}_n \overset{L}{\to}\mathbb{G}\) where \(\mathbb{G}\) is a tight element on \(\ell^\infty(\calF) = \ell^\infty(\{f\} )\) 
+		\item The class of functions \(\calF = \left\{f(x) = x'\beta: \beta \in \calB\right\} \) is Donsker if \(\calB\) is bounded. 
+		\item The class of monotonic densities on \([0,1]\) is Donsker. 
+		\item The class of square integrable functions is not Donsker (too large).
+	\end{enumerate}	
+\end{example}
+
+How do we know if \(\mathbb{G}_N \wcov \mathbb{G}\) where \(\mathbb{G}\) is a tight, Borel measurable element on \(\ell^\infty(\calF)\)? By Theorem~\ref{thm:vdv1.5.4} we know that \(X_n\) weakly converges if and only if \(X_n\) is asymptotically tight and the marginals  \(\left(X_n(t_1),\dots,X_n(t_k)\right)\) converge weakly to a limit for every finite subset. By the Central Limite Theorem, we typically have convergence of the marginals, what remains is to show asymptotic tightness. 
