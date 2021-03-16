@@ -104,4 +104,40 @@ A Donsker class is trivially Glivenko-Cantelli.
 	\end{enumerate}	
 \end{example}
 
-How do we know if \(\mathbb{G}_N \wcov \mathbb{G}\) where \(\mathbb{G}\) is a tight, Borel measurable element on \(\ell^\infty(\calF)\)? By Theorem~\ref{thm:vdv1.5.4} we know that \(X_n\) weakly converges if and only if \(X_n\) is asymptotically tight and the marginals  \(\left(X_n(t_1),\dots,X_n(t_k)\right)\) converge weakly to a limit for every finite subset. By the Central Limite Theorem, we typically have convergence of the marginals, what remains is to show asymptotic tightness. 
+How do we know if \(\mathbb{G}_N \wcov \mathbb{G}\) where \(\mathbb{G}\) is a tight, Borel measurable element on \(\ell^\infty(\calF)\)? By Theorem~\ref{thm:vdv1.5.4} we know that \(X_n\) weakly converges if and only if \(X_n\) is asymptotically tight and the marginals  \(\left(X_n(t_1),\dots,X_n(t_k)\right)\) converge weakly to a limit for every finite subset. Moreover, by Lemma~\ref{lemma:vdv1.5.1} asymptotic measurability of the process is equivalent to asymptotic measurability of the marginals. By the Central Limit Theorem, we typically have weak convergence and asymptotic measurability of the marginals, what remains is to show asymptotic tightness. 
+
+Theorem~\ref{thm:vdv1.5.7} characterizes asymptotic tightness in terms of \(\rho\)-equicontinuity. Much of the work in showing tightness will be to find some semimetric \(\rho\) on \(\calF\) such that for any \(\eps, \eta > 0\) there is a  \(\delta > 0\) such that 
+\begin{equation}
+	\label{eq:rho-ec}
+	\lim\sup_{n\to\infty}\P^\star\left(\sup_{\rho(f,g)<\delta}\left|\mathbb{G}_n(f)-\mathbb{G}_n(g)\right| > \eps\right) <\eta.
+\end{equation}
+
+A typical approach will be to let \(\calF_{{}\delta} = \left\{f,g \in \calF, \rho(f,g)<\delta\right\}\). If we can show that, for some \(M(\delta)\) that goes to 0 as \(\delta\downarrow 0\)
+\begin{align*}
+	\E\left[\left\|\mathbb{G}_n\right\|_{\calF_{{}\delta}}\right] 
+	&= \E\left[\sup_{\rho(f,g)<\delta}\left|\mathbb{G}_n(f)-\mathbb{G}_n(g)\right|\right] \\
+	&= \E\left[\sup_{\rho(f,g)<\delta}\left|\frac{1}{\sqrt{n}} \sum_{i=1}^n\left\{ f(X_i) - \E[f(X_i)] - g(X_i) + \E[g(X_i)]\right\}\right|\right] \\
+	&\leq M(\delta)
+\end{align*}
+Then, we would get the result in \eqref{eq:rho-ec} by Markov's inequality. This type of result, that \(\E\left[\left\|\mathbb{G}_n\right\|_{\calF_{{}\delta}}\right] \leq M(\delta)\) is called a maximal inequality and is immensely useful.
+
+Obtaining such a maximal inequality/establishing asymptotic tightness is dependent on the space not being ``too large" (loosely speaking). In the example above, the class \(\calF = \{f(x) = x'\beta\mid \beta\in\calB\} \) is Donsker so long as \(\calB\) is bounded. To illustrate, see in the single dimensional case that
+\[
+	\sup_{b\in \calB}\left|\frac{1}{\sqrt{n}}\sum_{i=1}^n x_ib - \E[xb] \right| = \sup_{b\in\calB} \left|\frac{1}{\sqrt{n}}\sum_{i=1}^n x_i - \E[x] \right||b|
+.\]
+If we don't impose \(|b|\leq M\) then this will blow up to \(+\infty\) with probability 1, whereas if we do we have that this is  \(O_p(1)\). For more involved function classes, we want a way of measuring whether  \(\calF\) is large or not. This motivates the definitions of bracketing and covering numbers below.
+
+\begin{definition}[Covering Number]
+	\label{def:covering}
+	The covering number, \(\calN\left(\eps,\calF,\|\cdot\|\right)\) of a class of functions \(\calF\) is the smallest number of balls of radius  \(\eps\) under  \(\|\cdot\|\) needed to cover the set \(\calF\).
+\end{definition}
+
+\begin{definition}[Bracketing Number]
+	\label{def:bracketing}
+	Given two functions, \(\ell\) and \(u\), the bracket \([\ell,u]\) is the set of all functions  \(f\) with  \(\ell(x)\leq f\leq u(x)\) for all \(x\). An  \(\eps\)-bracket is a bracket  \([\ell,u]\) with  \(\|u-\ell\|< \eps\). The bracketing number \(\calN_{[]}\left(\eps,\calF,\|\cdot\|\right)\) is the minimum number of \(\eps\)-brackets needed to cover  \(\calF\).
+\end{definition}
+
+\begin{example}[Covering Numbers]
+	\label{ex:covering}
+	Let \(A = [0,1]\) and  \(\|\cdot\|\) be the standard Euclidean norm\footnote{If we want to view this as a function class we can equivalently say \(A\) is the set of constant functions taking values in the interval  \([0,1]\) and consider any \(\ell^p\) norm on this class}.
+\end{example}
