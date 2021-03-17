@@ -137,7 +137,129 @@ If we don't impose \(|b|\leq M\) then this will blow up to \(+\infty\) with prob
 	Given two functions, \(\ell\) and \(u\), the bracket \([\ell,u]\) is the set of all functions  \(f\) with  \(\ell(x)\leq f\leq u(x)\) for all \(x\). An  \(\eps\)-bracket is a bracket  \([\ell,u]\) with  \(\|u-\ell\|< \eps\). The bracketing number \(\calN_{[]}\left(\eps,\calF,\|\cdot\|\right)\) is the minimum number of \(\eps\)-brackets needed to cover  \(\calF\).
 \end{definition}
 
-\begin{example}[Covering Numbers]
+\begin{example}[Covering Number]
 	\label{ex:covering}
-	Let \(A = [0,1]\) and  \(\|\cdot\|\) be the standard Euclidean norm\footnote{If we want to view this as a function class we can equivalently say \(A\) is the set of constant functions taking values in the interval  \([0,1]\) and consider any \(\ell^p\) norm on this class}.
+	Let \(A = [0,1]\) and  \(\|\cdot\|\) be the standard Euclidean norm\footnote{If we want to view this as a function class we can equivalently say \(A\) is the set of constant functions taking values in the interval  \([0,1]\) and consider any \(L_p\) norm on this class}.
+	\begin{enumerate}
+		\item If \(\eps \geq 1/2\), then a ball centered at  \(1/2\) covers the entire interval so  \(\calN\left(\eps,A,\left|\cdot\right|\right) = 1\).
+		\item If \(\eps < 1/2\), then we need \(\lceil \frac{1}{2\eps}\rceil\) balls to cover \(A\).
+	\end{enumerate}
+	Note that (i) in this example the covering number coincides with the bracketing number (ii) in general the balls needed to cover \(\calF\) need not be centered at points in \(\calF\) (iii) (in general) as \(\eps\downarrow 0\) we have that  \(\calN(\eps,\calF,\|\cdot\|)\uparrow\infty\). 
 \end{example}
+
+\begin{example}[Bracketing Number]
+	\label{ex:brackering}
+	Suppose \(x\) takes values in  \([0,1]\) and let \(\calF = \left\{f(x)=x\beta,\text{ for }\beta \in [0,1]\right\}\). Then, if \(\beta_i < \beta_{i+1}\),  \([x\beta_i, x\beta_{i+1}]\) forms a bracket containing all functions  \(f(x)=x\beta\) with  \(\beta_i \leq \beta\leq \beta_{i+1}\). Further note that \[
+		\left\|x\beta_i - x\beta_{i+1}\right\| = \sup_{x\in[0,1]}|x||\beta_i-\beta_{i+1}| = |\beta_i -\beta_{i+1}|
+	.\] 
+	For any \(\eps>0\) break up  \([0,1]\) into  \([0,\eps,2\eps,\dots]\) and take \(\beta_i = (i-1)\eps\) to get brackets  \([x\beta_i,x\beta_{i+1}]\) of size \(\eps\). We need  \(\lceil 1/\eps\rceil\) of these brackets to cover  \(\calF\) so that  \(\calN_{[]}\left(\eps,\calF,\|\cdot\|_\infty\right)\leq \lceil 1/\eps\rceil < 2/\eps\).
+\end{example}
+
+\begin{remark}[Bracketing vs. Covering Numbers]
+    \label{rem:bracketing-covering}
+	In general we have that \(\calN(\eps,\calF,\|\cdot\|)\leq \calN_{[]}(2\eps,\calF,\|\cdot\|)\), but no opposite relationship. This shows that bracketing numbers are in general stronger than covering numbers and give you better control over the class of functions. 
+
+	We will see conditions for Glivenko-Cantelli and Donsker properties under both, but in general proving Glivenk-Cantelli involves using bracketing numbers wheras proving Donsker involves using covering numbers.
+\end{remark}
+
+
+In general, finding the covering/bracketing number will be difficult but we will learn some tips. Verifying that a set is Donsker will often come down to showing that the covering/bracketing number does not go to infinity ``too fast." 
+
+\subsection{Maximal Inequality}%
+\label{subsec:maximal}
+
+For an arbitrary set of functions, \(\calF\), want to develop an inequality that looks something like:
+\[
+	\E\left[\sup_{f\in\calF}\left|\frac{1}{\sqrt{n}}\sum_{i=1}^n \left(f(x_i)-\E[f(x)]\right) \right|\right]\leq \text{size}\left(\calF\right)
+.\]
+Or, rewriting in the notation of above:
+\[
+	\E\left[\sup_{f\in\calF}\left|\mathbb{G}_nf\right|\right]\leq \text{size}\left(\calF\right)
+.\] 
+This sort of inequality is useful as it can be used to show the uniform law of large numbers:
+\[
+	\E\left[\sup_{f\in\calF}\left|\left(\P_n - P\right)f\right|\right] \leq \frac{1}{\sqrt{n}}\text{size}\left(\calF\right)\hbox{  }\text{ + }\hbox{  }\text{Markov's Inequality}
+.\] 
+Or show asymptotic tightness through stochastic equicontinuity:
+\[
+	\E\left[\sup_{\rho(f,g)<\delta}\left|\mathbb{G}_n\left(f-g\right)\right|\right] \leq \text{size}\left(\calF_\delta\right)\hbox{  }\text{ + }\hbox{  }\text{Theorem~\ref{thm:vdv1.5.7}}
+.\]
+However, often we may need to change the exact application of these maximal inequalities. We will work out where these come from as we go along. The inequality will be presented for general stochastic processes (for our purposes, a stochastic process is a random map into \(\ell^\infty(T)\)). To build the maximal inequality, we will need to define a new norm which generalizes the \(L_p\) norms. We do so quickly below.
+
+\subsubsection{Orlicz Norm}
+
+\begin{definition}[Orlicz Norm]
+	\label{def:orlicz}
+	Let \(\psi\) be a nondecreasing, convex function with  \(\psi(0)=0\) and  \(X\) a random variable. Then, the Orlicz norm  \(\left\|X\right\|_\psi\) is defined as 
+	\begin{equation}
+		\label{eq:orlicz}
+		\left\|X\right\|_\psi = \inf\left\{C > 0 : \E\psi\left(\frac{|X|}{C} \right)\leq 1\right\}
+	\end{equation}
+	Where here the infimum over the empty set is taken to be \(+\infty\).
+\end{definition}
+\begin{remark}[Orlicz norms generalize \(L_p\)]
+    \label{rem:ell-orlicz}
+	Note that for any \(p\geq 1\) the function \(f(x) = x^p\) is convex and non-decreasing. With this in mind we can view the Orlicz norms as a generalization of the \(L_p\) norms to general convex and nondecreasing functions functions.
+\end{remark}
+
+\begin{remark}[Orlicz p-norms]
+    \label{rem:orlicz-p-norm}
+	Of particular interest will be the Orlicz norms generated by the functions
+	\[
+		\psi_p = e^{x^p}-1
+	.\] 
+	for \(p\geq 1\). The Orlicz norm in this case is often denoted \(\left\|\cdot\right\|_{\psi_p}\).  These norms give more weight to the tails of \(X\) than the standard  \(L_p\) norms. It is not the case that these norms are uniformly larger than all \(L_p\) norms, however, we do have the inequalities
+	\begin{align*}
+		\left\|X\right\|_{\psi_p} &\leq \left\|X\right\|_{\psi_q}\left(\log 2\right)^{p/q}\\ 
+		\left\|X\right\|_p &\leq p!\left\|X\right\|_{\psi_1}
+	\end{align*}
+\end{remark}
+
+\begin{remark}[Orlicz Norms and Markov's Inequality]
+    \label{rem:orlicz}
+	Any Orlicz norm can be used to bound tail probabilites. Using Markov's inequality:
+	\[
+		\P\left(\left|X\right|>x\right)\leq \P\left(\psi\left(|X|/\left\|X\right\|_\psi\right)\geq \psi\left(x/\left\|X\right\|_\psi\right)\right) \leq \frac{1}{\psi\left(x/\|X\|_\psi\right)} 
+	.\] 
+	For \(\psi_p(x) = e^{x^p}-1\) this leads to tail estimates like  \(\exp\left(-Cx^p\right)\) for any random variable with a finite \(\psi_p\)-norm. Conversely, an exponential tail bound of this type shows that  \(\left\|X\right\|_{\psi_p}\) is finite.
+\end{remark}
+
+\begin{lemma}[Lemma 2.2.1 VdV\&W]
+	\label{lemma:vdv2.2.1}
+	Let \(X\) be a random variable  with  \(\P\left(|X|>x\right)\leq Ke^{-Dx^p}\) for every \(x\) and some (fixed) constants  \(K\) and  \(D\) and for some  \(p \geq 1\). Then, the Orlicz norm of \(X\) satisfies  \[\|X\|_{\psi_p}\leq \left((1+K)/D\right)^{1/p}\]
+	In particular, this will mean that for \(C = \left((1+K)/D\right)^{1/p}\)
+	\[
+	    \E\left[\psi\left(\frac{|X|}{C}\right)\right]\leq 1
+	.\] 
+\end{lemma}
+\begin{proof}
+	By Fundamental Theorem of Calculus and Fubini's Theorem, for any constant \(B\):
+	\begin{align*}
+		\E\left[e^{B|X|^p}-1\right]= \E\int_0^{|X|^p}Be^{Bs}\,ds = \int_0^\infty \P\left(|X> s^{1/p}\right)Be^{Bs}\,ds
+	\end{align*}
+	Now use the inequality on the tails of \(|X|\), plug in \(B = C^{-p}= D/(1+K)\), and see that the final equality is bounded by 1.
+\end{proof}
+
+Using the fact that \(\max|X_i|^P \leq \sum |X_i|^p\) we obtain for the \(L_p\) norms, the result that 
+\[
+	\left\|\max_{1\leq i\leq m}X_j\right\|_p = \left(\E\max_{1\leq i\leq m}\left|X_i\right|^p\right)^{1/p} \leq m^{1/p}\max_{1\leq i\leq m}\left\|X_i\right\|_p
+.\]
+We can generalize this for the Orilcz norm.
+\begin{lemma}[Lemma 2.2.2 VdV\&W]
+	\label{lemma:vdv2.2.2}
+	Let \(\psi\) be a convex, nondecreasing, nonzero function with  \(\psi(0)=0\) and  \(\lim\sup_{x,y\to\infty}\psi(x)\psi(y)/\psi(cxy)<\infty\) for some constant \(c\). Then, for any random variables  \(X_1,\dots,X_m\),
+	\begin{equation}
+		\label{eq:vdv2.2.2}
+		\left\|\max_{1\leq i\leq m}X_i\right\|_\psi \leq K\psi^{-1}(m)\max_{1\leq i\leq m}\left\|X_i\right\|_\psi
+	\end{equation}
+	For a constant \(K\) depending only on  \(\psi\).
+\end{lemma}
+
+\begin{proof}
+	Without loss of generality, assume that  \(\psi(x)\psi(y)\leq \psi(cxy)\) for all \(x,y\geq 1\).\footnote{If this is not the case there are constants \(\sigma \leq 1\) and \(\tau > 0\) such that  \(\phi(x)=\sigma\psi(\tau x)\) satisfies these conditions. Apply the inequality to  \(\phi\) and note that 
+	 \[
+		 \|X\|_\psi \leq  \|X\|_\phi/(\sigma\tau)\leq \|X\|_\psi/\sigma
+	.\] }
+	In this case, \(\psi(x/y)\leq \psi(cx)/\psi(y)\) for all \(x\geq y\geq 1\). Thus, for \(y\geq 1\) and any \(C\),
+\end{proof}
+
