@@ -256,10 +256,58 @@ We can generalize this for the Orilcz norm.
 \end{lemma}
 
 \begin{proof}
-	Without loss of generality, assume that  \(\psi(x)\psi(y)\leq \psi(cxy)\) for all \(x,y\geq 1\).\footnote{If this is not the case there are constants \(\sigma \leq 1\) and \(\tau > 0\) such that  \(\phi(x)=\sigma\psi(\tau x)\) satisfies these conditions. Apply the inequality to  \(\phi\) and note that 
+	Without loss of generality, assume that  \(\psi(x)\psi(y)\leq \psi(cxy)\) for all \(x,y\geq 1\) and that \(\psi(1)\leq 1/2\).\footnote{If this is not the case there are constants \(\sigma \leq 1\) and \(\tau > 0\) such that  \(\phi(x)=\sigma\psi(\tau x)\) satisfies these conditions. Apply the inequality to  \(\phi\) and note that 
 	 \[
 		 \|X\|_\psi \leq  \|X\|_\phi/(\sigma\tau)\leq \|X\|_\psi/\sigma
 	.\] }
-	In this case, \(\psi(x/y)\leq \psi(cx)/\psi(y)\) for all \(x\geq y\geq 1\). Thus, for \(y\geq 1\) and any \(C\),
+	In this case, \(\psi(x/y)\leq \psi(cx)/\psi(y)\) for all \(x\geq y\geq 1\).\footnote{\(x/y \geq 1\) so \(\psi(x/y)\psi(y) \leq \psi\left(c(x/y)y\right)\)} Thus, for \(y\geq 1\) and any \(D\);
+	\begin{align*}
+	\max_{1\leq i\leq m}\psi\left(\frac{|X_i|}{Dy}\right) 
+	&\leq \max_{1\leq i\leq m}\left[\frac{\psi(c|X_i|/D)}{\psi(y)} + \psi\left(\frac{|X_i|}{Dy}\right)\mathds{1}\left\{\frac{|X_i|}{Dy}<1\right\} \right] \\
+	&\leq \sum_{i=1}^m \frac{\psi\left(c|X_i|D\right)}{\psi(y)} + \psi(1) 
+	\end{align*}
+	Let \(D = c\max_{1\leq i\leq m}\|X_i\|_\psi\), and take expectations to get:
+	\[
+	    \E\psi\left(\frac{\max|X_i|}{Dy}\right) \leq
+		\frac{m}{\psi(y)} + \psi(1) 
+	.\] 
+	When \(\psi(1)\leq 1/2\) take \(y=\psi^{-1}(2m)\). Then: 
+	\[
+		\left\|\max_{1\leq i\leq m}\left|X_i\right|\right\|_\psi \leq \psi^{-1}(2m)c\max_{1\leq i\leq m}\left\|X_i\right\|_\psi
+	.\] 
+	By the convexity of \(\psi\) and the fact that  \(\psi(0)=0\), it follows that  \(\psi^{-1}(2m)\leq 2\psi^{-1}(m)\). This gives the result.
 \end{proof}
+
+To review, we have established the following inequalities above:
+\begin{enumerate}
+	\item For maximums of a finite number of random variables
+	\[
+		\E\left[\max_{1\leq i\leq m}\left|X_i\right|\right]\leq m \max_{1\leq i\leq m}\E\left[|X_i|\right]
+	.\]
+	\item Then, generalized this to the \(L_p\) norms 
+	\[
+		\left\|\max_{1\leq i\leq m}\left|X_i\right|\right\|_{L_p} \leq m^{1/p}\max_{1\leq i\leq m}\left\|X_i\right\|_{L_p}
+	.\]
+	\item Then, generalized this using the Orlicz norm (Definition~\ref{def:orlicz})
+	\[
+		\left\|\max_{1\leq i\leq m}|X_i|\right\|_\psi \leq K\psi^{-1}(m)\max_{1\leq i\leq m}\left\|X_i\right\|_\psi
+	.\]
+	In particular, taking \(\psi(a) = e^{a^2}-1\), we have that  \(\E\left[\max_{1\leq i\leq m}|X_i|\right] \leq C\sqrt{\log(m+1)}\) for any \(C\) such that  \(\max_{1\leq i\leq m}\E\left[\psi\left(\frac{|X_i|}{C}\right)\right]\leq 1\).
+\end{enumerate}
+
+
+\subsection{Chaining and Inequalities for Infinite Classes}%
+
+So far, we have developed inequalities that deal with finite number of random variables. These inequalities are useful for showing Donsker/Glivenko-Cantelli property for finite classes of functions, \(|\calF|<\infty\), just set \(X_i = \mathbb{G}_nf_i\). However, we often want to show uniform covergence for (uncountably) infinite classes of sets, \(|\calF| = |\SQ|\) or  \(|\calF|=|\SR|\). To do this, we will use a technique called \textit{chaining}. 
+
+Roughly speaking, this will work whenever our class of functions \(\calF\) is ``seperable", with respect to the empirical process \(\mathbb{G}_n\) (or empirical measure \(\P_n\)). This means there is a countable subset \(\tilde\calF\) of  \(\calF\)   such that \(\sup_\calF |\mathbb{G}_n(f)| = \sup_{\tilde\calF} |\mathbb{G}_n(f)|\). What does this buy us? If \(\tilde\calF_0\subset\tilde\calF_1\subset\tilde\calF_2 \dots \subset\tilde\calF\) is an infinite sequence of sets where each \(\tilde\calF_i\) is finite, then:
+ \[
+	 \lim_{k\to\infty} \sup_{\tilde\calF_k}|\mathbb{G}_n(f)| \overset{a.s}{=} \sup_{\tilde\calF} |\mathbb{G}_n(f)|\; \overset{\text{monotone convergence}}{\implies}\;\lim_{k\to\infty} \E\left[\sup_{\tilde\calF_k}|\mathbb{G}_n(f)|\right]=\E\left[\sup_{\tilde\calF}|\mathbb{G}_n(f)|\right]
+.\] 
+and by seperability, the last expectation is equal to the expectation of the supremum over the whole class \(\calF\).
+
+
+
+
+
 
