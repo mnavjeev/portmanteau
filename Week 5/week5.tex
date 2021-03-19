@@ -199,7 +199,7 @@ However, often we may need to change the exact application of these maximal ineq
 \end{definition}
 \begin{remark}[Orlicz norms generalize \(L_p\)]
     \label{rem:ell-orlicz}
-	Note that for any \(p\geq 1\) the function \(f(x) = x^p\) is convex and non-decreasing. With this in mind we can view the Orlicz norms as a generalization of the \(L_p\) norms to general convex and nondecreasing functions functions.
+	Note that for any \(p\geq 1\) the function \(f(x) = x^p\) is convex and non-decreasing. With this in mind we can view the Orlicz norms as a generalization of the \(L_p\) norms to general convex and non-decreasing functions functions.
 \end{remark}
 
 \begin{remark}[Orlicz p-norms]
@@ -292,22 +292,55 @@ To review, we have established the following inequalities above:
 	\[
 		\left\|\max_{1\leq i\leq m}|X_i|\right\|_\psi \leq K\psi^{-1}(m)\max_{1\leq i\leq m}\left\|X_i\right\|_\psi
 	.\]
-	In particular, taking \(\psi(a) = e^{a^2}-1\), we have that  \(\E\left[\max_{1\leq i\leq m}|X_i|\right] \leq C\sqrt{\log(m+1)}\) for any \(C\) such that  \(\max_{1\leq i\leq m}\E\left[\psi\left(\frac{|X_i|}{C}\right)\right]\leq 1\).
+	In particular, taking \(\psi(a) = e^{a^2}-1\), we have that  \(\E\left[\max_{1\leq i\leq m}|X_i|\right] \leq C\sqrt{\log(m+1)}\) for any \(C\) such that  \(\max_{1\leq i\leq m}\E\left[\psi\left(\frac{|X_i|}{C}\right)\right]\leq 1\). Lemma~\ref{lemma:vdv2.2.1} gives a condition for the existence of such a \(C\).
 \end{enumerate}
 
 
 \subsection{Chaining and Inequalities for Infinite Classes}%
 
-So far, we have developed inequalities that deal with finite number of random variables. These inequalities are useful for showing Donsker/Glivenko-Cantelli property for finite classes of functions, \(|\calF|<\infty\), just set \(X_i = \mathbb{G}_nf_i\). However, we often want to show uniform covergence for (uncountably) infinite classes of sets, \(|\calF| = |\SQ|\) or  \(|\calF|=|\SR|\). To do this, we will use a technique called \textit{chaining}. 
+So far, we have developed inequalities that deal with finite number of random variables. These inequalities are useful for showing Donsker/Glivenko-Cantelli property for finite classes of functions, \(|\calF|<\infty\), just set \(X_i = \mathbb{G}_nf_i\). However, we often want to show uniform convergence for (uncountably) infinite classes of sets, \(|\calF| = |\SQ|\) or  \(|\calF|=|\SR|\). To do this, we will use a technique called \textit{chaining}. 
 
-Roughly speaking, this will work whenever our class of functions \(\calF\) is ``seperable", with respect to the empirical process \(\mathbb{G}_n\) (or empirical measure \(\P_n\)). This means there is a countable subset \(\tilde\calF\) of  \(\calF\)   such that \(\sup_\calF |\mathbb{G}_n(f)| = \sup_{\tilde\calF} |\mathbb{G}_n(f)|\). What does this buy us? If \(\tilde\calF_0\subset\tilde\calF_1\subset\tilde\calF_2 \dots \subset\tilde\calF\) is an infinite sequence of sets where each \(\tilde\calF_i\) is finite, then:
+Roughly speaking, this will work whenever our class of functions \(\calF\) is ``separable", with respect to the empirical process \(\mathbb{G}_n\) (or empirical measure \(\P_n\)). This means there is a countable subset \(\tilde\calF\) of  \(\calF\)   such that \(\sup_\calF |\mathbb{G}_n(f)| = \sup_{\tilde\calF} |\mathbb{G}_n(f)|\). What does this buy us? If \(\tilde\calF_0\subset\tilde\calF_1\subset\tilde\calF_2 \dots \subset\tilde\calF\) is an infinite sequence of sets whose union is \(\tilde\calF\) and where each \(\tilde\calF_i\) is finite, then:
  \[
 	 \lim_{k\to\infty} \sup_{\tilde\calF_k}|\mathbb{G}_n(f)| \overset{a.s}{=} \sup_{\tilde\calF} |\mathbb{G}_n(f)|\; \overset{\text{monotone convergence}}{\implies}\;\lim_{k\to\infty} \E\left[\sup_{\tilde\calF_k}|\mathbb{G}_n(f)|\right]=\E\left[\sup_{\tilde\calF}|\mathbb{G}_n(f)|\right]
 .\] 
-and by seperability, the last expectation is equal to the expectation of the supremum over the whole class \(\calF\).
+and by separability, the last expectation is equal to the expectation of the supremum over the whole class \(\calF\). To make this work, we want to make sure that we can apply the inequalities that we developed in the past section. Specifically, we want to make sure that the conditions of Lemma~ \ref{lemma:vdv2.2.1} hold. To do so, make a definition.
 
+\begin{definition}[Subgaussian Process]
+	\label{def:subgaussian}
+	Let \(\mathbb{G}\) be a stochastic process on a space \(\calF\) equipped with a metric \(d(\cdot,\cdot)\). Then  \(\mathbb{G}\) is subgaussian if
+	\begin{equation}
+		\label{eq:subgaussian}
+		\P\left(\left|\mathbb{G}(f)-\mathbb{G}(g)\right|> x\right)\leq 2e^{-1/2x^2/d^2(f,g)}
+	\end{equation}
+	for all \(f,g \in F\) and any  \(x\geq 0\).
+\end{definition}
 
+Also define a separable function as an analytic concept and then extend this to the case of stochastic processes.
 
+\begin{definition}[Separable Function]
+	\label{def:seperable-function}
+	A function \(f:A\to B\) from a topological space \(A\) into a topological space  \(B\) is separable if there is a countable, dense, subset  \(S \subset A\) such that  for any closed \(F \subset B\) and any open \(I \subset A\), if  \(f(t) \in F\) for all  \(t \in F \cap S\) then  \(f(t) \in F\) for all  \(t \in I\). This is often denoted as an \(S\)-separable function to emphasize the dependence on the countable, dense subset  \(S\).
+\end{definition}
+
+\begin{definition}[Separable Process; Shalizi 2007]
+	\label{def:seperable-process}
+	A stochastic process on \(\calF)\), \(\mathbb{G}(\cdot,\omega):\Omega \to \ell^\infty(\calF)\), is separable if there is a countable, dense, subset of \(\calF\), \(\tilde\calF\), and a measure zero set \(N\) such that for all \(\omega\not\in N\),  \(\mathbb{G}(\cdot,\omega)\) is \(\tilde\calF\)-separable.\footnote{Note that this requires a topology on \(\calF\). In the applications we will be talking about  \(\calF\) will be equipped with a metric  \(d\). This will generate a topology.} 
+\end{definition}
+
+Separability can be roughly interpreted as ensuring that the behavior of the function (and therefore the stochastic process) can be well described by its behavior on countable subset. This ensures some of the properties that we've seen above, namely that \(\sup_{f\in\tilde\calF}|\mathbb{G}(f)| \overset{a.s}{=} \sup_{f\in\calF}|\mathbb{G}(f)|\). We are now ready for the main theorem of this subsection, the proof of which will rely on the chaining argument roughly discussed above.
+
+\begin{theorem}[Theorem 2.2.4 VdV\&W]
+	\label{thm:vdv2.2.4}
+	Let \(\mathbb{G}\) be a separable sub-Gaussian process on a space \(\calF\) equipped with a metric  \(d(\cdot,\cdot)\). and let \(\text{\emph{diam}}(\calF) = \sup_{f,g\in\calF}d(f,g) \). Then
+	\begin{align}
+		\label{eq:vdv2.2.4-1}
+		\E\sup_{f,g\in\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|
+		&\leq K \int_{0}^{\text{\emph{diam}}(\calF)} \sqrt{\log \calN(\eps, \calF, d)}\;d\eps \\
+		\label{eq:vdv2.2.4-2}
+		\E\sup_{f\in\calF}\left|\mathbb{G}(f)\right| &\leq \E\left|\mathbb{G}(f_0)\right| + K \int_{0}^{\text{\emph{diam}}(\calF)} \sqrt{\log \calN(\eps, \calF, d)}\;d\eps,\hbox{ }\forall f_0\in\calF
+	\end{align}
+\end{theorem}
 
 
 
