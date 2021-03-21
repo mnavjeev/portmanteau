@@ -233,7 +233,7 @@ However, often we may need to change the exact application of these maximal ineq
 	.\] 
 \end{lemma}
 \begin{proof}
-	By Fundamental Theorem of Calculus and Fubini's Theorem, for any constant \(B\):
+	By Fundamental Theorem of Calculus and Tonelli's Theorem, for any constant \(B\):
 	\begin{align*}
 		\E\left[e^{B|X|^p}-1\right]= \E\int_0^{|X|^p}Be^{Bs}\,ds = \int_0^\infty \P\left(|X> s^{1/p}\right)Be^{Bs}\,ds
 	\end{align*}
@@ -319,20 +319,20 @@ and by separability, the last expectation is equal to the expectation of the sup
 Also define a separable function as an analytic concept and then extend this to the case of stochastic processes.
 
 \begin{definition}[Separable Function]
-	\label{def:seperable-function}
+	\label{def:separable-function}
 	A function \(f:A\to B\) from a topological space \(A\) into a topological space  \(B\) is separable if there is a countable, dense, subset  \(S \subset A\) such that  for any closed \(F \subset B\) and any open \(I \subset A\), if  \(f(t) \in F\) for all  \(t \in F \cap S\) then  \(f(t) \in F\) for all  \(t \in I\). This is often denoted as an \(S\)-separable function to emphasize the dependence on the countable, dense subset  \(S\).
 \end{definition}
 
 \begin{definition}[Separable Process; Shalizi 2007]
-	\label{def:seperable-process}
-	A stochastic process on \(\calF)\), \(\mathbb{G}(\cdot,\omega):\Omega \to \ell^\infty(\calF)\), is separable if there is a countable, dense, subset of \(\calF\), \(\tilde\calF\), and a measure zero set \(N\) such that for all \(\omega\not\in N\),  \(\mathbb{G}(\cdot,\omega)\) is \(\tilde\calF\)-separable.\footnote{Note that this requires a topology on \(\calF\). In the applications we will be talking about  \(\calF\) will be equipped with a metric  \(d\). This will generate a topology.} 
+	\label{def:separable-process}
+	A stochastic process on a topological space \(\calF\), \(\mathbb{G}(\cdot,\omega):\Omega \to \ell^\infty(\calF)\), is separable if there is a countable, dense, subset of \(\calF\), \(\tilde\calF\), and a measure zero set \(N\) such that for all \(\omega\not\in N\),  \(\mathbb{G}(\cdot,\omega)\) is \(\tilde\calF\)-separable.\footnote{Note that this requires a topology on \(\calF\). In the applications we will be talking about  \(\calF\) will be equipped with a metric  \(d\). This will generate a topology.} 
 \end{definition}
 
 Separability can be roughly interpreted as ensuring that the behavior of the function (and therefore the stochastic process) can be well described by its behavior on countable subset. This ensures some of the properties that we've seen above, namely that \(\sup_{f\in\tilde\calF}|\mathbb{G}(f)| \overset{a.s}{=} \sup_{f\in\calF}|\mathbb{G}(f)|\). We are now ready for the main theorem of this subsection, the proof of which will rely on the chaining argument roughly discussed above.
 
 \begin{theorem}[Theorem 2.2.4 VdV\&W]
 	\label{thm:vdv2.2.4}
-	Let \(\mathbb{G}\) be a separable sub-Gaussian process on a space \(\calF\) equipped with a metric  \(d(\cdot,\cdot)\). and let \(\text{\emph{diam}}(\calF) = \sup_{f,g\in\calF}d(f,g) \). Then
+	Let \(\mathbb{G}\) be a separable subgaussian process on a space \(\calF\) equipped with a metric  \(d(\cdot,\cdot)\). and let \(\text{\emph{diam}}(\calF) = \sup_{f,g\in\calF}d(f,g) \). Then
 	\begin{align}
 		\label{eq:vdv2.2.4-1}
 		\E\sup_{f,g\in\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|
@@ -342,5 +342,67 @@ Separability can be roughly interpreted as ensuring that the behavior of the fun
 	\end{align}
 \end{theorem}
 
+\begin{proof}
+	Proof proceeds in steps. Let \(M = \text{diam}(\calF) = \sup_{f,g\in\calF}d(f,g)\). For any  \(f_0,f \in \calF\) we have that  \(d(f_0,g)\leq M\).	First step will be to build a ``chain" to almost any point in \(\calF\). Further, let \(\tilde\calF\) be the dense subset as described in Definitions~\ref{def:separable-function} and \ref{def:separable-process}.
 
+	\emph{Step 1: Building a Chain.} Pick any \(f_0 \in\tilde\calF\) and let  \(\tilde\calF_0 = \{f_0\}.\) Build nesting sets, \(\calF_0 \subset\tilde\calF_1\subset\tilde\calF_2\subset\dots\subset\tilde\calF\), such that for each \(k\in\SN\)  \(\tilde\calF_k = \{f_1,\dots,f_{m(k)}\}\) is a maximal collection of points such that \(d(f_k,g_k) > \frac{M}{2^K} \) for any \(f_k,g_k\in\calF_k\). By definition of the packing numbers we know that  \(\calN\left(\frac{M}{2^{k+1}},\calF,d\right)\) balls cover \(\calF\). Putting a point at the center of each of these balls creates points that are at least distance \(\frac{M}{2^k}\) from each other. Similarly, if we could fit more points at least distance \(\frac{M}{2^{k}}\) distance away from each other than we could pack more balls of radius \(\frac{M}{2^{k+1}}\) into \(\calF\) by centering a ball at each point. So, \(|\tilde\calF_K| \leq \calN\left(\frac{M}{2^{k+1}},\calF,d
+	\right)\) (Inequality comes because each \(\tilde\calF_k\) has to contain all previous sets). 
 
+	Finally, link each point \(f_k \in \tilde\calF_k\) to a unique point  \(f_{k-1}\in\tilde\calF_{k-1}\) such that \(d(f_k,f_{k-1})\leq \frac{M}{2^{k-1}}\).\footnote{I found it helpful to remember here that \(\tilde\calF_{k-1}\subset\tilde\calF_k\). If no such \(f_{k-1}\) exists we could add  \(f_k\) to  \(\tilde\calF_{k-1}\), a contradiction. If  \(f_k \in \tilde\calF_{k-1}\) we can link it to itself. }
+
+	\emph{Step 2: Use the chain to build a bound.} Using these links, for any \(f_k, g_k\in\tilde\calF_k\) we can build a chain back to \(f_0\):
+	\begin{align*}
+		\left|\mathbb{G}(f_k)-\mathbb{G}(g_k)\right|
+		&=\left|\left(\mathbb{G}(f_k)-\mathbb{G}(f_0)\right) - \left(\mathbb{G}(g_k)-\mathbb{G}(f_0)\right)\right| \\
+		&= \left|\sum_{j=0}^k\left(\mathbb{G}(f_i)-\mathbb{G}(f_{i-1})\right)-\sum_{j=0}^k \left(\mathbb{G}(g_i)-\mathbb{G}(g_{i-1})\right)\right|
+	\end{align*}
+	By the triangle inequality:
+	\begin{equation}
+		\label{eq:step2}
+		\E\left[\max_{g_k,f_k\in\tilde\calF_k}\left|\mathbb{G}(f_k)-\mathbb{G}(g_k)\right|\right]
+		\leq 2\sum_{j=0}^K \E\left[\max_{s_i\in\tilde\calF_i}\left|\mathbb{G}(s_i)-\mathbb{G}(s_{i-1})\right|\right]\tag{P-1}
+	\end{equation}	
+	With this setup, we can use the maximal inequalities deveoped above, applying them to the finite sets \(\tilde\calF_k\).
+
+	\emph{Step 3: Try to control the jumps.} Recall that there are at most \(\calN\left(\frac{M}{2^{k+1}},\calF,d \right)\) points in \(\calF_k\) and that \(d(s_k,s_{k-1})\leq \frac{M}{2^{k-1}}\). By our maximal inequality in Lemma~\ref{lemma:vdv2.2.2}, taking \(\psi(a) = e^{a^2}-1\) we have that 
+	\[
+		\E\left[\max_{s_j\in\tilde\calF_j}\left|\mathbb{G}(s_j)-\mathbb{G}(s_{j-1})\right|\right] \leq C_j \sqrt{\log\left( \calN\left(\frac{M}{2^{j+1}},\calF,d\right)+1\right)}
+	.\]
+	For any constant \(C_j\) such that
+	 \[
+		 \E\left[\exp\left(\frac{\left(\mathbb{G}(s_j)-\mathbb{G}(s_{j-1})\right)^2}{c_j^2} \right)-1\right]\leq 1,\;\; \forall s_j\in\tilde\calF_j
+	.\] 
+	Since \(\mathbb{G}\) is subgaussian we know that \(\P\left(\left|\mathbb{G}(f)-\mathbb{G}(g)\right|>x\right)\leq 2e^{-\frac{1}{2}x^2/d^2(f,g) }\). By construction, we know that \(d(s_j,s_{j-1})\leq \frac{M}{2^{j-1}},\forall s_j\in\tilde\calF_j \). So
+	\[
+		\P\left(\left|\mathbb{G}(s_j)-\mathbb{G}(s_{j-1})\right|>x\right)\leq 2e^{-\frac{1}{2}\frac{x^2}{\lceil M/2^{j-1}\rceil^2}}
+	.\] 
+	By Lemma~\ref{lemma:vdv2.2.1} we can take \(C_j = \frac{\sqrt{3}M}{2^{j-1}}\) and combine with the other results in this section to get
+	\begin{equation}
+	\label{eq:step3}
+	\E\left[\max_{s_j\in\tilde\calF_j}\left|\mathbb{G}(s_j)-\mathbb{G}(s_{j-1})\right|\right]\leq \frac{\sqrt{3}M}{2^{j-1}}\sqrt{\log\left(\calN\left(\frac{M}{2^{j+1}},\calF,d\right)+1\right)} \tag{P-2}
+	\end{equation}
+	
+	\emph{Step 4: Combine Results of Previous Steps.} Combine the inequalities from \eqref{eq:step2} and \eqref{eq:step3} to get
+	\begin{equation*}
+		\E\left[\max_{g_k,f_k\in\tilde\calF_k}\left|\mathbb{G}(f_g)-\mathbb{G}(g_k)\right|\right]\leq \sqrt{12}M\sum_{j=0}^k \frac{1}{2^{j-1}}\sqrt{\log\left(\calN\left(\frac{M}{2^{j+1}},\calF,d \right)+1\right)} 
+	\end{equation*}
+	With some complex rearranging of squares, we can bound the sum in the display by it's integral up to a constant scale, dropping the added \(1\) in the log in the process.\footnote{Here we use the fact that \(\log(1+m)\leq 2\log(m)\) for \(m\geq 2\)} That is, we ultimately obtain for some constant \(K\): 
+	\begin{equation}
+		\label{eq:step4}
+		\E\left[\max_{g_k,f_k\in\tilde\calF_k}\left|\mathbb{G}(f_g)-\mathbb{G}(g_k)\right|\right]\leq K \int_{0}^{M}   \sqrt{\log\left(\calN\left(\eps,\calF,d \right)\right)}\, d\eps \tag{P-3}
+	\end{equation}
+
+	\emph{Step 5: Conclude by Separability.} \(\left\{\tilde\calF_k\right\}_{k=1}^\infty\) is an increasing sequence of sets that approaches \(\tilde\calF\) and note that the bound in \eqref{eq:step4} does not depend on (little) \(k\). So, invoking monotone covergence and separability of \(\mathbb{G}\):
+	\begin{align*}
+		\E\left[\sup_{f,g\in\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|\right]
+		&= \E\left[\sup_{f,g\in\tilde\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|\right] \\
+		&= \lim_{k\to\infty}\E\left[\max_{f,g\in\tilde\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|\right] \\
+		&\leq K \int_{0}^{M} \sqrt{\log\calN\left(\eps,\calF,d\right)}\,d\eps 
+	\end{align*}
+	This is the inequality in equation~\eqref{eq:vdv2.2.4-1}. To get equation~\eqref{eq:vdv2.2.4-2} fix any \(f_0\) and apply triangle inequality.
+\end{proof}
+
+\begin{remark}[Comments on Theorem~\ref{thm:vdv2.2.4}]
+    \label{rem:}
+	
+\end{remark}
