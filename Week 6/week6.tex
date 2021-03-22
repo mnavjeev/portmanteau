@@ -1,6 +1,35 @@
 \subsection{Symmetrization}%
 \label{subsec:symmetrization}
 
-Symmetrization is a technique that will allow us to get a subgaussian process. This follows the discussion in Chapter 2.2.1 and 2.3 in VanDerVaart and Wellner.
+Symmetrization is a technique that will allow us to get/show(?) a subgaussian process. This follows the discussion in Chapter 2.2.1 and 2.3 in VanDerVaart and Wellner.
 
+What sort of variables are subgaussian? A classic example below.
+
+\begin{definition}[Rademachar Random Variable]
+	\label{def:rademachar}
+	Random variable \(\eps_i:\Omega_i\to\SR\) is a Rademachar random variable if
+	\(\P(\eps_i=1)=\P(\eps_i=-1)=1/2.\) 
+\end{definition}
+
+The following lemma shows that a particular process consisting of Rademachar random variables is subgaussian.
+
+\begin{lemma}[Hoeffding's Inequality]
+	\label{lemma:hoeffding}
+	Let \(a_1,\dots,a_n\) be constants and \(\eps_1,\dots,\eps_n\) be independent Rademachar random variables. Then 
+	\[
+		\P\left(\left|\sum_{i=1}^n a_i\eps_i\right| > x\right) \leq 2e^{\frac{1}{2}\frac{x^2}{\|a\|^2}  }
+	.\] 
+	where \(\|a\|\) denotes the Euclidean norm of \(a\).
+\end{lemma}
+\begin{proof}
+	(From VdV\&W, Lemma 2.2.7) For any \(\lambda\) and any Rademachar random variable \(\eps\) one has that  \(\E e^{\lambda\eps} = \left(e^\lambda+e^{-\lambda}\right)/2\). By power series expansion:
+	\begin{align*}
+		e^\lambda &= 1 + \lambda + \frac{\lambda^2}{2!} + \frac{\lambda^3}{3!} +\dots \\ 
+		e^{-\lambda} &= 1 - \lambda + \frac{\lambda^2}{2!} - \frac{\lambda^3}{3!}+\dots \\
+		\implies \left(e^{\lambda} + e^{-\lambda}\right)/2 &= 1 + \frac{\lambda^2}{2!} + \frac{\lambda^4}{4!} + \frac{\lambda^6}{6!} \dots \\
+														 &\leq 1 + \frac{\lambda^2}{2} + \frac{\lambda^4}{2^2\cdot2!} + \frac{\lambda^6}{2^3\cdot3!}   \\
+														 &= e^{\lambda^2/2}
+	\end{align*}
+	where in the last inequality we use that \(2^k\cdot k! \leq (2k)!\) so that in total we have that \(\E e^{\lambda\eps} = \left(e^\lambda + e^{-\lambda}\right)/2 \leq e^{\lambda^2/2}\). Take \(\lambda = x/\|a\|^2\) and apply Markov's inequality to get the result.
+\end{proof}
 
