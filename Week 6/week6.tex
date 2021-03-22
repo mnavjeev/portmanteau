@@ -17,7 +17,7 @@ The following lemma shows that a particular process consisting of Rademachar ran
 	\label{lemma:hoeffding}
 	Let \(a_1,\dots,a_n\) be constants and \(\eps_1,\dots,\eps_n\) be independent Rademachar random variables. Then 
 	\[
-		\P\left(\left|\sum_{i=1}^n a_i\eps_i\right| > x\right) \leq 2e^{\frac{1}{2}\frac{x^2}{\|a\|^2}  }
+		\P\bigg(\big|\sum_{i=1}^n a_i\eps_i\big| > x\bigg) \leq 2e^{\frac{1}{2}\frac{x^2}{\|a\|^2}  }
 	.\] 
 	where \(\|a\|\) denotes the Euclidean norm of \(a\).
 \end{lemma}
@@ -33,3 +33,20 @@ The following lemma shows that a particular process consisting of Rademachar ran
 	where in the last inequality we use that \(2^k\cdot k! \leq (2k)!\) so that in total we have that \(\E e^{\lambda\eps} = \left(e^\lambda + e^{-\lambda}\right)/2 \leq e^{\lambda^2/2}\). Take \(\lambda = x/\|a\|^2\) and apply Markov's inequality to get the result.
 \end{proof}
 
+\begin{example*}
+	For any functions \(f,g\) we have that
+	\[
+		\P\bigg(\bigg|\sum_{i=1}^n \frac{\eps_i}{\sqrt{n}}\left(f(x_i)-g(x_i)\right)\bigg| > x \mid \{X_i\}  \bigg) \leq 2e^{-\frac{1}{2}\frac{x^2}{d_n^2(f,g)}  }
+	.\]
+	where \(d_n^2(f,g):=\frac{1}{N}\sum_{i=1}^n \left(f(x_i)-g(x_i)\right)^2 \) is the square of the prediction norm.
+\end{example*}
+
+We would like to use the maximal inequality in Theorem~\ref{thm:vdv2.2.4} to control \(\E[\sup_{f,g}|\mathbb{G}_n(f)-\mathbb{G}_n(g)]\), but the problem is that \(\mathbb{G}_n\) is not (in general), subgaussian. However, from Lemma~\ref{lemma:hoeffding} we know that, at least conditional on our data, \(\mathbb{G}^\circ_n :=\frac{1}{\sqrt{n}}\sum \eps_i(f(x_i)-g(x_i)) \) is. Strategy will be to relate the two processes, \(\mathbb{G}_n\) and \(\mathbb{G}^\circ_n\).
+
+\begin{lemma}[Symmetrization]
+	\label{lemma:vdv2.3.1}
+	For every nondecreasing, convex, \(\Phi:\SR\to\SR\) and class of measurable functions \(\calF\):
+	\[
+	    \E^\star\Phi\left(\left\|\P_n-P\right\|_\calF\right)\leq \E^\star\Phi\left(2\left\|\P_n^\circ\right\|_\calF\right)
+	.\] 
+\end{lemma}
