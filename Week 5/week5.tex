@@ -28,9 +28,9 @@ These notes follow Section 2 in VdV\&W. So far, we have discussed theory for \(X
 	.\] 
 \end{definition}
 
-\begin{remark}[Notation]
+\begin{remark*}[Notation]
     \label{rem:ep-notation}
-	We will make the following notations to save space later on. For a measure \(\mathbb{Q}\) on a space let \(\mathbb{Q}f = \E_{\mathbb{Q}}[f(X)]\). In the above \(\P_nf = \E_{n}[f(X)] = \frac{1}{n}\sum_{i=1}^n f(X_i) \) and \(\mathbb{G}_n f = \frac{1}{\sqrt{n}}\sum_{i=1}^n \left(f(X_i) - Pf\right)\).
+	We will make the following notations to save space later on. For a measure \(\mathbb{Q}\) on a space let \(\mathbb{Q}f = \E_{\mathbb{Q}}[f(X)]\). E.j: \(\P_nf = \E_{n}[f(X)] = \frac{1}{n}\sum_{i=1}^n f(X_i) \) and \(\mathbb{G}_n f = \frac{1}{\sqrt{n}}\sum_{i=1}^n \left(f(X_i) - Pf\right)\).
 
 	With this notation:
 	\begin{align*}
@@ -38,7 +38,7 @@ These notes follow Section 2 in VdV\&W. So far, we have discussed theory for \(X
 		\mathbb{G}_nf\overset{L}{\longrightarrow}N(0,\sigma^2)&\hbox{  }\text{ is just saying }\hbox{  }\frac{1}{\sqrt{n}}\sum_{i=1}^n \left(f(X_i)-\E\left[f(X)\right]\right)\overset{L}{\longrightarrow}N(0,\sigma^2) 
 	\end{align*}
 	By LLN and CLT we have that for any function \(f\),  \(\P_nf \to_{a.s}Pf\) and \(\mathbb{G}_nf \overset{L}{\to}N\left(0,P\left(f-Pf\right)^2\right)\)
-\end{remark}
+\end{remark*}
 
 \begin{example}[Classes of Functions]
 	\label{ex:calF}
@@ -56,11 +56,11 @@ These notes follow Section 2 in VdV\&W. So far, we have discussed theory for \(X
 	.\] 
 \end{example}
 
-\begin{remark}[Notation]
+\begin{remark*}[Notation]
 	Sometimes we use \(\wcov\) to denote weak convergence/convergence in law instead of  \(\overset{L}{\to}\).	
-\end{remark}
+\end{remark*}
 
-\begin{remark}[Definition of \(\ell^\infty\) Space]
+\begin{remark*}[Definition of \(\ell^\infty\) Space]
     \label{rem:def-recall}
 	It is useful to review the \(\ell^\infty(T)\) space for an arbitrary index space  \(T\). Define:
 	\begin{equation}
@@ -68,7 +68,7 @@ These notes follow Section 2 in VdV\&W. So far, we have discussed theory for \(X
 		\ell^\infty(T) = \left\{f:T\to\SR: \sup_{t\in T}\left|f(t)\right| <\infty\right\}
 	\end{equation}
 	and equip this space with the sup-norm, \(\left\|f\right\|_T = \sup_{t\in T}\left|f(t)\right|\). Note that, for any \(\calF\),  \(\mathbb{G}_n(\calF)\) can be viewed as a random map into \(\ell^\infty(\calF)\) for each \(n\). Boundedness comes from the finiteness of the sample. We will sometimes make the notation \(\left\|\mathbb{Q}\right\|_\calF = \sup_{f\in\calF}\left|\mathbb{Q}f\right|\) for a given measure \(\mathbb{Q}\).
-\end{remark}
+\end{remark*}
 
 Now make some important definitions and then talk about how they relate to what we want to show. 
 
@@ -155,12 +155,12 @@ If we don't impose \(|b|\leq M\) then this will blow up to \(+\infty\) with prob
 	For any \(\eps>0\) break up  \([0,1]\) into  \([0,\eps,2\eps,\dots]\) and take \(\beta_i = (i-1)\eps\) to get brackets  \([x\beta_i,x\beta_{i+1}]\) of size \(\eps\). We need  \(\lceil 1/\eps\rceil\) of these brackets to cover  \(\calF\) so that  \(\calN_{[]}\left(\eps,\calF,\|\cdot\|_\infty\right)\leq \lceil 1/\eps\rceil < 2/\eps\).
 \end{example}
 
-\begin{remark}[Bracketing vs. Covering Numbers]
+\begin{remark*}[Bracketing vs. Covering Numbers]
     \label{rem:bracketing-covering}
 	In general we have that \(\calN(\eps,\calF,\|\cdot\|)\leq \calN_{[]}(2\eps,\calF,\|\cdot\|)\), but no opposite relationship. This shows that bracketing numbers are in general stronger than covering numbers and give you better control over the class of functions. 
 
-	We will see conditions for Glivenko-Cantelli and Donsker properties under both, but in general proving Glivenk-Cantelli involves using bracketing numbers wheras proving Donsker involves using covering numbers.
-\end{remark}
+	We will see conditions for Glivenko-Cantelli and Donsker properties under both, but in general proving Glivenko-Cantelli involves using bracketing numbers whereas proving Donsker involves using covering numbers.
+\end{remark*}
 
 
 In general, finding the covering/bracketing number will be difficult but we will learn some tips. Verifying that a set is Donsker will often come down to showing that the covering/bracketing number does not go to infinity ``too fast." 
@@ -190,20 +190,18 @@ However, often we may need to change the exact application of these maximal ineq
 
 \begin{definition}[Orlicz Norm]
 	\label{def:orlicz}
-	Let \(\psi\) be a nondecreasing, convex function with  \(\psi(0)=0\) and  \(X\) a random variable. Then, the Orlicz norm  \(\left\|X\right\|_\psi\) is defined as 
+	Let \(\psi\) be a non-decreasing, convex function with  \(\psi(0)=0\) and  \(X\) a random variable. Then, the Orlicz norm  \(\left\|X\right\|_\psi\) is defined as 
 	\begin{equation}
 		\label{eq:orlicz}
 		\left\|X\right\|_\psi = \inf\left\{C > 0 : \E\psi\left(\frac{|X|}{C} \right)\leq 1\right\}
 	\end{equation}
 	Where here the infimum over the empty set is taken to be \(+\infty\).
 \end{definition}
-\begin{remark}[Orlicz norms generalize \(L_p\)]
-    \label{rem:ell-orlicz}
+\begin{remark*}[Orlicz norms generalize \(L_p\)]
 	Note that for any \(p\geq 1\) the function \(f(x) = x^p\) is convex and non-decreasing. With this in mind we can view the Orlicz norms as a generalization of the \(L_p\) norms to general convex and non-decreasing functions functions.
-\end{remark}
+\end{remark*}
 
-\begin{remark}[Orlicz p-norms]
-    \label{rem:orlicz-p-norm}
+\begin{remark*}[Orlicz p-norms]
 	Of particular interest will be the Orlicz norms generated by the functions
 	\[
 		\psi_p = e^{x^p}-1
@@ -213,16 +211,16 @@ However, often we may need to change the exact application of these maximal ineq
 		\left\|X\right\|_{\psi_p} &\leq \left\|X\right\|_{\psi_q}\left(\log 2\right)^{p/q}\\ 
 		\left\|X\right\|_p &\leq p!\left\|X\right\|_{\psi_1}
 	\end{align*}
-\end{remark}
+\end{remark*}
 
-\begin{remark}[Orlicz Norms and Markov's Inequality]
+\begin{remark*}[Orlicz Norms and Markov's Inequality]
     \label{rem:orlicz}
-	Any Orlicz norm can be used to bound tail probabilites. Using Markov's inequality:
+	Any Orlicz norm can be used to bound tail probabilities. Using Markov's inequality:
 	\[
 		\P\left(\left|X\right|>x\right)\leq \P\left(\psi\left(|X|/\left\|X\right\|_\psi\right)\geq \psi\left(x/\left\|X\right\|_\psi\right)\right) \leq \frac{1}{\psi\left(x/\|X\|_\psi\right)} 
 	.\] 
 	For \(\psi_p(x) = e^{x^p}-1\) this leads to tail estimates like  \(\exp\left(-Cx^p\right)\) for any random variable with a finite \(\psi_p\)-norm. Conversely, an exponential tail bound of this type shows that  \(\left\|X\right\|_{\psi_p}\) is finite.
-\end{remark}
+\end{remark*}
 
 \begin{lemma}[Lemma 2.2.1 VdV\&W]
 	\label{lemma:vdv2.2.1}
@@ -244,10 +242,10 @@ Using the fact that \(\max|X_i|^P \leq \sum |X_i|^p\) we obtain for the \(L_p\) 
 \[
 	\left\|\max_{1\leq i\leq m}X_j\right\|_p = \left(\E\max_{1\leq i\leq m}\left|X_i\right|^p\right)^{1/p} \leq m^{1/p}\max_{1\leq i\leq m}\left\|X_i\right\|_p
 .\]
-We can generalize this for the Orilcz norm.
+We can generalize this for the Orlicz norm.
 \begin{lemma}[Lemma 2.2.2 VdV\&W]
 	\label{lemma:vdv2.2.2}
-	Let \(\psi\) be a convex, nondecreasing, nonzero function with  \(\psi(0)=0\) and  \(\lim\sup_{x,y\to\infty}\psi(x)\psi(y)/\psi(cxy)<\infty\) for some constant \(c\). Then, for any random variables  \(X_1,\dots,X_m\),
+	Let \(\psi\) be a convex, non-decreasing, nonzero function with  \(\psi(0)=0\) and  \(\lim\sup_{x,y\to\infty}\psi(x)\psi(y)/\psi(cxy)<\infty\) for some constant \(c\). Then, for any random variables  \(X_1,\dots,X_m\),
 	\begin{equation}
 		\label{eq:vdv2.2.2}
 		\left\|\max_{1\leq i\leq m}X_i\right\|_\psi \leq K\psi^{-1}(m)\max_{1\leq i\leq m}\left\|X_i\right\|_\psi
@@ -322,17 +320,23 @@ Also define a separable function as an analytic concept and then extend this to 
 	\label{def:separable-function}
 	A function \(f:A\to B\) from a topological space \(A\) into a topological space  \(B\) is separable if there is a countable, dense, subset  \(S \subset A\) such that  for any closed \(F \subset B\) and any open \(I \subset A\), if  \(f(t) \in F\) for all  \(t \in F \cap S\) then  \(f(t) \in F\) for all  \(t \in I\). This is often denoted as an \(S\)-separable function to emphasize the dependence on the countable, dense subset  \(S\).
 \end{definition}
+\begin{lemma}[Continuity and Separability]
+	\label{lemma:continuous-separable}
+	A continuous function \(f:\calX\to\calY\) from a separable space \(\calX\) onto  \(\calY\) is separable.
+\end{lemma}
+
 
 \begin{definition}[Separable Process; Shalizi 2007]
 	\label{def:separable-process}
 	A stochastic process on a topological space \(\calF\), \(\mathbb{G}(\cdot,\omega):\Omega \to \ell^\infty(\calF)\), is separable if there is a countable, dense, subset of \(\calF\), \(\tilde\calF\), and a measure zero set \(N\) such that for all \(\omega\not\in N\),  \(\mathbb{G}(\cdot,\omega)\) is \(\tilde\calF\)-separable.\footnote{Note that this requires a topology on \(\calF\). In the applications we will be talking about  \(\calF\) will be equipped with a metric  \(d\). This will generate a topology.} 
 \end{definition}
 
+
 Separability can be roughly interpreted as ensuring that the behavior of the function (and therefore the stochastic process) can be well described by its behavior on countable subset. This ensures some of the properties that we've seen above, namely that \(\sup_{f\in\tilde\calF}|\mathbb{G}(f)| \overset{a.s}{=} \sup_{f\in\calF}|\mathbb{G}(f)|\). We are now ready for the main theorem of this subsection, the proof of which will rely on the chaining argument roughly discussed above.
 
 \begin{theorem}[Theorem 2.2.4 VdV\&W]
 	\label{thm:vdv2.2.4}
-	Let \(\mathbb{G}\) be a separable subgaussian process on a space \(\calF\) equipped with a metric  \(d(\cdot,\cdot)\). and let \(\text{\emph{diam}}(\calF) = \sup_{f,g\in\calF}d(f,g) \). Then
+	Let \(\mathbb{G}\) be a separable subgaussian process on a space \(\calF\) equipped with a metric  \(d(\cdot,\cdot)\) and let \(\text{\emph{diam}}(\calF) = \sup_{f,g\in\calF}d(f,g) \). Then
 	\begin{align}
 		\label{eq:vdv2.2.4-1}
 		\E\sup_{f,g\in\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|
@@ -362,7 +366,7 @@ Separability can be roughly interpreted as ensuring that the behavior of the fun
 		\E\left[\max_{g_k,f_k\in\tilde\calF_k}\left|\mathbb{G}(f_k)-\mathbb{G}(g_k)\right|\right]
 		\leq 2\sum_{j=0}^K \E\left[\max_{s_i\in\tilde\calF_i}\left|\mathbb{G}(s_i)-\mathbb{G}(s_{i-1})\right|\right]\tag{P-1}
 	\end{equation}	
-	With this setup, we can use the maximal inequalities deveoped above, applying them to the finite sets \(\tilde\calF_k\).
+	With this setup, we can use the maximal inequalities developed above, applying them to the finite sets \(\tilde\calF_k\).
 
 	\emph{Step 3: Try to control the jumps.} Recall that there are at most \(\calN\left(\frac{M}{2^{k+1}},\calF,d \right)\) points in \(\calF_k\) and that \(d(s_k,s_{k-1})\leq \frac{M}{2^{k-1}}\). By our maximal inequality in Lemma~\ref{lemma:vdv2.2.2}, taking \(\psi(a) = e^{a^2}-1\) we have that 
 	\[
@@ -392,7 +396,7 @@ Separability can be roughly interpreted as ensuring that the behavior of the fun
 		\E\left[\max_{g_k,f_k\in\tilde\calF_k}\left|\mathbb{G}(f_g)-\mathbb{G}(g_k)\right|\right]\leq K \int_{0}^{M}   \sqrt{\log\left(\calN\left(\eps,\calF,d \right)\right)}\, d\eps \tag{P-3}
 	\end{equation}
 
-	\emph{Step 5: Conclude by Separability.} \(\left\{\tilde\calF_k\right\}_{k=1}^\infty\) is an increasing sequence of sets that approaches \(\tilde\calF\) and note that the bound in \eqref{eq:step4} does not depend on (little) \(k\). So, invoking monotone covergence and separability of \(\mathbb{G}\):
+	\emph{Step 5: Conclude by Separability.} \(\left\{\tilde\calF_k\right\}_{k=1}^\infty\) is an increasing sequence of sets that approaches \(\tilde\calF\) and note that the bound in \eqref{eq:step4} does not depend on (little) \(k\). So, invoking monotone convergence and separability of \(\mathbb{G}\):
 	\begin{align*}
 		\E\left[\sup_{f,g\in\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|\right]
 		&= \E\left[\sup_{f,g\in\tilde\calF}\left|\mathbb{G}(f)-\mathbb{G}(g)\right|\right] \\
@@ -402,7 +406,25 @@ Separability can be roughly interpreted as ensuring that the behavior of the fun
 	This is the inequality in equation~\eqref{eq:vdv2.2.4-1}. To get equation~\eqref{eq:vdv2.2.4-2} fix any \(f_0\) and apply triangle inequality.
 \end{proof}
 
-\begin{remark}[Comments on Theorem~\ref{thm:vdv2.2.4}]
-    \label{rem:}
-	
-\end{remark}
+\begin{remark*}[Comments on Theorem~\ref{thm:vdv2.2.4}]
+    Theorem~\ref{thm:vdv2.2.4} is an involved result. Some remarks below.
+	\begin{enumerate}
+		\item We have shown that if \(\mathbb{G}_n\) is a separable subgaussian process then
+			\[
+				\E\left[\sup_{f,g\in\calF}\left|\mathbb{G}_n(f)-\mathbb{G}_n(g)\right|\right] \leq  K \int_{0}^{\text{diam}(\calF)}\sqrt{\log\calN\left(\eps,\calF,d\right)}\,d\eps 
+			.\]
+		Note that the right hand side does not depend on \(\mathbb{G}_n\) at all! Only on the ``size" of \(\calF\).
+		\item So, suppose we want to show that \(\mathbb{G}_n\) is an asymptotically tight process on \(\calF\). By Theorem~\ref{thm:vdv1.5.7} it is sufficient (and necessary) to show that for every \(\eps,\eta >0\) there is a  \(\delta > 0\) such that: 
+			\[
+				\lim\sup_{n\to\infty}\P\left(\sup_{\rho(f,g)\leq \delta}\left|\mathbb{G}_n(f)-\mathbb{G}_n(g)\right|>\eps\right)<\eta
+			.\] 
+			Let \(\calF_\delta = \left\{s=f-g:f,g\in\calF\text{ and }\rho(f,g)\leq \delta\right\}\). The above can be restated as showing that \(\exists\delta>0\) such that:
+			\[
+				\lim\sup_{n\to\infty}\P\left(\sup_{s\in\calF_\delta}\left|\mathbb{G}_n(s)\right|>\eps\right)<\eta
+			.\] 
+			By Markov's inequality we can bound the probability in the above display by 
+			\[		\frac{1}{\eps}\E\left[\sup_{s\in\calF_\delta}\left|\mathbb{G}_n(s)\right|\right] \leq  \frac{K}{\eps} \int_{0}^{\delta}\sqrt{\log\calN\left(\eps,\calF,d\right)}\,d\eps  
+			\]
+			And then we can sent the RHS to 0 by sending \(\delta\downarrow 0\) as long as the integral on the RHS is finite. Asymptotic tightness plus convergence of marginals will give convergence to a tight element in \(\ell^\infty(\calF)\) by Theorem~\ref{thm:vdv1.5.4}. What remains is to show the conditions on \(\mathbb{G}\), separability and subgaussian.
+	\end{enumerate}	
+\end{remark*}

@@ -1,0 +1,14 @@
+\babel@toc {english}{}
+\contentsline {section}{\numberline {1}Math Review}{1}{section.1}% 
+\contentsline {subsection}{\numberline {1.1}Vector Spaces and Norms}{1}{subsection.1.1}% 
+\contentsline {subsection}{\numberline {1.2}Topology and Continuity}{2}{subsection.1.2}% 
+\contentsline {subsection}{\numberline {1.3}Probability Spaces and Outer Measure}{5}{subsection.1.3}% 
+\contentsline {section}{\numberline {2}Weak Convergence}{6}{section.2}% 
+\contentsline {subsection}{\numberline {2.1}Weak Convergence in Space of Bounded Functions}{11}{subsection.2.1}% 
+\contentsline {subsubsection}{\numberline {2.1.1}Finite Approximation}{12}{subsubsection.2.1.1}% 
+\contentsline {section}{\numberline {3}Empirical Processes}{16}{section.3}% 
+\contentsline {subsection}{\numberline {3.1}Maximal Inequality}{19}{subsection.3.1}% 
+\contentsline {subsubsection}{\numberline {3.1.1}Orlicz Norm}{20}{subsubsection.3.1.1}% 
+\contentsline {subsection}{\numberline {3.2}Chaining and Inequalities for Infinite Classes}{22}{subsection.3.2}% 
+\contentsline {subsection}{\numberline {3.3}Symmetrization}{25}{subsection.3.3}% 
+\contentsline {subsection}{\numberline {3.4}Glivenko-Cantelli}{28}{subsection.3.4}% 
