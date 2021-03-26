@@ -196,3 +196,22 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	\label{def:envelope}
 	A class \(\calF\) has envelope \(F\) if \(|f(x)|\leq F(x)\) for all \(x\) and all \(f\in\calF\).
 \end{definition}
+\begin{definition}[Truncated Class]
+	\label{def:truncated-class}
+	Let \(\calF\) be a class of functions. Then the truncated class \(\calF_M\) is given 
+	\[
+		\calF_M = \left\{f(x)\mathds{1}\{f \leq M\}: f\in\calF\right\}	
+	.\]
+\end{definition}
+\begin{definition}[P-Measurable Class]
+	\label{def:p-measurable-class}
+	A class \(\calF\) is \(P\)-measurable if \(\sup_{f\in\calF}\left|\frac{1}{n}\sum_{i=1}^n f(x_i)\eps_i\right|\) is measurable with respect to the product measure on \((\calX^m,\calA^m,P^n)\times(\calZ,\calC,Q)\), where \((\calZ,\calC,Q)\) denotes the probability space that the Rademachar random variables are defined on.
+\end{definition}
+\begin{definition}[\(L_p(\P_n)\)-norm]
+	\label{def:lpn-norm}
+	We have that \(\left\|f-g\right\|_{L_1(P)} = \E_P\left[\left|f(x)-g(x)\right|\right]\), similarly we can define 
+	\[
+			\left\|f-g\right\|_{L_{1(\P_n)}} = \E_{\P_n}\left[\left|f(x)-g(x)\right|\right]
+	.\]
+	and through this define \(\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_1(\P_n)\right)\).
+ \end{definition}
