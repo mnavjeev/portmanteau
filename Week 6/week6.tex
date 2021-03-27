@@ -118,16 +118,16 @@ Two random variables, \(X,Y\), defined on the same probability space are indepen
 
 \begin{corollary}[Symmetrization of Empirical Process, Andres' Notes]
     \label{corr:symmetrization}
-	For the processes described above:
+	For real valued processes as described above:
 	\[
 		\E^\star\left[\sup_{f\in\calF}\bigg|\frac{1}{\sqrt{n}}\sum_{i=1}^n f(X_i)- P f(X_i)\bigg| \right] \leq 2\E^\star \left[\sup_{f\in\calF}\bigg|\frac{1}{\sqrt{n}}\sum_{i=1}^n \eps_if(X_i)\bigg|\right]
 	.\] 
 \end{corollary}
 \begin{proof}
-	Take \(\Phi(x) = |x|\). Lemma~\ref{lemma:vdv2.3.1} then gives us that \(\E^\star\left\|\P_n - P\right\|_\calF \leq 2\E^\star\left\|\P_n^\circ\right\|_\calF\). Expand this out and scale by \(\sqrt{n}\) to get the result.  
+	Take \(\Phi(x) = |x|\). All norms on \(\SR\) are equivalent to \(|\cdot|\). Lemma~\ref{lemma:vdv2.3.1} then gives us that \(\E^\star\left\|\P_n - P\right\|_\calF \leq 2\E^\star\left\|\P_n^\circ\right\|_\calF\). Expand this out and scale by \(\sqrt{n}\) to get the result. For non real-valued processes (vector valued, function valued, etc.) we can replace \(\left|\cdot\right|\) with \(\left\|\cdot\right\|\) above.
 \end{proof}
 \begin{remark*}
-	The proof of Corollary~\ref{corr:symmetrization} uses the fact that Lemma~\ref{lemma:vdv2.3.1} is not an asymptotic bound, it holds in every finite sample.
+	The proof of Corollary~\ref{corr:symmetrization} uses the fact that Lemma~\ref{lemma:vdv2.3.1} is not an asymptotic bound, it holds in every finite sample. 
 \end{remark*}
 
 We know have the pieces to show a class of functions \(\calF\) is either
@@ -214,4 +214,12 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 			\left\|f-g\right\|_{L_{1(\P_n)}} = \E_{\P_n}\left[\left|f(x)-g(x)\right|\right]
 	.\]
 	and through this define \(\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_1(\P_n)\right)\).
- \end{definition}
+\end{definition}
+
+\begin{theorem}[Theorem 2.4.3, VdV\&W]
+	\label{thm:vdv2.4.3}
+	Let \(\calF\) be a  \(P\)-measurable class of measurable functions with envelope \(F\) such that \(\P^\star F<\infty\). If  \(\log\calN\left(\eps,\calF_M,L_1\left(\P_n\right)\right)= o_{P^\star}(n)\) for every \(\eps\) and  \(M > 0\), then  \(\left\|\P_n-P\right\|^\star_\calF\to 0\) almost surely and in mean. 		
+\end{theorem}
+
+
+
