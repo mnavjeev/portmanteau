@@ -1,14 +1,34 @@
+# Ignore Texts (not original work)
 Andres\ Notes/
 Textbook
-wcep.aux
-wcep.dvi
-wcep.fdb_latexmk
-wcep.log
-wcep.synctex.gz
-wcep.toc
-.vimrc
-Week\ 2/.vimrc
-Week\ 3/.vimrc
-Week\ 4/.vimrc
-Week\ 5/.vimrc
-Week\ 6/.vimrc
+
+# Ignore build files 
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+
+# Intermediate documents:
+*.dvi
+*.xdv
+*-converted-to.*
+
+# Build tool auxiliary files:
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# Ignore vimfiles
+*.vimrc
+
