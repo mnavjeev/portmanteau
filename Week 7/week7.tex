@@ -1,0 +1,67 @@
+\subsection{Glivenko-Cantelli}%
+
+This subsection follows Section 2.4 in Van DerVaart and Wellner. Goal is to establish conditions for a uniform law of large numbers using bracketing and covering numbers.
+
+\begin{theorem}[Theorem 2.4.1 VdV\&W]
+	\label{thm:vdv2.4.1}
+	Let \(\calF\) be a class of measurable functions such that  \[\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_1(P)\right)<\infty\] for every \(\eps>0\). Then  \(\calF\) is Glivenko-Cantelli. 
+\end{theorem}
+\begin{proof}
+	Fix \(\eps > 0\). Choose finitely many \(\eps\)-brackets \([l_i,u_i]\) whose union contains \(\calF\) and such that \(P(u_i-l_i)<\eps\) for every \(i\). Then, for every \(f\in\calF\) there is a bracket, \(l_i \leq f \leq u_i \), such that:
+	\begin{align*}
+		\left(\P_n-P\right)f \leq \P_n u_i - Pf\leq \left(\P_n-P\right)u_i + P\left(u_i - f\right) \leq \left(\P_n-P\right)u_i + \eps \\ 
+		\left(\P_n-P\right)f \geq \P_n l_i - Pf\geq \left(\P_n-P\right)l_i + P\left(l_i - f\right) \geq \left(\P_n-P\right)l_i - \eps 
+	\end{align*}
+	Consequently,
+	\begin{align*}
+			\sup_{f\in\calF}\left(\P_n-P\right)f &\leq \max_i \left(\P_n-P\right)u_i + \eps \\
+			\inf_{f\in\calF}\left(\P_n-P\right)f &\geq \min_i \left(\P_n-P\right)l_i -\eps
+	\end{align*}
+	By the strong law of large numbers, both the maximums and the minimums on the right hand side of the inequalities above converge almost surely to 0. Combination these yields that \(\lim\sup\left\|\P_n-P\right\|^\star_\calF \leq \eps\) almost surely for every \(\eps > 0\). Take  \(\eps\downarrow 0\) to see that the \(\limsup\) must be  \(0\) almost surely. 
+\end{proof}
+\begin{remark*}
+	Some comments on Theorem~\ref{thm:vdv2.4.1}:
+	\begin{enumerate}
+		\item Proof is really quite straightforward. Bracketing gives pointwise control so just use the upper and lower bounds.
+		\item No measurability condition is needed and no requirements on the rate of growth of \(\calN_{[\hspace{0.1em}]}\left(\eps,\cdot,\cdot\right)\) as \(\eps\downarrow 0\).
+	\end{enumerate}
+\end{remark*}
+\begin{example*}[Empirical CDF is Glivenko-Cantelli]
+	Let \(X\) be a scalar random variable.\footnote{This generalizes easily for a vector valued random variable}. We want to show that 
+	\[
+		\sup_{t\in\SR}\bigg| \frac{1}{n}\sum_{i=1}^n \mathds{1}\{X_i\leq t\}-P(X_i\leq t)\bigg|=o_p(1)
+	.\]
+	Let \(\calF = \left\{f(x)=\mathds{1}\{X_i\leq t\}: t \in \SR\right\}\). Partition \(\SR\) into grids  \(-\infty = t_0 < t_1 < \dots< t_m = \infty\) such that \(\P\left(t_i \leq X \leq t_{i+1}\right)<\eps\) for each \(i\). Then the finitely many brackets \(\left[\mathds{1}\{X_i \leq t_i\},\mathds{1}\{X_i \leq t_{i+1}\}\right]\) cover \(\calF\) and are ``size'' \(\eps\) under \(P\). So, \(\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_1(P)\right)<\infty\) for every \(\eps>0\). So \(\calF\) is Glivenko-Cantelli (i.e, we have a uniform law of large numbers).
+\end{example*}
+The requirement on the bracketing numbers can in general be hard. Would like a result for the covering numbers as well. This will make showing that some classes are Glivenko-Cantelli easier later on. Before doing so, we need to make a couple definitions:
+\begin{definition}[Envelope]
+	\label{def:envelope}
+	A class \(\calF\) has envelope \(F\) if \(|f(x)|\leq F(x)\) for all \(x\) and all \(f\in\calF\).
+\end{definition}
+\begin{definition}[Truncated Class]
+	\label{def:truncated-class}
+	Let \(\calF\) be a class of functions. Then the truncated class \(\calF_M\) is given 
+	\[
+		\calF_M = \left\{f(x)\mathds{1}\{f \leq M\}: f\in\calF\right\}	
+	.\]
+\end{definition}
+\begin{definition}[P-Measurable Class]
+	\label{def:p-measurable-class}
+	A class \(\calF\) is \(P\)-measurable if \(\sup_{f\in\calF}\left|\frac{1}{n}\sum_{i=1}^n f(x_i)\eps_i\right|\) is measurable with respect to the product measure on \((\calX^m,\calA^m,P^n)\times(\calZ,\calC,Q)\), where \((\calZ,\calC,Q)\) denotes the probability space that the Rademachar random variables are defined on.
+\end{definition}
+\begin{definition}[\(L_p(\P_n)\)-norm]
+	\label{def:lpn-norm}
+	We have that \(\left\|f-g\right\|_{L_1(P)} = \E_P\left[\left|f(x)-g(x)\right|\right]\), similarly we can define 
+	\[
+			\left\|f-g\right\|_{L_{1(\P_n)}} = \E_{\P_n}\left[\left|f(x)-g(x)\right|\right]
+	.\]
+	and through this define \(\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_1(\P_n)\right)\).
+\end{definition}
+
+\begin{theorem}[Theorem 2.4.3, VdV\&W]
+	\label{thm:vdv2.4.3}
+	Let \(\calF\) be a  \(P\)-measurable class of measurable functions with envelope \(F\) such that \(\P^\star F<\infty\). If  \(\log\calN\left(\eps,\calF_M,L_1\left(\P_n\right)\right)= o_{P^\star}(n)\) for every \(\eps\) and  \(M > 0\), then  \(\left\|\P_n-P\right\|^\star_\calF\to 0\) almost surely and in mean. 		
+\end{theorem}
+
+
+
