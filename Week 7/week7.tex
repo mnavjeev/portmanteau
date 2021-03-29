@@ -138,10 +138,19 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	.\] 
 	which we can combine with Markov's  inequality to get that
 	\[
-		\sup_{f\in\calF}\bigg|\frac{1}{n}\left\{f(X_i) - Pf(X_i)\bigg|\right\} = o_p(1)
+		\sup_{f\in\calF}\bigg|\frac{1}{n}\left\{f(X_i) - Pf(X_i)\right\}\bigg| = o_p(1)
 	.\]
 	This shows that \(\|\P_n-P\|_\calF^\star \to 0\) in mean. From VdV\&W: That it also converges almost surely follows from the fact that the sequence \(\|\P_n-P\|_\calF^\star\) is a reverse martingale with respect to a suitable filtration.\footnote{This part may depend on i.i.d. I am not familiar with the martingale convergence theorems.}  
 \end{proof}
+
+\begin{remark*}
+	A couple comments on Theorem~\ref{thm:vdv2.4.3}:
+	\begin{itemize}
+		\item Proof is harder than that using bracketing numbers (Theorem~\ref{thm:vdv2.4.1}. However, the technique is much closer to what will be used for the Donsker Theorems. 
+		\item Note how the measurability is obtained using the \(\eps_i\) and conditioning on  \(\{X_i\}\).
+		\item The conditions look cryptic, but we will find ways of verifying them.
+	\end{itemize}
+\end{remark*}
 
 
 
