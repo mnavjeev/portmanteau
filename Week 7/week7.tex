@@ -124,10 +124,14 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	\[
 		\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] \leq \delta + o_p(1) 
 	.\] 
-	So that the whole thing (\(\E_\eps[\sup_{f\in\calF_M}\dots]\)) is \(o_p(1)\).
+	So that the whole thing (\(\E_\eps[\sup_{f\in\calF_M}\dots]\)) is \(o_p(1)\). 
 
 	\textit{Step 4: Put all the parts together.}
 	
+	By the symmetrization at the top of step 1, we have that, for every \(\delta > 0\)
+	 \[
+		 \E\left[\sup_{\calF}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i) \bigg|\right] \leq  2\E_X\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] + \delta = o_p(1) + \delta
+	.\] 
 
 \end{proof}
 
