@@ -130,9 +130,17 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	
 	By the symmetrization at the top of step 1, we have that, for every \(\delta > 0\)
 	 \[
-		 \E\left[\sup_{\calF}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i) \bigg|\right] \leq  2\E_X\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] + \delta = o_p(1) + \delta
+		 \E\left[\sup_{\calF}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i) \bigg|\right] \leq  2\E_X\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] + \delta 
 	.\] 
-
+	In Step 3, we showed that the inner expectation is \(o_p(1)\). This gives us that:
+	\[
+		\E_X\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] = o(1)
+	.\] 
+	which we can combine with Markov's  inequality to get that
+	\[
+		\sup_{f\in\calF}\bigg|\frac{1}{n}\left\{f(X_i) - Pf(X_i)\bigg|\right\} = o_p(1)
+	.\]
+	This shows that \(\|\P_n-P\|_\calF^\star \to 0\) in mean. From VdV\&W: That it also converges almost surely follows from the fact that the sequence \(\|\P_n-P\|_\calF^\star\) is a reverse martingale with respect to a suitable filtration.\footnote{This part may depend on i.i.d. I am not familiar with the martingale convergence theorems.}  
 \end{proof}
 
 
