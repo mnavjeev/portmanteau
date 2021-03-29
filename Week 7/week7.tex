@@ -63,5 +63,52 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	Let \(\calF\) be a  \(P\)-measurable class of measurable functions with envelope \(F\) such that \(\P^\star F<\infty\). If  \(\log\calN\left(\eps,\calF_M,L_1\left(\P_n\right)\right)= o_{P^\star}(n)\) for every \(\eps\) and  \(M > 0\), then  \(\left\|\P_n-P\right\|^\star_\calF\to 0\) almost surely and in mean. 		
 \end{theorem}
 
+\begin{proof}
+	Idea will be to apply the maximal inequality in Theorem~\ref{thm:vdv2.2.4}.
+
+	\textit{Step 1: Symmterization.} First, we will apply symmetrization (Corollary~\ref{corr:symmetrization})
+	\begin{align*}
+		\E^\star\left[\sup_{f\in\calF}\bigg|\frac{1}{n}\sum_{i=1}^n f(X_i)-Pf(X_i)\bigg|\right] 
+		&\leq 2\cdot\E^\star\left[\sup_{f\in\calF}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] \\
+		\intertext{And then truncate the functions, \(f = f\mathds{1}\{f\leq M\} + f\mathds{1}\{f > M\} \), apply triangle inequality, and bound the functions not in \(\calF_M\) with the envelope \(F\).}
+		&\leq  2\E_X\E_\eps \left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n
+		\eps_if(X_i) \bigg|\right] + 2\E^\star\left[\eps_iF(X_i)\mathds{1}\{F \geq M\}\right]	\\
+		&=  2\E_X\E_\eps \left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n
+		\eps_if(X_i) \bigg|\right] + 2P^\star F(X_i)\mathds{1}\{F \geq M\}	
+	\end{align*}
+	Note the argument that allows us to replace the first outer expectation with iterated expectations over \(X\) and  \(\eps\): each of the functions in \(\calF\) are measurable and  \(\calF_M\) is bounded, which means that the supremum will be measurable and bounded with probability 1 in any finite sample (with respect to the empirical measure/conditional on the \(X\) data).
+
+	Since \(P^\star F <\infty\) we can choose \(M\) so that the term on the right is arbitrarily small. \footnote{ I am sort of using \(P^\star\) and  \(\E^\star_X\) interchangeably here, which I apologize for } That is, for any \(\delta > 0\) we can pick  \(M\) such that
+	\[
+		\E^\star\left[\sup_{f\in\calF}\bigg|\frac{1}{n}\sum_{i=1}^n f(X_i)-Pf(X_i)\bigg|\right] \leq \E_X\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] + \delta
+	.\]
+
+	\textit{Step 2: Deal with the term that is conditional on \(\{X_i\}\).} Let \(\calG_\delta = \{g_1,\dots,g_{K(\delta)}\}\) be such that for every \(f\in\calF_M\) there is a  \(g \in \calG_\delta\) such that \(\left\|f-g\right\|_{L_1(\P_n)}<\delta\). Since \(\log\calN\left(\delta,\calF_m,L_1(\P_n)\right)=o_p(n)\), we know that it is possible to pick a \(\calG_\delta\) in this fashion with probability approaching 1. Note that:
+	\begin{itemize}
+		\item Cardinality of \(\calG_\delta\): \(\left|\calG_\delta\right| = \calN\left(\delta,\calF_M,\|\cdot\|_{L_1(\P_n)}\right).\)
+		\item Envelope of \(\calG_\delta\): by construction \(\calF_M \leq M\) so we can assume that \(\calG_\delta\leq M\).
+	\end{itemize}
+	Then, for all \(f\in\calF_M\) we have that, for some  \(g\in\calG_\delta\):
+	\begin{align*}
+		\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|
+		&\leq \bigg|\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg| + \bigg|\frac{1}{n}\sum_{i=1}^n \eps_i\left(f(X_i) - g(X_i)\right)\bigg| \\
+		&\leq \bigg|\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg|+\delta 
+	\end{align*}
+	This gives us that
+	\[
+		\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] \leq \E_\eps\left[\sup_{g\in\calG_\delta}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg|\right]+\delta
+	.\]
+	\textit{Step 3: Apply the Maximal Inequality}. We bound the first term in the last display using the maximal inequality in Lemma~\ref{lemma:vdv2.2.2}, for the particular case of the \(\psi_2\) Orlicz norm \footnote{We know that, in any finite sample, this Orlicz norm exists because our empirical expectation is bounded.}: if \(D = \{f_1,\dots,f_M\}\) then 
+	\[\E\left[\sup_{f\in D}\bigg|f(X_i)\bigg|\right] \leq C\sqrt{1+\log m}\]
+	for any \(C\) with  \(\E\left[\exp\left(\frac{f(X_i)}{C^2}\right)-1\right]\leq 1\). In our setting we will apply this to the functions \(\frac{1}{n}\sum_{i=1}^n \eps_i g(X_i)\) for \(g\in\calG_\delta\), with the \(g(X_i)\) treated as fixed so that  these are considered random variables in \(\eps_i\). In our setting we can bound:
+	\[
+		\E_\eps\left[\sup_{g\in\calG_\delta}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg|\right] \leq C \sqrt{1 + \log\calN\left(\delta,\calF_M,\|\cdot\|_{L_1(\P_n)}\right)}
+	.\] 
+	for such a \(C\) such that 
+	 \[
+		 \E_\eps\left[\exp\left(\bigg(\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg)^2/C^2\right)-1\right]\leq 1
+	.\] 
+\end{proof}
+
 
 
