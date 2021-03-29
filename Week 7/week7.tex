@@ -76,7 +76,7 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 		&=  2\E_X\E_\eps \left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n
 		\eps_if(X_i) \bigg|\right] + 2P^\star F(X_i)\mathds{1}\{F \geq M\}	
 	\end{align*}
-	Note the argument that allows us to replace the first outer expectation with iterated expectations over \(X\) and  \(\eps\): each of the functions in \(\calF\) are measurable and  \(\calF_M\) is bounded, which means that the supremum will be measurable and bounded with probability 1 in any finite sample (with respect to the empirical measure/conditional on the \(X\) data).
+	Note the argument that allows us to replace the first outer expectation with iterated expectations over \(X\) and  \(\eps\): each of the functions in \(\calF\) are measurable and  \(\calF_M\) is uniformly bounded, which means that the supremum will be measurable and bounded with probability 1 in any finite sample (with respect to the empirical measure/conditional on the \(X\) data).
 
 	Since \(P^\star F <\infty\) we can choose \(M\) so that the term on the right is arbitrarily small. \footnote{ I am sort of using \(P^\star\) and  \(\E^\star_X\) interchangeably here, which I apologize for } That is, for any \(\delta > 0\) we can pick  \(M\) such that
 	\[
@@ -100,14 +100,35 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	.\]
 	\textit{Step 3: Apply the Maximal Inequality}. We bound the first term in the last display using the maximal inequality in Lemma~\ref{lemma:vdv2.2.2}, for the particular case of the \(\psi_2\) Orlicz norm \footnote{We know that, in any finite sample, this Orlicz norm exists because our empirical expectation is bounded.}: if \(D = \{f_1,\dots,f_M\}\) then 
 	\[\E\left[\sup_{f\in D}\bigg|f(X_i)\bigg|\right] \leq C\sqrt{1+\log m}\]
-	for any \(C\) with  \(\E\left[\exp\left(\frac{f(X_i)}{C^2}\right)-1\right]\leq 1\). In our setting we will apply this to the functions \(\frac{1}{n}\sum_{i=1}^n \eps_i g(X_i)\) for \(g\in\calG_\delta\), with the \(g(X_i)\) treated as fixed so that  these are considered random variables in \(\eps_i\). In our setting we can bound:
+	for any \(C\) with  \(\E\left[\exp\left(\frac{f(X_i)}{C^2}\right)-1\right]\leq 1\) for all \(f\in D\). In our setting we will apply this to the functions \(\frac{1}{n}\sum_{i=1}^n \eps_i g(X_i)\) for \(g\in\calG_\delta\), with the \(g(X_i)\) treated as fixed so that  these are considered random variables in \(\eps_i\). In our setting we can bound:
 	\[
-		\E_\eps\left[\sup_{g\in\calG_\delta}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg|\right] \leq C \sqrt{1 + \log\calN\left(\delta,\calF_M,\|\cdot\|_{L_1(\P_n)}\right)}
+		\E_\eps\left[\sup_{g\in\calG_\delta}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg|\right] \leq C_\delta \sqrt{1 + \log\calN\left(\delta,\calF_M,\|\cdot\|_{L_1(\P_n)}\right)}
 	.\] 
-	for such a \(C\) such that 
+	for such a \(C_\delta\) such that, for all \(g \in \calG_\delta\)
 	 \[
-		 \E_\eps\left[\exp\left(\bigg(\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg)^2/C^2\right)-1\right]\leq 1
+		 \E_\eps\left[\exp\left(\bigg(\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg)^2/C_\delta^2\right)-1\right]\leq 1
 	.\] 
+	Hoeffding's inequality (Lemma~\ref{lemma:hoeffding}) gives us that, for a general Rademachar process:
+	\begin{align*}
+		\P_\eps\left(\bigg|\sum_{i=1}^n \eps_ia_i\bigg|>x\right) &\leq 2\exp\left(-\frac{1}{2}\frac{x^2}{\|a\|^2}\right)\\
+		\intertext{Where the norm above is the standard Euclidean norm. In our setting:}
+		\P_\eps\left(\bigg|\sum_{i=1}^n \eps_i\frac{g(X_i)}{n} \bigg| > x\right) &\leq 2\exp\left(-\frac{1}{2}\frac{x^2}{n^{-2}\sum g(X_i)^2} \right)\\
+		\intertext{As discussed above, we can uniformly bound  \(\calG_\delta\) by  \(M\). The exponential is negative so it is decreasing in the numerator and increasing in the denominator. This allows us to get:} 
+		\P_\eps\left(\bigg|\sum_{i=1}^n \eps_i\frac{g(X_i)}{n} \bigg| > x\right) &\leq 2\exp\left(-\frac{n x^2}{2M^2} \right)
+	\end{align*}
+	Now apply Lemma~\ref{lemma:vdv2.2.1}. If \(\P\left(|X|>x\right)\leq Ke^{-Dx^2}\) then the \(\psi_2\)-Orlicz norm of \(X\) is less than  \(\sqrt{(1+K)/D}\). Using the above take \(K=2\) and \(D = n/(2M^2)\) to get \(C_\delta = \sqrt{6M^2/n}\). Putting this together with the original application of the maximal inequality towards the top of Step 3, we get:
+	\begin{align*}
+		\E_\eps\left[\sup_{g\in\calG_\delta}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_ig(X_i)\bigg|\right]&\leq \sqrt{6M^2/n + \log\calN\left(\delta,\calF_M,\|\cdot\|_{L_1(\P_n)}\right)/n}
+	\end{align*}
+	By assumption \(\log\calN(\cdot)/n = o_P(1)\) and the first term under the square root is \(o(1)\) so that this whole thing is \(o_p(1)\). All together, combining this with the result of Step 2, we have shown that, for any \(\delta > 0\):
+	\[
+		\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] \leq \delta + o_p(1) 
+	.\] 
+	So that the whole thing (\(\E_\eps[\sup_{f\in\calF_M}\dots]\)) is \(o_p(1)\).
+
+	\textit{Step 4: Put all the parts together.}
+	
+
 \end{proof}
 
 
