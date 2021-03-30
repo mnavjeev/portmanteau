@@ -51,11 +51,11 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 \end{definition}
 \begin{definition}[\(L_p(\P_n)\)-norm]
 	\label{def:lpn-norm}
-	We have that \(\left\|f-g\right\|_{L_1(P)} = \E_P\left[\left|f(x)-g(x)\right|\right]\), similarly we can define 
+	We have that \(\left\|f-g\right\|_{L_1(P)} = \E_P\left[\left|f(x)-g(x)\right|^p\right]^{1/p}\), similarly we can define 
 	\[
-			\left\|f-g\right\|_{L_{1(\P_n)}} = \E_{\P_n}\left[\left|f(x)-g(x)\right|\right]
+		\left\|f-g\right\|_{L_p(\P_n)} = \E_{\P_n}\left[\left|f(x)-g(x)\right|^p\right]^{1/p}
 	.\]
-	and through this define \(\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_1(\P_n)\right)\).
+	and through this define \(\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_p(\P_n)\right)\). 
 \end{definition}
 
 \begin{theorem}[Theorem 2.4.3, VdV\&W]
@@ -138,7 +138,7 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	.\] 
 	which we can combine with Markov's  inequality to get that
 	\[
-		\sup_{f\in\calF}\bigg|\frac{1}{n}\left\{f(X_i) - Pf(X_i)\right\}\bigg| = o_p(1)
+		\sup_{f\in\calF}\bigg|\frac{1}{n}\sum_{i=1}^n \left\{f(X_i) - Pf(X_i)\right\}\bigg| = o_p(1)
 	.\]
 	This shows that \(\|\P_n-P\|_\calF^\star \to 0\) in mean. From VdV\&W: That it also converges almost surely follows from the fact that the sequence \(\|\P_n-P\|_\calF^\star\) is a reverse martingale with respect to a suitable filtration.\footnote{This part may depend on i.i.d. I am not familiar with the martingale convergence theorems.}  
 \end{proof}
@@ -146,11 +146,31 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 \begin{remark*}
 	A couple comments on Theorem~\ref{thm:vdv2.4.3}:
 	\begin{itemize}
-		\item Proof is harder than that using bracketing numbers (Theorem~\ref{thm:vdv2.4.1}. However, the technique is much closer to what will be used for the Donsker Theorems. 
+		\item Proof is harder than that using bracketing numbers (Theorem~\ref{thm:vdv2.4.1}). However, the technique is much closer to what will be used for the Donsker Theorems. 
 		\item Note how the measurability is obtained using the \(\eps_i\) and conditioning on  \(\{X_i\}\).
 		\item The conditions look cryptic, but we will find ways of verifying them.
 	\end{itemize}
 \end{remark*}
 
+\subsection{Donsker Theorems}%
+\label{subsec:Donsker}
 
+This subsection follows section 2.5 in Van DerVaart and Wellner. In this subsection we will establish conditions for \(\calF\) to be Donsker (Definition~\ref{def:donsker-class}). We will present two main results, one that relies on the covering numbers (through a Uniform Entropy condition) and another using the bracketing numbers. 
 
+\begin{definition}[Uniform Entropy Condition]
+	\label{def:uniform-entropy}
+	Let \(\calF\) be a class of functions with envelope \(F\) and let \(\calQ\) be the set of all finitely discrete probability measures on  \((\calX,\calA)\). We say that \(\calF\) satisfies a uniform entropy bound if:
+	\begin{equation}
+		\label{eq:uniform-entropy-bound}
+		\int_{0}^{\infty} \sup_{Q\in\calQ} \sqrt{\log\left(\eps\|F\|_{Q,2},\calF, L_2(Q)\right)}\,d\eps<\infty\tag{UEB}
+	\end{equation}
+\end{definition}
+Similarly to before define
+\begin{align}
+	\calF_\delta &= \left\{f-g:f,g\in\calF\text{ and }\|f-g\|_{P,2}<\delta\right\} \\
+	\calF_\infty^2 &= \left\{(f-g)^2: f,g\in\calF\right\}
+\end{align}
+\begin{theorem}[Theorem 2.5.2 VdV\&W]
+	\label{thm:vdv2.5.2}
+	Let \(\calF\) be a class of measurable functions with envelope \(F\) that satisfies the uniform entropy bound, \eqref{eq:uniform-entropy-bound}. Let the classes \(\calF_\delta\) and  \(\calF_\infty^2\) also be  \(P\)-measurable for every  \(\delta >0\). If  \(P^\star F^2 <\infty\) then \(\calF\) is  \(P\)-Donsker.
+\end{theorem}
