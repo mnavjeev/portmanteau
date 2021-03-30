@@ -132,7 +132,7 @@ The requirement on the bracketing numbers can in general be hard. Would like a r
 	 \[
 		 \E\left[\sup_{\calF}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i) \bigg|\right] \leq  2\E_X\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] + \delta 
 	.\] 
-	In Step 3, we showed that the inner expectation is \(o_p(1)\). This gives us that:
+	In Step 3, we showed that the inner expectation is \(o_p(1)\). Combining this with the fact that \(\calF_M \leq M\) gives us that\footnote{Convergence in probability to 0 implies convergence in distribution to 0 implies convergence in bounded moments}:
 	\[
 		\E_X\E_\eps\left[\sup_{f\in\calF_M}\bigg|\frac{1}{n}\sum_{i=1}^n \eps_if(X_i)\bigg|\right] = o(1)
 	.\] 
@@ -174,3 +174,17 @@ Similarly to before define
 	\label{thm:vdv2.5.2}
 	Let \(\calF\) be a class of measurable functions with envelope \(F\) that satisfies the uniform entropy bound, \eqref{eq:uniform-entropy-bound}. Let the classes \(\calF_\delta\) and  \(\calF_\infty^2\) also be  \(P\)-measurable for every  \(\delta >0\). If  \(P^\star F^2 <\infty\) then \(\calF\) is  \(P\)-Donsker.
 \end{theorem}
+\begin{proof}
+	Because the envelope \(F\) has a bounded second moment we can apply CLT to get convergence of the marginals for any finite collection \(f_1,\dots,f_k\). That is
+	\[
+		\left(\mathbb{G}_n f_1,\dots,\mathbb{G}_n f_n\right) \overset{L}{\to}\left(\mathbb{G}f_1,\dots,\mathbb{G}f_k\right)
+	.\] 
+	for some tight limit \(\mathbb{G}\). By Theorem~\ref{thm:vdv1.5.4} it is now sufficient (and necessary) to show that \(\mathbb{G}_n(\calF)\) is asymptotically tight. We do this by way of Theorem~\ref{thm:vdv1.5.7}, showing that \(\mathbb{G}_n\) is asymptotically \(\rho\)-equicontinuous for some \(\rho\).\footnote{We know that the marginals of \(\mathbb{G}_n\) are asymptotically tight because they converge to a tight limit (Lemma~\ref{lemma:vdv1.3.8})} That is, we want to show that there is some \(\rho\) semimetric with 
+	 \[
+		 \P\left(\sup_{\rho(f,g)<\delta}\big|\mathbb{G}_nf-\mathbb{G}_ng\big|>\eps\right)<\eta
+	.\] 
+	Goal will be to show this for \(\rho(f,g) = \left(P(f-g)^2\right)^{1/2}\). 
+
+	\textit{Step 1: Use Symmetrization to Apply Maximal Inequality.} 
+\end{proof}
+
