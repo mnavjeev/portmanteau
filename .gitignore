@@ -1,6 +1,9 @@
 # Ignore Texts (not original work)
 Andres\ Notes/
-Textbook
+Textbook/
+
+# Ignore Week 1 (Contained in week2.tex)
+Week\ 1/
 
 # Ignore build files 
 *.aux
@@ -32,3 +35,5 @@ Textbook
 # Ignore vimfiles
 *.vimrc
 
+# Ignore .DS_Store
+.DS_Store
