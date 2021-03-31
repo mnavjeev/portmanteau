@@ -35,3 +35,5 @@ Week\ 1/
 # Ignore vimfiles
 *.vimrc
 
+# Ignore .DS_Store
+.DS_Store
