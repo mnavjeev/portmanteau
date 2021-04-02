@@ -179,12 +179,106 @@ Similarly to before define
 	\[
 		\left(\mathbb{G}_n f_1,\dots,\mathbb{G}_n f_n\right) \overset{L}{\to}\left(\mathbb{G}f_1,\dots,\mathbb{G}f_k\right)
 	.\] 
-	for some tight limit \(\mathbb{G}\). By Theorem~\ref{thm:vdv1.5.4} it is now sufficient (and necessary) to show that \(\mathbb{G}_n(\calF)\) is asymptotically tight. We do this by way of Theorem~\ref{thm:vdv1.5.7}, showing that \(\mathbb{G}_n\) is asymptotically \(\rho\)-equicontinuous for some \(\rho\).\footnote{We know that the marginals of \(\mathbb{G}_n\) are asymptotically tight because they converge to a tight limit (Lemma~\ref{lemma:vdv1.3.8})} That is, we want to show that there is some \(\rho\) semimetric with 
+	for some tight limit \(\mathbb{G}\). By Theorem~\ref{thm:vdv1.5.4} it is now sufficient (and necessary) to show that \(\mathbb{G}_n(\calF)\) is asymptotically tight. We do this by way of Theorem~\ref{thm:vdv1.5.7}, showing that \(\mathbb{G}_n\) is asymptotically \(\rho\)-equicontinuous and \(\calF\) it totally bounded for some \(\rho\).\footnote{We know that the marginals of \(\mathbb{G}_n\) are asymptotically tight because they converge to a tight limit (Lemma~\ref{lemma:vdv1.3.8})} That is, we want to show that there is some \(\rho\) semimetric with 
 	 \[
 		 \P\left(\sup_{\rho(f,g)<\delta}\big|\mathbb{G}_nf-\mathbb{G}_ng\big|>\eps\right)<\eta
 	.\] 
+	
 	Goal will be to show this for \(\rho(f,g) = \left(P(f-g)^2\right)^{1/2}\). 
 
-	\textit{Step 1: Use Symmetrization to Apply Maximal Inequality.} 
+	\textit{Step 1: Use Symmetrization to apply Maximal Inequality.} Apply Markov's inequality and then Lemma~\ref{lemma:vdv2.3.1} (or Corollary~\ref{corr:symmetrization}) to the class \(\sqrt{n}\calF_\delta\) to get:
+	\begin{align*}
+		\P\left(\sup_{\rho(f,g)<\delta}\left|\mathbb{G}_nf-\mathbb{G}_ng\right|>\eps\right)
+		&\leq\frac{1}{\eps}\cdot\E\left[\sup_{\rho(f,g)<\delta}\left|\mathbb{G}_nf-\mathbb{G}_ng\right|\right] \\
+		&\leq \frac{2}{\eps}\cdot\E_X\E_\eps\left[\sup_{\rho(f,g)<\delta}\bigg|\frac{1}{\sqrt{n}}\sum_{i=1}^n \eps_i\left(f(x_i)-g(x_i)\right)\bigg|\right]\tag{D-0}\label{eq:donsker0}
+	\end{align*}
+	Note that the inside is measurable, so we can use iterated expectations. Recall by the maximal inequality (Theorem~\ref{thm:vdv2.2.4}) if \(D\) is a set equipped with metric  \(d\) and  \(\mathbb{G}\) is a subgaussian process, then
+	\[
+		\E\left[\sup_{f,g\in D}\left|\mathbb{G}f-\mathbb{G}g\right|\right] \leq C \int_{0}^{\text{diam}(D)}\sqrt{\log\calN(\eps,D,d)}\;d\eps  
+	.\]
+	where subgaussian is defined as \(\P\left(\left|\mathbb{G}f-\mathbb{G}f\right|>x\right) \leq  2\exp\left(-\frac{1}{2}x^2/d^2(f,g)\right)\). Lemma~\ref{lemma:hoeffding} (Hoeffding's) gives us that the Rademachar process is subgaussian conditional on \(\{X_i\}\) for any class of functions \(\calF\) equipped with the  \(L_2(\P_n)\) norm.\footnote{Note that \[
+			\left\|\left[\frac{1}{\sqrt n}f(x_i)-\frac{1}{\sqrt n}g(x_i)\right]_{i=1}^n\right\|^2 = \frac{1}{n}\sum_{i=1}^n \left(f(x_i)-g(x_i)\right)^2 = \left\|f-g\right\|_ {L_2(\P_n)}
+	.\] } This gives us that
+	\begin{equation}
+		\label{eq:donsker1}
+		\E_\eps\left[\sup_{\rho(f,g)<\delta}\bigg|\frac{1}{\sqrt n}\sum_{i=1}^n \eps_i\left(f(x_i)-g(x_i)\right)\bigg|\right]\lesssim \int_{0}^{\text{diam}(\calF_\delta)} \sqrt{\log\calN\left(\eps,\calF_\delta,\|\cdot\|_{L_2(\P_n)}\right)}\;d\eps\tag{D-1} 
+	\end{equation}
+	where note that the diameter on the RHS is calculated with respect to \(L_2(P_n)\) not the \(\rho(f,g) = \left|f-g\right|_{L_2(P)}\) on the right hand side.\footnote{It also may be helpful to recall that \(\calF_\delta =\left\{f-g:\rho(,g)<\delta\right\}\)} 
+
+	\textit{Step 2: Make Sense of the Upper Bound.} Let \(\theta_n^2 := \text{diam}^2(\calF_\delta) = \sup_{\rho(f,g)<\delta}\frac{1}{n}\sum_{i=1}^n \left(f(x_i)-g(x_i)\right)^2\). Let \(u := \eps/\left\|F\right\|_{L^2(\P_n)}\) and rewrite the above\footnote{Going to use \(L_2(\P_n)\) or just \(\|\cdot\|_{\P_n,2}\) instead of  \(\|\cdot\|_{L_2(\P_n)}\) to save some space. Also the empirical measure is bounded and \(F\) has bounded second outer moment so we know that  \(\|F\|_{L_2(\P_2)}<\infty\) almost surely.}
+	\begin{align*}
+		\int_{0}^{\text{diam}(\calF_\delta)}\sqrt{\log\calN(\eps,\calF_\delta,L_2(\P_n))}\;d\eps 
+		&= \int_{0}^{\theta_n} \sqrt{\log\calN(\eps,\calF_\delta,L_2(\P_n))}\;d\eps\\
+		&= \|F\|_{\P_n,2} \int_{0}^{\theta_n/\left\|F\right\|_{\P_n,2}} \sqrt{\log\calN\big(u\left\|F\right\|_{\P_n},\calF_\delta,L_2(\P_n)\big)}\;du
+		\intertext{Since \(\P_n\) is a discrete probability measure}
+		&\leq \|F\|_{\P_n,2}\int_0^{\theta/\left\|F\right\|_{\P_n,2}}\sup_{\calQ}\sqrt{\log\calN\big(u\|F\|_{Q,2},\calF,\|\cdot\|_{L^2(Q)}\big)}\;du
+		\intertext{But, since \(\calF_\delta\subseteq\calF_\infty\) we get that \(\calN(\eps,\calF_\delta,L_2(Q))\leq \calN(\eps,\calF_\infty,L_2(Q))\). Also, see that \(\calN(\eps,\calF_\infty,L_2(Q))\leq \calN^2(\eps/2,\calF,L_2(Q))\). ({Why?}) In total:} 
+		\int_{0}^{\text{diam}(\calF_\delta)}\sqrt{\log\calN(\eps,\calF_\delta,L_2(\P_n))}\;d\eps &\leq \|F\|_{\P_n,2}\int_{0}^{\theta_n/\|F\|_{\cdot}}\sup_{\calQ}\sqrt{2\log\calN\big(u\|F\|_{Q,2}/2,\calF,L_2(Q)\big)}\;du \tag{D-2}\label{eq:donsker2}
+	\end{align*}
+
+	\textit{Step 3: Go Back to the Full Expectation.} Combining the inequality directly above and~\eqref{eq:donsker1} and applying to the symmetrization inequality in \eqref{eq:donsker0}, we get that 
+	\begin{align*}
+		\E\left[\sup_{\rho(f,g)<\delta}\bigg|\frac{1}{\sqrt n}\sum_{i=1}^n \eps_i\left(f(x_i)-g(x_i)\right)\bigg|\right] &\leq \E\left[ \|F\|_{\P_n,2}\int_{0}^{\theta_n/\|F\|_{\cdot}}\sup_{\calQ}\sqrt{2\log\calN\big(u\|F\|_{Q,2}/2,\calF,L_2(Q)\big)}\;du \right]
+	\end{align*}
+	Where the expectations above are with respect to \(X\). Apply Cauchy-Schwarz to upper bound the above by 
+	\begin{equation}
+		\label{eq:donsker3}
+		\tag{D-3}
+		\E_X\left[\left(\int_{0}^{\theta_n/\|F\|_{\cdot}}\sup_{\calQ}\sqrt{2\log\calN\big(u\|F\|_{Q,2}/2,\calF,L_2(Q)\big)}\;du\right)^2\right]^{1/2}\E_X\left[\|F\|_{\P_n,2}^2\right]^{1/2}
+	\end{equation}
+	Note that \(\E_X[\|F\|^2_{\P_n,2}] = \E_X[n^{-1}\sum F^2(x_i)] \leq P^\star F^2 <\infty\). What is left is to show that the expectation of the integral in ~\eqref{eq:donsker3} converges to zero provided that \(\theta_n/\|F\|_{\P_n,2}\to_{P^\star}0\).
+
+	\textit{Step 4: Figure out what is happening with \(\theta_n/\|F\|_{\P_n,2}\).} Note that \(\|F\|_{\P_n,2}\) is bounded below by \(\|F_\star\|_{\P_n,2}\) which converges almost surely to its expectation. Recall that 
+	\[\theta_n^2 = \sup_{\rho(f,g)<\delta} \frac{1}{n}\sum_{i=1}^n \left(f(x_i)-g(x_i)\right)^2 \leq \underbrace{\sup_{\rho(f,g)<\delta} \|(\P_n-P)(f-g)^2\|}_{=\|\P_n-P\|_{\calF^2_\delta}} + \underbrace{\sup_{\rho(f,g)<\delta}P(f-g)^2}_{<\delta^2}. \] 
+	Since \(\calF^2_{\delta}\subseteq\calF^2_\infty\) we want to show to show that \(\calF_\infty^2\) is Glivenko-Cantelli. Theorem~\ref{thm:vdv2.4.3} gives that is enough to show that \(\log\calN(\eps,\calF_\infty^2,L_1(\P_n)) = o_{P^\star}(n)\).\footnote{Inherits bounded envelope by triangle inequality. If \(F\) bounds  \(\calF\), then  \(4F^2\) bounds  \(\calF^2_\infty\).} For any pair of functions \(f,g\in\calF_\infty\) 
+	\[
+		\P_n|f^2-g^2| = \P_n|(f-g)(f+g)| \leq \P_n|f-g|4F \leq2\|F\|_{\P_n,2}
+	\|f-g\|_{\P_n,2}.\footnote{By Cauchy-Schwarz: \(\frac{1}{n}\sum_{i=1}^n f(x_i)g(x_i)\leq \left[\frac{1}{n}\sum_{i=1}^n f^2(x_i) \right]^{1/2}\left[\frac{1}{n}\sum_{i=1}^n g^2(x_i)\right]^{1/2}\) }\] 
+	where in the above we use that \(2F\) is an envelope for \(\calF_\infty\). This gives us that \(\calN(\eps,\calF_\infty^2,L_1(\P_n)) \leq \calN(\eps/\|2F\|_{\P_n,2}),\calF_\infty,L_2(\P_n))\). Why? Suppose we cover \(\calF^2_\infty\) with N balls of size  \(\eps\). By the inequalities above,  we can find equivalent (centered at say, \((f-g)/2\) instead of  \((f^2-g^2)/2\)) balls that will cover \(\calF_\infty^2\) with radius \(\eps/\|F\|_{\P_n,2}\) in \(L_2(\P_n)\). As argued above, we know that this is less than  \(\calN^2(\eps\big/4\|F\|_{L_2(\P_n)},\calF,L_2(\P_n))\) which we know has to be finite for any \(\eps\) in order for \eqref{eq:uniform-entropy-bound} to be satisfied. Since \(\calN(\eps,\calF_\infty,L_1(\P_n))\) is bounded by a constant, it's logarithm is surely \(o_{p^\star}(n)\). 
+
+	So, combining with the display at the beginning of this set we have that
+	\[
+		\theta_n^2 \leq \sup_{\rho(f,g)<\delta}\bigg|(\P_n-P)(f-g)^2\bigg| + \delta^2 \to_{a.s}\delta
+	.\] 
+	Together this gives us that 
+	\[
+		\frac{\theta_n}{\|F\|_{\P_n,2}} \leq \frac{\theta_n}{\|F_\star\|_{\P_n,2}} \to_{a.s}\frac{\delta}{\|F_\star\|_{P,2}} \tag{D-4}\label{eq:donsker4}
+	.\] 
+
+	\textit{Step 5: Put Together to get Asymptotic Equicontinuity.} Take \(C = (P^\star F^2)^{1/2}\) and combine the inequalities in  \eqref{eq:donsker1}, \eqref{eq:donsker2}, \eqref{eq:donsker3} with the convergence result in  \eqref{eq:donsker4}.
+	\begin{align*}
+		\lim\sup\P&\left(\sup_{\rho(f,g)<\delta}\left|\mathbb{G}_nf-\mathbb{G}_ng\right|>\eps\right) \\
+		&\leq \frac{1}{\eps}\lim\sup\E\left[ \|F\|_{\P_n,2}\int_{0}^{\theta_n/\|F\|_{\P_n,2}}\sup_{\calQ}\sqrt{2\log\calN\big(u\|F\|_{Q,2}/2,\calF,L_2(Q)\big)}\;du \right] \\
+		&\leq \frac{C}{\eps}\lim\sup\E\left[\left( \int_{0}^{\theta_n/\|F\|_{\P_n,2}} \sup_{\calQ}\sqrt{2\log\calN\big(u\|F\|_{Q,2}/2,\calF,L_2(Q)\big)}\;du\right)^2\right]^{1/2}\\
+		&\to_{a.s} \frac{C}{\eps}\int_{0}^{\delta/\|F_\star\|_{P,2}} \sup_{\calQ}\sqrt{2\log\calN\big(u\|F\|_{Q,2}/2,\calF,L_2(Q)\big)}\;du
+	\end{align*}
+	However, by the uniform entropy bound in \eqref{eq:uniform-entropy-bound} the integral up to infinity in the above display is finite so the display above converges to 0 as \(\delta\downarrow 0\). So we have verified that  \(\mathbb{G}_n\) is asymptotically equicontinuous.
+
+	\textit{Step 6: Verify that \(\calF\) is totally bounded.} Finally what remains is to show that \(\calF\) is totally bounded in  \(L_2(P)\) (Definition~\ref{def:totally-bounded}). Take a sequence of discrete measures \(\P_n\) such that  \(\left\|\P_n-P\right\|_{\calF_\infty}\) converges to 0. Since we know that \(\calF_\infty\) is Glivenko-Cantelli, this is always possible. Pick \(n\) large enough such that  \(\|\P_n-P\|_{\calF_\infty} < \delta^2\). By triangle inequality
+	\[
+		P(f-g)^2 = \P_n(f-g)^2 - (\P_n-P)(f-g)^2\leq \frac{1}{n}\sum_{i=1}^n \left(f(x_i)-g(x_i)\right)^2 + \|\P_n-P\|_{\calF_\infty} 
+	.\]
+	This implies that \(\calF\) is totally bounded under  \(L_2(P)\) since we are totally bounded under  \(L_2(\P_n)\) (Finite Envelope + Finite Measure).	
 \end{proof}
 
+\begin{example}[Cells in \(\SR\) are Donsker]
+	\label{ex:cells-donsker}
+	Let \(X\) be a scalar ans suppose that we want to show a functional CLT for
+	 \[
+		 \mathbb{G}_n(t) = \frac{1}{\sqrt n}\sum_{i=1}^n \left\{\mathds{1}[X_i\leq t]-P(X\leq t)\right\} 
+	.\]
+	Main challenge is showing the uniform entropy bound~\eqref{eq:uniform-entropy-bound}. Recall that for any \(\|\cdot\|\), \(\calN(\eps,\calF,\|\cdot\|)\leq \calN_{[\hspace{0.1em}]}(2\eps,\calF,\|\cdot\|)\). Apply the above to \(\|\cdot\|_{Q,2}\). Partition \(\SR\) into  \(-\infty=t_0<t_1<\dots<t_k= \infty\) such that \(\P(t_i\leq X\leq t_{i+1}) \leq 4\eps^2\). These cover \(\calF= \left\{f(x)=\mathds{1}\{x\leq t\}, t\in\SR \right\}\). Further
+	\[
+		\E\left[\left(\mathds{1}[X\leq t_i]-\mathds{1}[X\leq t_{i+1}]\right)^2\right]^{1/2} = \P\left(t_i\leq X\leq T_{i+1}\right)^{1/2} = 2\eps
+	.\]
+	In order to cover \(\calF\) we need  \(\lceil 1/4\eps^2\rceil \leq 2\eps^2\). This process can be done for any probability measure \(Q\) so that if \(\eps < 1\):
+	 \[
+		 \calN(\eps,\calF,L_2(Q)) \leq  \calN_{[\hspace{0.1em}]}(2\eps,\calF,L_2(Q)) \leq 2/\eps^2  \wedge 1
+	.\]
+	If \(\eps \geq 1\) only one ball is needed. Then, since \(F(x)=1\) and if  \(\eps>1\) one ball is enough (and \(\log 1 =0\)):
+	\begin{align*}
+		\int_{0}^{\infty} \sup_{\calQ} \sqrt{\log\calN(\eps\|\calF_{Q,2},\calF,L_2(Q)\|)}\;d\eps &= \int_{0}^{1} \sup_{\calQ}\sqrt{\log\calN(\eps,\calF,L_2(Q))}\;d\eps \\
+											 &\leq \int_{0}^{1} \sqrt{\log (2/\eps)}\;d\eps 
+	\end{align*}
+	This is easily Donsker by Theorem~\ref{thm:vdv2.5.2} and in fact the argument hold for cells in \(\SR^K\). 
+\end{example}
