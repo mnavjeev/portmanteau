@@ -2,6 +2,10 @@
 Andres\ Notes/
 Textbook/
 
+# Ignore Bibtex files
+*.bib
+Bitex/
+
 # Ignore Week 1 (Contained in week2.tex)
 Week\ 1/
 
@@ -34,6 +38,7 @@ Week\ 1/
 
 # Ignore vimfiles
 *.vimrc
+*.nvimrc
 
 # Ignore .DS_Store
 .DS_Store
