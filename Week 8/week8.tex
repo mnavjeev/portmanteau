@@ -1,0 +1,25 @@
+%! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
+
+We now want to show a Donsker Theorem using bracketing numbers. The proof is more involved than for the Glivenko-Cantelli Theorem (Theorem~\ref{thm:vdv2.4.1}) using bracketing numbers, so we may not get too far into it here.
+
+\begin{theorem}[Donsker Theorem for Bracketing Numbers]
+	\label{thm:donsker-bracketing}
+	Let \(\calF\) be a class of measurable functions with an envelope \(F\) such that \(P^\star F^2 < \infty\) and
+	\begin{equation}
+		\label{eq:donsker-bracketing-condition}
+		\int_{0}^{\infty} \sqrt{\log\calN_{[\hspace{0.1em}]}\left(\eps,\calF,L_2(P)\right)}\;d\eps <\infty
+	\end{equation}
+	then \(\calF\) is Donsker.
+\end{theorem}
+\begin{proof}
+	The proof of this is roughly based on the steps in Theorem 2.5.6 in VanDerVaart and Wellner. I attempt to replicate the argument below:
+
+	For each \(q\in\SN\) there is a partition \(\calF = \bigcup_{i=1}^{N_q} \calF_{qi}\) of \(\calF\) into \(N_q\) disjoint subsets such that 
+	\begin{align*}
+		\sum_{i=1}^{N_q} 2^{-N_q} \sqrt{\log N_q} &< \infty \\
+		\|\big(\sup_{f,g\in\calF_{qi}}|f-g|\big)^\star\|_{P,2} &< 2^{-n} \\
+		\sup_{f,g\in\calF_{qi}} \|f-g\|_{P,2} &< 2^{-q}
+	\end{align*}
+	To see this, cover   
+\end{proof}
+
