@@ -1,3 +1,5 @@
+%! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
+
 \subsection{Glivenko-Cantelli}%
 
 This subsection follows Section 2.4 in Van DerVaart and Wellner. Goal is to establish conditions for a uniform law of large numbers using bracketing and covering numbers.
@@ -263,7 +265,7 @@ Similarly to before define
 
 \begin{example}[Cells in \(\SR\) are Donsker]
 	\label{ex:cells-donsker}
-	Let \(X\) be a scalar ans suppose that we want to show a functional CLT for
+	Let \(X\) be a scalar and suppose that we want to show a functional CLT for
 	 \[
 		 \mathbb{G}_n(t) = \frac{1}{\sqrt n}\sum_{i=1}^n \left\{\mathds{1}[X_i\leq t]-P(X\leq t)\right\} 
 	.\]
@@ -280,5 +282,6 @@ Similarly to before define
 		\int_{0}^{\infty} \sup_{\calQ} \sqrt{\log\calN(\eps\|\calF_{Q,2},\calF,L_2(Q)\|)}\;d\eps &= \int_{0}^{1} \sup_{\calQ}\sqrt{\log\calN(\eps,\calF,L_2(Q))}\;d\eps \\
 											 &\leq \int_{0}^{1} \sqrt{\log (2/\eps)}\;d\eps 
 	\end{align*}
-	This is easily Donsker by Theorem~\ref{thm:vdv2.5.2} and in fact the argument hold for cells in \(\SR^K\). 
+	This is easily Donsker by Theorem~\ref{thm:vdv2.5.2} and in fact the argument hold for cells in \(\SR^K\). However, note that this seems like cheating a bit, since we are using the bracketing numbers to get the covering numbers.
 \end{example}
+
