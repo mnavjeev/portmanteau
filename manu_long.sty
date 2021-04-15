@@ -105,3 +105,12 @@
 
 % Set table of contents depth
 \setcounter{tocdepth}{2}
+
+% Blank Footnote Mark
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
