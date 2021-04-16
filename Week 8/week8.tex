@@ -112,4 +112,32 @@ To show this theorem we make minor use of the following related statements from 
 	.\]
 	which allows us to apply Theorem~\ref{thm:vdv1.5.6} and establish asymptotic equicontinuity. Because the envelope has finite second outer moment we can apply CLT to the marginals to get convergence to a tight distribution and apply Theorem~\ref{thm:vdv1.5.4} to get weak convergence of the whole process \(\mathbb{G}_n\).
 \end{proof}
+\begin{remark*}[Comments on Donsker Theorems]
+	Note that the integral in the bracketing Donsker Theorem above does not require taking the supremum over all finitely discrete probability measures \(Q\), instead we only deal with the underlying measure \(P\). The idea here is the bracketing gives us more control on the arguments. 
 
+	Also, note that there are no measurability concerns for the bracketing Donsker theorem. This is because we did not have to use symmetrization, instead relying on Lemma~\ref{eq:vdv2.5.5}.
+\end{remark*}
+\begin{remark*}[Summary: Glivenko-Cantelli vs. Donsker]
+	Conditions for \\
+	\underline{Glivenko-Cantelli:}	
+	\begin{itemize}
+		\item If \(\calN_{[\hspace{0.1em}]}(\eps,\calF,L_1(P))<\infty\) for every \(\eps\) then \(\calF\) is (P)-Glivenko-Cantelli.
+		\item If \(\calF\) is P-measurable with envelope \(F\) satisfying \(P^\star F <\infty\) and for every \(M,\eps > 0\) we have that \(\log\calN(\eps,\calF_M,L_1(\P_n)) = o_{p^\star}(n)\) then \(\calF\) is (P)-Glivenko-Cantelli.
+	\end{itemize}
+	\underline{Donsker:}
+	\begin{itemize}
+		\item If \(\calF\) has envelope \(F\) with \(P^\star F^2 <\infty\) and 
+			\[
+				\int_{0}^{\infty} \sqrt{\log\calN_{[\hspace{0.1em}]}(\eps,\calF,L_2(P))}\;d\eps <\infty  
+			.\] 
+			then \(\calF\) is Donsker. 
+		\item If \(\calF\) has envelop \(F\) with \(P^\star F^2 <\infty\), \(\calF_\infty^2\) and \(\calF_\delta\) are P-measurable for every \(\delta\) and the \eqref{eq:uniform-entropy-bound} is satisfied, that is 
+		\[
+			\int_{0}^{\infty} \sup_\calQ \sqrt{\log\calN(\eps\|F\|_{Q,2},\calF,L_2(Q))}\;d\eps < \infty
+		.\]
+		then \(\calF\) is Donsker.
+	\end{itemize}
+	The bracketing numbers give you pointwise control of functions between the brackets, this gives us cleaner conditions for Glivenko-Cantelli and Donsker that depend only on the true measure. The covering number proofs require symmetrization and then applying Fubini's theorem, so we need measurability assumptions. The tradeoff is that bracketing numbers are larger than covering numbers, so the conditions may be harder to satisfy.
+\end{remark*}
+
+We have now reduced the conditions that we need for uniform convergence to conditions in terms of bracketing/covering numbers. Next we will turn to verifying these conditions and applying the uniform convergence results. 
