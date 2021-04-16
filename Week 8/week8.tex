@@ -2,15 +2,23 @@
 
 We now want to show a Donsker Theorem using bracketing numbers. The proof is more involved than for the Glivenko-Cantelli Theorem (Theorem~\ref{thm:vdv2.4.1}) using bracketing numbers, so we may not get too far into it here. 
 
-To show this theorem we make minor use of the following Lemma from VdV\&W, given below
+To show this theorem we make minor use of the following related statements from VdV\&W.
 \begin{lemma}[Problem 2.5.5 VdV\&W]
 	\label{lemma:vdv2.5.5}
-	For each positive random variable \(X\) one has the following inequality
-	\begin{equation*}
-		\sup_{t>0}t\E X\mathds{1}\{X > t\} \leq  2 \|X\|_2^2 
-	\end{equation*}
+	If \(X\) is a positive random variable, \(\|X\|_2^2\leq \sup_{t>0}t\E X\mathds{1}\{X > t\} \leq  2 \|X\|_2^2\).
 \end{lemma}
 
+\begin{lemma}[Problem 2.5.6 VdV\&W]
+	\label{lemma:vdv2.5.6}
+	Any random variable \(X\) with a finite second moment satisfies \(E|X|\{X > t\}=o(t^{-1})\) as \(t\to\infty\).
+\end{lemma}
+\begin{lemma}
+	\label{eq:vdv2.5.5}
+	For a finite set \(\calF\) of cardinality \(\calF\geq 2\),
+	\[
+		\E\|\mathbb{G}_n\|_\calF \lesssim \max_f \frac{\|f\|_\infty}{\sqrt{n}}\log |\calF| + \max_f \|f\|_{P,2}\sqrt{\log|\calF|} 
+	.\] 
+\end{lemma}
 \begin{theorem}[Donsker Theorem for Bracketing Numbers]
 	\label{thm:donsker-bracketing}
 	Let \(\calF\) be a class of measurable functions with an envelope \(F\) such that \(P^\star F^2 < \infty\) and
@@ -47,7 +55,7 @@ To show this theorem we make minor use of the following Lemma from VdV\&W, given
 
 	Note that \(\pi_q f\) and \(\Delta_q f\) take on one of \(N_q\) values as \(f\) ranges through \(\calF\). In view of Theorem~\ref{thm:vdv1.5.6} it suffices to show that the sequence \(\|\mathbb{G}_n(f-\pi_{q_0}f)\|_\calF\) converges in probability to zero as \(n\to\infty\) for an arbitrary \(q_0\) and then take \(q_0 \to \infty\).
 
-	Define for each fixed \(n\) and sufficiently large \(q \geq q_0\) the following numbers and indicator functions:
+	Define for each fixed \(n\) and \(q \geq q_0\) the following numbers and indicator-type functions:
 	\begin{align*}
 		a_q &= 2^{-q}/\sqrt{\log N_{q+1}} \\
 		A_{q-1}f &= \mathds{1}\{\Delta_{q0}f \leq \sqrt n a_{q_0} \wedge \dots\wedge \Delta_{q-1}f \leq \sqrt{n} a_{q-1}\}\\
@@ -62,7 +70,7 @@ To show this theorem we make minor use of the following Lemma from VdV\&W, given
 		\tag{B-1}
 		f - \pi_{q_0}f = (f-\pi_{q_0}f)B_{q_0}f + \sum_{q= q_0+1}^\infty (f-\pi_qf)B_qf + \sum_{q=q+1}^\infty (\pi_qf-\pi_{q-1}f)A_{q-1}f  
 	\end{align}
-	Here note that we are essentially decomposing the event space into \(B_{q_0}\) and \(B_{q_0}^c = A_{q_0}\). We can think of \(B_q\) as \(f\) being ``between'' \(A_{q-1}\) and \(A_{q}\). That is, if all the conditions for \(B_q\) hold except for the last one, then \(A_{q-1}\) is equal to \(1\) and \(B_q\) is equal to zero. Conversely if \(B_q\) is equal to one, then all the conditions for \(A_q\) hold except for the last one (\(\Delta_q g \leq \sqrt{n} a_{q}\)) so \(A_q\) is equal to zero and \(B_q\) is equal to one. Equivalently \(A_{q-1} + B_q = A_q\) or \(A_q - A_{q-1} = B_q\). Combine this with the fact that sets indicated \(A_q\) are nested and telescope to get the decomposition above.  
+	Here note that we are essentially decomposing the event space into \(B_{q_0}\) and \(B_{q_0}^c = A_{q_0}\). We can think of \(B_q\) as \(f\) being ``between'' \(A_{q-1}\) and \(A_{q}\). That is, if all the conditions for \(B_q\) hold except for the last one, then \(A_{q-1}\) is equal to \(1\) and \(B_q\) is equal to zero. Conversely if \(B_q\) is equal to one, then all the conditions for \(A_q\) hold except for the last one (\(\Delta_q g \leq \sqrt{n} a_{q}\)) so \(A_q\) is equal to zero and \(B_q\) is equal to one. Equivalently \(A_{q} + B_q = A_{q-1}\) or \(A_{q-1} - A_{q} = B_q\). Combine this with the fact that sets indicated \(A_q\) are nested and telescope to get the decomposition above.  
 
 	Now we will apply the empirical process \(\mathbb{G}_n = \sqrt{n}\left(\P_n-P\right)\) to each of the terms in~\eqref{eq:decomposition} and take the suprema over \(f\in\calF\). We will show that each of the resulting 3 variables converge to zero in probability and then take \(q_0 \to \infty\).
 
@@ -70,11 +78,38 @@ To show this theorem we make minor use of the following Lemma from VdV\&W, given
 	\[
 		\E^\star\|\mathbb{G}_n(f-\pi_{q_0}f)B_{q_0}f\|_\calF \leq 4\sqrt{n}P^\star F\mathds{1}\{2F > \sqrt{n}a_{q_0}\} 
 	.\] 
-	The right hand size converges to zero as \(n\to\infty\) because \(F\) has a finite second outer moment.
+	The right hand size converges to zero as \(n\to\infty\) by Lemma~\ref{lemma:vdv2.5.6} because \(F\) has a finite second outer moment.
 
-	Second, since the partitions are nested, \(\Delta_q f B_q f \leq  \Delta_{q-1}fB_qf\) and applying Lemma~\ref{lemma:vdv2.5.5}:
+	By applying Lemma~\ref{lemma:vdv2.5.5} and noting that \(B_qf \leq \mathds{1}\{\Delta_q f > \sqrt{n}a_q\} \):
+	\[
+		\sqrt{n}a_q P\Delta_qfB_qf \leq  \sqrt{n}a_q P\Delta_qf \mathds{1}\{\Delta q f > \sqrt{n}a_q\}\leq  2\|\Delta_q f\|_2^2 \leq 2\,2^{-2q}
+	.\] 
+	Applying once that \(\Delta_{q-1}fB_qf\) is bounded by \(\sqrt{n}a_{q-1}\) for \(q > q_0\), multiplying and dividing by \(a_q\), and applying the inequality from above, we obtain the that inequality that we will need below:
+	\[
+		P\left(\Delta_qfB_qf\right)^2 \leq \sqrt{n}a_{q-1}P\Delta_qf\mathds{1}\{\Delta_qf>\sqrt{n}a_q\} \leq 2\frac{a_{q-1}}{a_q}2^{-2q} 
+	.\]
+	And now applying the triangle inequality, using that \(|ab| = \left||a|b\right|\) for \(a,b\in\SR\):
+	\begin{align*}
+		\E^\star\left\|\sum_{q=q_0+1}^\infty \mathbb{G}_n(f-\pi_q)B_qf\right\|_\calF 
+		&\leq \sum_{q=q_0+1}^\infty
+		\E^\star\left\|\mathbb{G}_n\Delta_qfB_qf\right\|_\calF\\
+		\intertext{Now applying Lemma~\ref{eq:vdv2.5.5}. Note that 1) the implicit constant in the inequality can be taken to be universal by the nesting property of the subsets, 2) that \(\Delta_qf B_qf \leq \sqrt{n}a_{q-1}\), the bounds derived above, and 3) that the supremum is taken over \(N_q\) functions at each level \(q\):}
+		&\lesssim \sum_{q=q_0+1}^\infty a_{q-1}\log N_q + 2^{-q}\sqrt{2\frac{a_{q-1}}{a_q}} \sqrt{\log{N_q}}
+		\intertext{Note that \(a_q\) is decreasing in \(q\) (as \(q\) increases the top of the fraction is getting smaller and the bottom of the fraction is getting larger) so that the quotient can be replaced by it's square. Now use the definition of \(a_q\) to  bound this sum:}
+		&\lesssim \sum_{q=q_0+1}^\infty 2^{-q}\sqrt{\log N_q}
+	\end{align*}
+	This bound is independent of \(n\) and converges to zero as \(q_0\to\infty\).
 
+	To bound the third term note that there are at most \(N_q\) functions \(\pi_q-\pi_{q-1}f\)\footnote{each \(\pi_q\) has a specific \(\pi_{q-1}\) attached to it} and at most \(N_{q-1}\) functions \(A_{q-1}f\). Since the partitions are nested (\(\calF_{qi}\subset\calF_{q-1,i}\)), the function \(|\pi_qf-\pi_{q-1}f|A_{q-1}f\) is bounded by \(\Delta_{q-1}fA_{q-1}f\leq \sqrt{n}a_{q-1}\). Also by nesting, the \(L_2(P)\) norm of \(\pi_qf-\pi_{q-1}f\) is bounded by \(2^{-(q-1)}\). Apply the inequality in Lemma~\ref{eq:vdv2.5.5} to get
+	\[
+		\E^\star\left\|\sum_{q=q_0+1}^\infty \mathbb{G}_n(\pi_q-\pi_{q-1}f)A_{q-1}f\right\|_\calF \lesssim \sum_{q=q_0+1}^\infty a_{q-1}\log N_q + 2^{-q}\sqrt{\log N_q} 
+	.\] 
+	As before, this upper bound is independent of \(n\) and converges to zero as \(q_0\to\infty\).
 
-
+	Putting this all together we get that as \(n,q_0\to\infty\) 
+	\[
+		\E^\star\sup_{f,g\in\calF}|f-g| \leq 2E^\star \|f-\pi_{q_0}f\|_\calF\longto 0
+	.\]
+	which allows us to apply Theorem~\ref{thm:vdv1.5.6} and establish asymptotic equicontinuity. Because the envelope has finite second outer moment we can apply CLT to the marginals to get convergence to a tight distribution and apply Theorem~\ref{thm:vdv1.5.4} to get weak convergence of the whole process \(\mathbb{G}_n\).
 \end{proof}
 
