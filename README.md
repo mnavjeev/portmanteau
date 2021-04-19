@@ -5,8 +5,8 @@ The main latex file is wcep.tex, subfiles are in the "Week x" folders. If you wa
 
 So far Outline is as follows:
 
-**COVERED**
-Math Review:
+**COVERED**.  
+Math Review:  
    -- Vector Spaces and Norms. 
    -- Topology and Continuity.    
    -- Probability Spaces and Outer Measure. 
