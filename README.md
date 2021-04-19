@@ -7,20 +7,20 @@ So far Outline is as follows:
 
 **COVERED**
 Math Review:
-   -- Vector Spaces and Norms\ n
-   -- Topology and Continuity
-   -- Probability Spaces and Outer Measure
-Weak Convergence:
-   -- Definition and Characterizations
-   -- Weak Convergence in the Space of Bounded Functions
+   -- Vector Spaces and Norms. 
+   -- Topology and Continuity.    
+   -- Probability Spaces and Outer Measure. 
+Weak Convergence:  
+   -- Definition and Characterizations. 
+   -- Weak Convergence in the Space of Bounded Functions.  
 Empirical Processes: 
-   -- Maximal Inequalities
-   -- Symmetrization
-   -- Glivenko-Cantelli Theorems
-   -- Donsker Theorems
+   -- Maximal Inequalities.  
+   -- Symmetrization.  
+   -- Glivenko-Cantelli Theorems.  
+   -- Donsker Theorems.  
 
-**TO BE COVERED**
-Empirical Processes
-  -- Verifying Uniform Entropy Bound
-  -- VC Dimensions 
-Delta Method and Applications to Statistics
+**TO BE COVERED**.  
+Empirical Processes:  
+  -- Verifying Uniform Entropy Bound.  
+  -- VC Dimensions.  
+Delta Method and Applications to Statistics. 
