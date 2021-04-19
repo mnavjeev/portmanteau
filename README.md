@@ -9,11 +9,11 @@ So far Outline is as follows:
 Math Review:  
    -- Vector Spaces and Norms. 
    -- Topology and Continuity.    
-   -- Probability Spaces and Outer Measure. 
-Weak Convergence:  
-   -- Definition and Characterizations. 
-   -- Weak Convergence in the Space of Bounded Functions.  
-Empirical Processes: 
+   -- Probability Spaces and Outer Measure.    
+Weak Convergence:    
+   -- Definition and Characterizations.    
+   -- Weak Convergence in the Space of Bounded Functions.     
+Empirical Processes:   
    -- Maximal Inequalities.  
    -- Symmetrization.  
    -- Glivenko-Cantelli Theorems.  
