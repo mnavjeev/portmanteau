@@ -7,7 +7,7 @@ So far Outline is as follows:
 
 **COVERED**
 Math Review:
-   -- Vector Spaces and Norms \\
+   -- Vector Spaces and Norms\ n
    -- Topology and Continuity
    -- Probability Spaces and Outer Measure
 Weak Convergence:
