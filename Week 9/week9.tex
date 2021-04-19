@@ -1,3 +1,10 @@
 %! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
 
+\subsection{Covering Numbers}%
+\label{subsec:covering}
 
+Recall that for the covering Donsker Theorem, Theorem~\ref{thm:vdv2.5.2} we require the uniform entropy bound~\eqref{eq:uniform-entropy-bound}:
+\[
+	\int_{0}^{\infty}  \sup_{Q\in\calQ} \sqrt{\log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right)}\;d\eps < \infty
+.\] 
+where the supremum under the integral is taken over the set of all finitely discrete probability measures \(\calQ\). If we can show that \(\calF\) is such that \(\sup_\calQ \log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right) \lesssim K\left(\frac{1}{\eps}^{2+\delta}\right)\) for some \(\delta > 0\) then we are ok.
