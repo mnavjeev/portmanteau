@@ -279,7 +279,7 @@ Similarly to before define
 	.\]
 	If \(\eps \geq 1\) only one ball is needed. Then, since \(F(x)=1\) and if  \(\eps>1\) one ball is enough (and \(\log 1 =0\)):
 	\begin{align*}
-		\int_{0}^{\infty} \sup_{\calQ} \sqrt{\log\calN(\eps\|\calF_{Q,2},\calF,L_2(Q)\|)}\;d\eps &= \int_{0}^{1} \sup_{\calQ}\sqrt{\log\calN(\eps,\calF,L_2(Q))}\;d\eps \\
+		\int_{0}^{\infty} \sup_{\calQ} \sqrt{\log\calN(\eps\|F\|\|_{Q,2},\calF,L_2(Q))}\;d\eps &= \int_{0}^{1} \sup_{\calQ}\sqrt{\log\calN(\eps,\calF,L_2(Q))}\;d\eps \\
 											 &\leq \int_{0}^{1} \sqrt{\log (2/\eps)}\;d\eps 
 	\end{align*}
 	This is easily Donsker by Theorem~\ref{thm:vdv2.5.2} and in fact the argument hold for cells in \(\SR^K\). However, note that this seems like cheating a bit, since we are using the bracketing numbers to get the covering numbers.
