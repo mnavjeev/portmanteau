@@ -3,10 +3,19 @@
 \subsection{Covering Numbers}%
 \label{subsec:covering}
 
-Recall that for the covering Donsker Theorem, Theorem~\ref{thm:vdv2.5.2} we require the uniform entropy bound~\eqref{eq:uniform-entropy-bound}:
+This section roughly covers section 2.6 in Van Der Vaart and Wellner.
+
+Recall that for the covering Donsker Theorem, Theorem~\ref{thm:vdv2.5.2}, we require the uniform entropy bound:
 \[
-	\int_{0}^{\infty}  \sup_{Q\in\calQ} \sqrt{\log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right)}\;d\eps < \infty
+	\int_{0}^{\infty}  \sup_{Q\in\calQ} \sqrt{\log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right)}\;d\eps < \infty\tag{UEB}\label{eq:uniform-entropy-bound-2}
 .\] 
 where the supremum under the integral is taken over the set of all finitely discrete probability measures \(\calQ\). If we can show that \(\calF\) is such that \(\sup_\calQ \log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right) \lesssim \left(\frac{1}{\eps}\right)^{2+\delta}\) for some \(\delta > 0\) then we are fine as this will integrate to a finite number.
+
+\subsubsection{VC-Classes of Sets}%
+\label{subsubsec:vc-class}
+
+A typical way to show that a class of sets \(\calF\) satisfes the \eqref{eq:uniform-entropy-bound} will be to show that it has a limited ``VC-dimension'', where ``VC'' stands for Vapnick and Cervonenkis. What does this mean?
+
+Let \(\calG\) be a collection of subsets of some set \(\calX\), that is \(\calG \subseteq 2^\calX\).
 
 
