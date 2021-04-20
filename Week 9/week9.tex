@@ -116,9 +116,11 @@ Let \(\calC\) be a collection of subsets of some set \(\calX\), that is \(\calC 
 \begin{proof}
 	The proof of this Theorem takes some 3 pages in VanDerVaart so I am leaving it for now. It can be found on pages 137-139. 
 \end{proof}
+
 \begin{remark*}
 	For practical purposes, if \(\calG\) is a VC-class with \(V(\calG) \geq 3\), then \(\sup_{Q\in\calQ}\calN(\eps,\calG,L_2(Q)) \lesssim \left(\frac{1}{\eps}\right)^{2+ \delta}\) which will mean that the \eqref{eq:uniform-entropy-bound} is satisfied. 
 \end{remark*}
+
 \begin{example*}
 	Suppose \(\calG\) is a VC-class, that is the functions \(\mathds{1}_G\) are measurable for \(G \in \calG\) and \(V(\calG) <\infty\). Since this set of indicator functions is bounded by 1, this class is clearly Donsker. In the example above, we showed that the set \(\calG = \{(a,b]: a< b, a,d \in \SR\}\) has VC-index, \(V(\calG) = 3 < \infty\). By Theorem~\ref{thm:vdv2.6.4} (and subsequently Theorem~\ref{thm:vdv2.5.2}), this is a Donsker class. That is uniformly over \(a,b\in\SR\):
 	\[
@@ -127,4 +129,31 @@ Let \(\calC\) be a collection of subsets of some set \(\calX\), that is \(\calC 
 	for some tight element \(\mathbb{G}\) on \(\ell^\infty(\calG)\).
 \end{example*}
 
+All together, this is interesting for showing that collections of indicator functions are Donsker, but what about arbitrary classes of functions?
+
+\subsubsection{VC Classes of Functions}
+
+\begin{definition}[Subgraph]
+	\label{def:subgraph}
+	The subgraph of a function \(f:\calX\to\SR\) is the subset of \(\calX\times\SR\) given by 
+	\[
+		\left\{(x,t): t< f(x)\right\}
+	.\] 
+\end{definition}
+\begin{remark*}
+	Note that the subgraph does not include the points \(\{(x,y): y=f(x)\} \)
+\end{remark*}
+\begin{figure}[htpb]
+	\centering
+	\begin{tikzpicture}
+		\draw (0,0)--(0,0) node[anchor = north east]{\((0,0)\)};
+		\draw[black,thick,->] (0,0) -- (0,5) node[anchor = north east] {\(f(x)\)};
+		\draw[black,very thick,->] (0,0) -- (8,0) node[anchor = north east] {\(x\)};
+		\draw[blue,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)}) node[anchor = south west] {\(f(x)=\sqrt{x}\)};
+		\fill[lightgray,smooth,samples=200,domain=0:7.9, variable = \x] (0,0) -- plot(\x,{sqrt(\x)}) -- (7.9,0) -- cycle; 
+		\draw[step=0.5cm,lightgray, very thin] (0,0) grid (7.9,4.9); 
+	\end{tikzpicture}
+	\caption{The subgraph of \(f: \SR^+ \to \SR^+\), \(x\mapsto \sqrt{x}\) is shaded in gray. }%
+	\label{fig:subgraph}
+\end{figure}
 
