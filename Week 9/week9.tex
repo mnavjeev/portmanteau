@@ -61,7 +61,7 @@ Let \(\calC\) be a collection of subsets of some set \(\calX\), that is \(\calC 
 
 \begin{example*}
 	\label{ex:vc-indices-2}
-	Let \(\calC_1 = \left\{(a,b]:a<b\text{ for } a,b \in \SR\right\}\). Note that this collection is larger than the collection. Now however, given a set \(\{x_1,x_2\} \) with \(x_1 < x_2\) we can pick out \(\{x_2\}\) with the set \((x_1,x_2]\in\calC_1\).
+	Let \(\calC_1 = \left\{(a,b]:a<b\text{ for } a,b \in \SR\right\}\). Note that this collection is larger than the collection from the prior example. Now however, given a set \(\{x_1,x_2\} \) with \(x_1 < x_2\) we can pick out \(\{x_2\}\) with the set \((x_1,x_2]\in\calC_1\).
 
 	However, now consider a three element subset \(\{x_1,x_2,x_3\}\). Without loss of generality suppose \(x_1 < x_2 < x_3\). We will try to pick out the set \(\{x_1,x_3\}\). Consider any set \(C\in \calC_1\) such that \(\{x_1,x_3\}\subset C \), a necessary condition for \(\{x_1,x_2\} = C \cap \{x_1,x_2,x_3\}\). The set \(C\) is of the form \((a,b]\) for some \(a < x_1\) and \(b \geq x_3\). However, this means that \(x_2 \in C\). So, we cannot pick out \(\{x_1,x_3\} \) with \(\calC_1\). 
 
@@ -146,14 +146,57 @@ All together, this is interesting for showing that collections of indicator func
 \begin{figure}[htpb]
 	\centering
 	\begin{tikzpicture}
-		\draw (0,0)--(0,0) node[anchor = north east]{\((0,0)\)};
+		\draw (0,0)--(0,0) node[anchor = north east]{\(\calO\)};
 		\draw[black,thick,->] (0,0) -- (0,5) node[anchor = north east] {\(f(x)\)};
 		\draw[black,very thick,->] (0,0) -- (8,0) node[anchor = north east] {\(x\)};
 		\draw[blue,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)}) node[anchor = south west] {\(f(x)=\sqrt{x}\)};
-		\fill[lightgray,smooth,samples=200,domain=0:7.9, variable = \x] (0,0) -- plot(\x,{sqrt(\x)}) -- (7.9,0) -- cycle; 
+		\fill[lightgray,smooth,samples=200,domain=0:7.9, variable = \x]  (0,0) --plot(\x,{sqrt(\x)})-- (7.9,0) -- cycle; 
 		\draw[step=0.5cm,lightgray, very thin] (0,0) grid (7.9,4.9); 
 	\end{tikzpicture}
 	\caption{The subgraph of \(f: \SR^+ \to \SR^+\), \(x\mapsto \sqrt{x}\) is shaded in gray. }%
 	\label{fig:subgraph}
 \end{figure}
+\begin{definition}[VC Class for Functions]
+	\label{def:vc-function-class}
+	A collection of functions \(\calF\) is called a VC-subgraph class, or just a VC-class if the collections of all subgraphs of the functions in \(\calF\) forms a VC-class of sets in \(\calX\times\SR\). Let \(V(\calF)\) be the VC-index of the set of subgraphs of functions in \(\calF\).	
+\end{definition}
+
+Just as for sets, the covering numbers of VC-classes of functions grow at a polynomial rate. 
+
+\begin{theorem}[Theorem 2.6.7 VdV\&W]
+	\label{thm:vdv2.6.7}
+	Let \(\calF\) be a VC-class of functions with measurable envelope \(F\). Then for \(r\geq 1\) and any probability measure \(Q\) with \(\|F\|_{Q,r} > 0\),
+	\begin{equation}
+		\label{eq:vc-function-covering}
+		\calN\left(\eps\|F\|_{Q,r},\calF,L_r(Q)\right) \leq KV(\calF)\left(16e\right)^{V(\calF)}\left(\frac{1}{\eps}\right)^{r(V(\calF)-1)}
+	\end{equation}
+	for a universal constant \(K\) and \(0 < \eps < 1\).
+\end{theorem}
+\begin{proof}
+	Let \(\calC\) be the set of all subgraphs \(C_f\) of functions \(F\in\calF\). That is
+	\begin{align*}
+		C_f &= \left\{(x,t): t < f(x)\right\} \\
+		\calC &= \left\{C_f: f\in\calF\right\}
+	\end{align*}
+	By Fubini's theorem, \(Q|f-g| = Q\times\lambda\left(C_f\triangle C_g\right)\) where \(A\triangle B = (A\setminus B)\cup(B\setminus A) = (A\cup B) \setminus (A\cap B)\) is the symmetric difference of two sets and \(\lambda\) is taken to be Lebesgue measure on the real line.\footnote{It is useful to recall that 
+	\begin{align*}
+		C_f \cup C_g &= \left\{(x,t): t < f(x)\text{ or }t < g(x)\right\} \\
+		C_f \cap C_g &= \left\{(x,t): t < f(x)\text{ and }t< g(x)\right\}
+	\end{align*}}
+	\begin{figure}[htpb]
+		\centering
+		\begin{tikzpicture}
+			\draw (0,0)--(0,0) node[anchor = north east]{\(\calO\)};
+			\draw[black,thick,->] (0,0) -- (0,5) node[anchor = north east] {\(f(x)\)};
+			\draw[black,very thick,->] (0,0) -- (8,0) node[anchor = north east] {\(x\)};
+			\draw[blue,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)}) node[anchor = south west] {\(f(x)=\sqrt{x}\)};
+			\fill[lightgray,smooth,samples=200,domain=0:7.9, variable = \x] (0,0) -- plot(\x,{sqrt(\x)}) -- (7.9,0) -- cycle; 
+			\fill[white,smooth,samples=200,domain=0:7.9, variable = \x] (0,0) plot(\x,{sqrt(\x)/2}) -- (7.9,0) -- cycle; 
+			\draw[red,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)/2}) node[anchor = south west] {\(g(x)=\frac{1}{2}\sqrt{x}\)};
+			\draw[step=0.5cm,lightgray, very thin] (0,0) grid (7.9,4.9); 
+		\end{tikzpicture}
+		\caption{The symmetric difference \(C_f\triangle C_g\) is shaded in gray}%
+		\label{fig:symmetric-diff}
+	\end{figure}
+\end{proof}
 
