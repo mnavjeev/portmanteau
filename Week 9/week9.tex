@@ -87,7 +87,7 @@ Let \(\calC\) be a collection of subsets of some set \(\calX\), that is \(\calC 
 		C &\text{otherwise }
 		\end{cases}
 	\]
-	The map \(T_i(x)\) is injective (one-to-one) so the collections \(\calC\) and \(T_i(\calC) = \{T_i(C), C \in\calC\} \) have the same cardinalities.\footnote{Recall that \(\Delta_n(\calC,x_1,\dots,x_n) = |\calC|\) since by assumption (without loss of generality) every \(C\in\calC\) is a subset of the given set of points. This holds as well for \(T_i(\calC)\)} Furthermore, every subset \(A\subset \{x_1,\dots,x_n\}\) that is shattered by \(T_i(\calC)\) is shattered by \(\calC\). To see this note that if \(x_i\not\in A\) then \(\{\calC\cap A\} = \{T_i(\calC) \cap A\}\). Conversely if \(x_i\in A\) and \(A\) is shattered by \(T_i(\calC)\) then for every \(B\subset A\) there is a \(C\in\calC\) with \(B \cup \{x_i\} = T_i(C)\cap A\).\footnote{This is just because \(B\cup\{X_i\}\subset A\) and \(A\) is shattered by \(T_i(\calC\)} This implies that \(x_i\in T_i(C)\) so that \(T_i(C)=C\). This in turns gives that \(C\setminus\{x_i\}\in\calC\) since otherwise \(T_i\) would not have a fixed point at \(C\). Thus both \(B\cup\{x_i\}\) and \(B\setminus\{x_i\} = (C\setminus\{x_i\}) \cap A\) are picked out by \(\calC\). One of these sets equals \(B\).
+	The map \(T_i(x)\) is injective (one-to-one) so the collections \(\calC\) and \(T_i(\calC) = \{T_i(C), C \in\calC\} \) have the same cardinalities.\footnote{Recall that \(\Delta_n(\calC,x_1,\dots,x_n) = |\calC|\) since by assumption (without loss of generality) every \(C\in\calC\) is a subset of the given set of points. This holds as well for \(T_i(\calC)\)} Furthermore, every subset \(A\subset \{x_1,\dots,x_n\}\) that is shattered by \(T_i(\calC)\) is shattered by \(\calC\). To see this note that if \(x_i\not\in A\) then \(\{\calC\cap A\} = \{T_i(\calC) \cap A\}\). Conversely if \(x_i\in A\) and \(A\) is shattered by \(T_i(\calC)\) then for every \(B\subset A\) there is a \(C\in\calC\) with \(B \cup \{x_i\} = T_i(C)\cap A\).\footnote{This is just because \(B\cup\{X_i\}\subset A\) and \(A\) is shattered by \(T_i(\calC)\)} This implies that \(x_i\in T_i(C)\) so that \(T_i(C)=C\). This in turns gives that \(C\setminus\{x_i\}\in\calC\) since otherwise \(T_i\) would not have a fixed point at \(C\). Thus both \(B\cup\{x_i\}\) and \(B\setminus\{x_i\} = (C\setminus\{x_i\}) \cap A\) are picked out by \(\calC\). One of these sets equals \(B\).
 	
 	So the assertion of the lemma is true for \(\calC\) if it is true for \(T_i(\calC)\). Furthermore the assertion of the lemma is true for \(\calC\) if it is true for \(T(\calC)\) where \(T = T_1\circ T_2 \circ \dots\circ T_n\); by repeatedly applying the argument above we have that if a set is shattered by \(T(\calC)\) it is shattered by \(\calC\). Apply \(T\) repeatedly until the collection of sets does not change anymore. This happens after at most \(\sum_{C\in\calC}|C|\) steps (finite) since \(\sum_{C\in\calC} |T_i(C)| < \sum_{C\in\calC} |C|\) whenever the collections \(T_i(\calC)\) and \(\calC\) are different\footnote{We can think of repeatedly applying \(T\) as ``pruning'' the collection \(\calC\), removing elements from sets whose subsets are not contained in \(\calC\).}.  The collection \(\calD\) obtained in this manner has the property that \(D\setminus\{x_i\}\in\calD\) for every
 	\(D\in\calD\) and every \(x_i\). So \(\calD\) is hereditary.
@@ -146,12 +146,12 @@ All together, this is interesting for showing that collections of indicator func
 \begin{figure}[htpb]
 	\centering
 	\begin{tikzpicture}
-		\draw (0,0)--(0,0) node[anchor = north east]{\(\calO\)};
-		\draw[black,thick,->] (0,0) -- (0,5) node[anchor = north east] {\(f(x)\)};
-		\draw[black,very thick,->] (0,0) -- (8,0) node[anchor = north east] {\(x\)};
-		\draw[blue,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)}) node[anchor = south west] {\(f(x)=\sqrt{x}\)};
+		\draw (0,0)--(0,0) node[anchor = north east]{\(\calO\)};	
 		\fill[lightgray,smooth,samples=200,domain=0:7.9, variable = \x]  (0,0) --plot(\x,{sqrt(\x)})-- (7.9,0) -- cycle; 
 		\draw[step=0.5cm,lightgray, very thin] (0,0) grid (7.9,4.9); 
+		\draw[black, thick,->] (0,0) -- (0,5) node[anchor = north east] {\(t\)};
+		\draw[black, thick,->] (0,0) -- (8,0) node[anchor = north east] {\(x\)};
+		\draw[blue, thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)}) node[anchor = south west] {\(f(x)=\sqrt{x}\)};
 	\end{tikzpicture}
 	\caption{The subgraph of \(f: \SR^+ \to \SR^+\), \(x\mapsto \sqrt{x}\) is shaded in gray. }%
 	\label{fig:subgraph}
@@ -178,25 +178,54 @@ Just as for sets, the covering numbers of VC-classes of functions grow at a poly
 		C_f &= \left\{(x,t): t < f(x)\right\} \\
 		\calC &= \left\{C_f: f\in\calF\right\}
 	\end{align*}
-	By Fubini's theorem, \(Q|f-g| = Q\times\lambda\left(C_f\triangle C_g\right)\) where \(A\triangle B = (A\setminus B)\cup(B\setminus A) = (A\cup B) \setminus (A\cap B)\) is the symmetric difference of two sets and \(\lambda\) is taken to be Lebesgue measure on the real line.\footnote{It is useful to recall that 
+	By Fubini's Theorem, \(Q|f-g| = \left(Q\times\lambda\right)\left(C_f\triangle C_g\right)\) where \(A\triangle B = (A\setminus B)\cup(B\setminus A) = (A\cup B) \setminus (A\cap B)\) is the symmetric difference of two sets.\footnote{It is useful to recall that 
 	\begin{align*}
 		C_f \cup C_g &= \left\{(x,t): t < f(x)\text{ or }t < g(x)\right\} \\
 		C_f \cap C_g &= \left\{(x,t): t < f(x)\text{ and }t< g(x)\right\}
-	\end{align*}}
+	\end{align*}
+	and also that \(Q\) is a probability measure over \(\calX\) whereas \(\lambda\) is a measure over \(\SR\). Both \(C_f\) and \(C_g\) are subsets of \(\calX\times\SR\).}
 	\begin{figure}[htpb]
 		\centering
 		\begin{tikzpicture}
 			\draw (0,0)--(0,0) node[anchor = north east]{\(\calO\)};
-			\draw[black,thick,->] (0,0) -- (0,5) node[anchor = north east] {\(f(x)\)};
-			\draw[black,very thick,->] (0,0) -- (8,0) node[anchor = north east] {\(x\)};
-			\draw[blue,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)}) node[anchor = south west] {\(f(x)=\sqrt{x}\)};
-			\fill[lightgray,smooth,samples=200,domain=0:7.9, variable = \x] (0,0) -- plot(\x,{sqrt(\x)}) -- (7.9,0) -- cycle; 
+			\fill[Goldenrod,smooth,samples=200,domain=0:7.9, variable = \x] (0,0) -- plot(\x,{sqrt(\x)}) -- (7.9,0) -- cycle; 
 			\fill[white,smooth,samples=200,domain=0:7.9, variable = \x] (0,0) plot(\x,{sqrt(\x)/2}) -- (7.9,0) -- cycle; 
-			\draw[red,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)/2}) node[anchor = south west] {\(g(x)=\frac{1}{2}\sqrt{x}\)};
 			\draw[step=0.5cm,lightgray, very thin] (0,0) grid (7.9,4.9); 
+			\draw[black,thick,->] (0,0) -- (0,5) node[anchor = north east] {\(t\)};
+			\draw[black,thick,->] (0,0) -- (8,0) node[anchor = north east] {\(x\)};
+			\draw[blue,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)}) node[anchor = south west] {\(f(x)=\sqrt{x}\)};
+			\draw[red,very thick,smooth,samples=300,domain=0:7.9] plot(\x,{sqrt(\x)/2}) node[anchor = south west] {\(g(x)=\frac{1}{2}\sqrt{x}\)};
 		\end{tikzpicture}
-		\caption{The symmetric difference \(C_f\triangle C_g\) is shaded in gray}%
-		\label{fig:symmetric-diff}
+		\caption{The symmetric difference \(C_f\triangle C_g\) is shaded in yellow}%
+		\label{fig:symmetric-diff}	
 	\end{figure}
+	Renormalize \(Q\times\lambda\) to a probability measure on the set \(\{(x,t): |t|\leq F(x)\}\) by defining \(P = \frac{(Q\times\lambda)}{2QF}\). Then, by the result in Theorem~\ref{thm:vdv2.6.4} we have that
+	\[
+		\calN\left(\eps(2QF), \calF, L_1(Q)\right) = \calN\left(\eps,\calC,L_1(P)\right) \leq  KV(\calF)\left(\frac{4e}{\eps}\right)^{V(\calF)-1}
+	.\]
+	By adjusting the constant \(K\) to convert \((4e)^{V(\calF)-1}\) to a \((16e)^{V(\calF)}\) this concludes the proof for \(r=1\).
+
+	For \(r > 1\) note that \(2F\) is an envelope for \(\calF_\infty\), a property that we have used before. Define \(R\) to be the probability measure with density \(F^{r-1}/QF^{r-1} \) with respect to \(Q\). That is \(R\bar f = Q\left(\bar f\frac{F^{r-1}}{QF^{r-1}}\right)\) for any function \(\bar f:\calX\to\SR\). Then:
+	\[
+		Q|f-g|^r \leq  Q|f-g|(2F)^{r-1} = 2^{r-1}R|f-g|QF^{r-1} 
+	.\]
+	Thus the \(L_r(Q)\) distance is bounded by the distance \(2(QF^{r-1})^{1/r}\|f-g\|_{R,1}^{1/r}\). This gives that 
+	\[
+		\calN\left(\eps 2\|F\|_{Q,r},\calF,L_r(Q)\right) \leq \calN\left(\eps^r \|F\|_{R,1},\calF,L_1(R)\right)
+	.\] 
+	which can be uniformly bounded by the result for \(r=1\). This gives the result after nothing that \(\frac{1}{\eps^r} = \left(\frac{1}{\eps}\right)^r\).
 \end{proof}
+If the conditions of Theorem~\ref{thm:vdv2.6.7} are satisfied with \(r \geq 2\) and \(V(\calF) > 2\) then we can bound the \eqref{eq:uniform-entropy-bound} with
+\begin{align*}
+	\int_{0}^{\infty} \sup_{Q\in\calQ} \sqrt{\log\calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right)}\;d\eps 
+	&\lesssim \int_{0}^{1} \sqrt{\log\calN\left(\eps\|F\|_{Q,2},\calF,L_1(Q)\right)}\;d\eps \\  
+	&\lesssim \int_{0}^{1} \sqrt{\log \tilde K \left(\frac{1}{\eps}\right)^{2(V(\calF)-1)}}\;d\eps < \infty 
+\end{align*}
+where the first step is using the fact that if \(\eps > 1\) we only need one ball of radius \(\eps\|F\|_{Q,2}\) to cover \(\calF\) under \(Q\)  and then noting that the covering numbers under \(L_1\) differ from the covering numbers under \(L_2\) by a bounded constant.
+
+\begin{example*}
+	Suppose \(\calF = \left\{\sum_{i=1}^n \beta_j\phi_j(x), \left(\beta_1,\dots,\beta_K\right)\in\SR^K\right\}\). Then \(V(\calF) \leq K+2\). How? 
+
+	Pick \((x_1,t_1),\dots,(x_{k+2},t_{k+2})\) distinct points in \(\calX\times\SR\).
+\end{example*}
 
