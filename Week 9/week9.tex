@@ -9,7 +9,10 @@ Recall that for the covering Donsker Theorem, Theorem~\ref{thm:vdv2.5.2}, we req
 \[
 	\int_{0}^{\infty}  \sup_{Q\in\calQ} \sqrt{\log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right)}\;d\eps < \infty\tag{UEB}\label{eq:uniform-entropy-bound-2}
 .\] 
-where the supremum under the integral is taken over the set of all finitely discrete probability measures \(\calQ\). If we can show that \(\calF\) is such that \(\sup_\calQ \log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right) \lesssim \left(\frac{1}{\eps}\right)^{2+\delta}\) for some \(\delta > 0\) then we are fine as this will integrate to a finite number.
+where the supremum under the integral is taken over the set of all finitely discrete probability measures \(\calQ\). If we can show that \(\calF\) is such that \(\sup_\calQ \log \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right) \lesssim \left(\frac{1}{\eps}\right)^{2-\delta}\) for some \(\delta > 0\) then we are fine as the square root of this will integrate to a finite number. In fact, we will often be able to verify a much stronger condition, that:
+\[
+	\sup_\calQ \calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right) \leq K\left(\frac{1}{\eps}\right)^V,\;\;0<\eps<1
+.\] 
 
 \subsubsection{VC Classes of Sets}%
 \label{subsubsec:vc-class}
@@ -110,7 +113,7 @@ Let \(\calC\) be a collection of subsets of some set \(\calX\), that is \(\calC 
 	There exists a universal constant \(K\) such that, for any VC-class \(\calC\) of sets, any probability measure \(Q\), any \(r \geq 1\) and \(0 < \eps < 1\),
 	\begin{equation}
 		\label{eq:vdv2.6.4}
-		\calN(\eps,\calC,L_r(Q)) \leq KV(\calC)(4e)^{V(\calC)}\left(\frac{1}{\eps} \right)^{rV(C)-1}
+		\calN(\eps,\calC,L_r(Q)) \leq KV(\calC)(4e)^{V(\calC)}\left(\frac{1}{\eps} \right)^{r(V(C)-1)}
 	\end{equation} 
 \end{theorem}
 \begin{proof}
@@ -118,7 +121,7 @@ Let \(\calC\) be a collection of subsets of some set \(\calX\), that is \(\calC 
 \end{proof}
 
 \begin{remark*}
-	For practical purposes, if \(\calG\) is a VC-class with \(V(\calG) \geq 3\), then \(\sup_{Q\in\calQ}\calN(\eps,\calG,L_2(Q)) \lesssim \left(\frac{1}{\eps}\right)^{2+ \delta}\) which will mean that the \eqref{eq:uniform-entropy-bound} is satisfied. 
+	For practical purposes, if \(V(\calG) < \infty\), then \(\sup_{Q\in\calQ}\log\calN(\eps,\calG,L_2(Q)) \lesssim \log\left(\frac{1}{\eps}\right)\) which will mean that the \eqref{eq:uniform-entropy-bound} is satisfied. 
 \end{remark*}
 
 \begin{example*}
@@ -215,7 +218,7 @@ Just as for sets, the covering numbers of VC-classes of functions grow at a poly
 	.\] 
 	which can be uniformly bounded by the result for \(r=1\). This gives the result after nothing that \(\frac{1}{\eps^r} = \left(\frac{1}{\eps}\right)^r\).
 \end{proof}
-If the conditions of Theorem~\ref{thm:vdv2.6.7} are satisfied with \(r \geq 2\) and \(V(\calF) > 2\) then we can bound the \eqref{eq:uniform-entropy-bound} with
+If the conditions of Theorem~\ref{thm:vdv2.6.7} are satisfied with \(V(\calF) < \infty\) then we can bound the \eqref{eq:uniform-entropy-bound} with
 \begin{align*}
 	\int_{0}^{\infty} \sup_{Q\in\calQ} \sqrt{\log\calN\left(\eps\|F\|_{Q,2},\calF,L_2(Q)\right)}\;d\eps 
 	&\lesssim \int_{0}^{1} \sqrt{\log\calN\left(\eps\|F\|_{Q,2},\calF,L_1(Q)\right)}\;d\eps \\  
@@ -224,8 +227,50 @@ If the conditions of Theorem~\ref{thm:vdv2.6.7} are satisfied with \(r \geq 2\) 
 where the first step is using the fact that if \(\eps > 1\) we only need one ball of radius \(\eps\|F\|_{Q,2}\) to cover \(\calF\) under \(Q\)  and then noting that the covering numbers under \(L_1\) differ from the covering numbers under \(L_2\) by a bounded constant.
 
 \begin{example*}
-	Suppose \(\calF = \left\{\sum_{i=1}^n \beta_j\phi_j(x), \left(\beta_1,\dots,\beta_K\right)\in\SR^K\right\}\). Then \(V(\calF) \leq K+2\). How? 
+	Suppose \(\calF = \left\{\sum_{j=1}^K \beta_j\phi_j(x), \left(\beta_1,\dots,\beta_K\right)\in\SR^K\right\}\). Then \(V(\calF) \leq K+2\). How? Recall that we are considering the VC-index of the collection
+	\[
+	\calC = \left\{\left\{(x,t): t \leq \beta'\phi(x)\right\}: \beta\in\SR^K\right\} \subseteq 2^{\calX\times\SR} 
+	.\]
+	Pick \((x_1,t_1),\dots,(x_{k+2},t_{k+2})\) distinct points in \(\calX\times\SR\). Then for any \(f\in\calF\):
+	\[
+		\begin{bmatrix} f\left(x_1\right) \\ \vdots \\ f\left(x_{n+2}\right) \end{bmatrix}  = 
+		\beta_1 \begin{bmatrix} \phi_1\left(x_1\right) \\ \vdots \\ \phi_1\left(x_{n+2}\right) \end{bmatrix} + \dots + 
+		\beta_K \begin{bmatrix} \phi_K\left(x_1\right) \\ \vdots \\ \phi_K\left(x_{n+2}\right) \end{bmatrix} 
+	.\]
+	so \(\left(f(x_1),\dots,f(x_K)\right)\) is in a subspace of \(\SR^{K+2}\) of dimension \(K\) for any \(f\in\calF\). Similarly, we can show that \(f(x) - t\) is in a subspace of dimension \(K+1\) for any fixed \(f\in\calF\) and \(t_1,\dots,t_{K+2}\).
 
-	Pick \((x_1,t_1),\dots,(x_{k+2},t_{k+2})\) distinct points in \(\calX\times\SR\).
+	To show that \(V(\calF) \leq K+2\) we want to show that \(\left\{\left(x_1,t_1\right),\dots,\left(x_{K+2},t_{K+2}\right)\right\}\) cannot be shattered by subgraphs of \(\calF\). That is we want a subset \(A\subseteq \left\{\left(x_1,t_1\right),\dots,(x_{K+2},t_{K+2}\right\}\) such that \(\not\exists f \in \calF\) with
+	\[
+		A = \left\{\left(x_1,t_1\right),\dots,(x_{K+2},t_{K+2})\right\} \cap \left\{(x,t):t<f(x)\right\} 
+	.\]
+	Since for any fixed \(f\in\calF, t_1,\dots,t_{K+2}\), \(f(x_1)-t_1,\dots,f(x_{K+2})-t_{K+2})\) is in a subspace of dimension \(K+1\) of \(\SR^{K+2}\) for any \(x_1,\dots,x_{K+2}\), there exists a vector \(a\neq 0\) orthogonal to this subspace such that
+	\[
+		\sum_{j=1}^{K+2} a_j(f(x_j)-t_j) = 0 \implies \sum_{a_j > 0} a_j\left(f(x_j)-t_j\right) = \sum_{a_j \leq 0} (-a_j)(f(x_j)-t_j)
+	.\]
+	Pick the indices corresponding to the positive \(a_j > 0\) values (the indices on the LHS after the implication) and consider \(A = \{(x_j,t_j):a_j>0\}\). Since \(a\neq 0\) we know this set is non-empty. If \(A =\{(x_1,t_1),\dots,(x_{K+2},t_{K+@})\}  \cap \{(x,t):t<f(x)\}\) for some \(f\in\calF\) then
+	\[
+		\sum_{a_j > 0} a_i(f(x_j) - t_j) > 0 \geq \sum_{a_j\leq 0} (-a_j)(f(x_j)-t_j)
+	.\] 
+	which is a contradiction as these two are equal as demonstrated above. Thus \(V(\calF)\leq K+2\). However, notice that unless the functions \(\phi_j(x)\) are all uniformly equal to 0, the class \(\calF\) does not have an envelope with \(P^\star F <\infty\), so it is neither Glivenko-Cantelli nor Donsker unless we restrict the parameter space (the range of \(\beta_1,\dots,\beta_K\)). It is useful to consider the following sanity check: 
+	\[
+		\sup_{\beta_1,\dots,\beta_K} \left|\frac{1}{n}\sum_{i=1}^n\left(\beta_1\phi_1(x_i) + \dots+\beta_k\phi_K(x_i)\right) - \E[\dots]  \right| = \infty
+	.\]  
+	This example can be generalized and outlines the proof for the next lemma
 \end{example*}
+\begin{lemma}[VC Dimension of Finite Dimensional Vector Spaces]
+	\label{lemma:vdv2.6.15}
+	Any finite dimensional vector space \(\calF\) of measurable functions \(f:\calX\to\SR\) is a VC function class with \(V(\calF)\leq \text{dim}(\calF)+2\).	
+\end{lemma}
+\begin{proof}
+	Follows the example above. Can also be found as Lemma 2.6.16 in VanDerVaart and Wellner.
+\end{proof}
+Another examples of a VC function class is given below:
+\begin{lemma}[VC Dimension of Translates]
+	\label{lemma:vdv2.6.16}
+	Let \(\psi:\SR\to\SR\) be a monotonic function and let \(\calF\) be the set of all translates of \(\psi\), \(\calF = \left\{\psi(x-h):h\in\SR\right\}\). Then \(V(\calF)=2\).
+\end{lemma}
+\begin{proof}
+	This follows similarly from the example above where we considered the VC-dimension of \(\calC = \left\{(-\infty,b):a<b\right\}\). Without loss of generality suppose that \(\psi\) is decreasing and denote \(\psi_h = \psi(x-h)\). The subgraphs of \(\psi_h\) are nested in that if \(h > h'\), \(C_{h'} \subseteq C_{h}\) since if \(t < \psi_{h'}(x)\) then \(t < \psi_h(x)\). Take any two element subset of \(\SR\times\SR\): \(\{(x_1,t_1),(x_2,t_2)\}\). By considering the single element subsets of this set we see that we cannot shatter this set without breaking the nesting of the subgraphs so \(V(\calF)=2\). 
+\end{proof}
+
 
