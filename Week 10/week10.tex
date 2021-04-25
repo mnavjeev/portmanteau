@@ -1,4 +1,71 @@
+%! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
+
 \subsection{Bracketing Numbers}%
 \label{subsec:bracketing}
+
+This discussion roughly follows Van Der Vaart and Wellner Chapter 2.7. Results on bracketing numbers rely on approximation theory.
+
+\begin{definition}[Differential Operator]
+	\label{def:differential}
+	For a vector \(K = (K_1,\dots,K_d) \in \SN^d\) let \(|K| = \sum_{j=1}^d K_j\). For any \(|K|\) times differentiable function \(f:\calX\to\SR\) define
+	\[
+		D^Kf(x) = \frac{\partial^{|K|}}{\partial x_1^{K_1}\partial x_2^{K_2}\cdots\partial x_d^{K_d}} f(x)
+	.\] 
+\end{definition}
+\begin{definition}[Differential Norm]
+	\label{def:differntial-norm}
+	For any \(\alpha > 0\) let \(\underline{\alpha} = 1 \vee \lfloor \alpha \rfloor\), the smallest positive integer less than \(\alpha\). Then, for a function \(f:\calX\to\SR\) let 
+	\[
+		\|f\|_\alpha = \max_{|k|\leq \underline{\alpha}}\sup_x \left|D^{|K|}f(x)\right|  + \max_{|K|=\underline{\alpha}}\sup_{x,y\in\calX^{\circ}} \frac{\left|D^Kf(x)-D^Kf(y)\right|}{\|x-y\|^{\alpha - \underline{\alpha}} }  
+	.\]
+	Let \(C_M^\alpha(\calX)\) be the set of all continuous function \(f:\calX\to\SR\) with \(\|f\|_\alpha \leq M\).
+\end{definition}
+\begin{example*}[Differential Norm]
+	Let \(\calX=\SR\). Then, \(\|f\|_2 \leq  M\) means that
+	\begin{itemize}
+		\item (Bounded Function): \(\sup_\calX \left|f(x)\right| \leq  M\)
+		\item (Bounded Derivative): \(\sup_\calX \left|f'(x)\right| \leq M\)
+		\item (Lipschitz Condition): \(|f'(x)-f'(y)| \leq |x-y|M\)
+	\end{itemize} 
+\end{example*} 
+
+\begin{example*}[Differential Norm]
+	Let \(\calX=\SR\). Then, \(\|f\|_{0.5} \leq  M\) means that
+	\begin{itemize}
+		\item (Bounded Function): \(\sup_\calX \left|f(x)\right|\leq M\)
+		\item (Hölder Condition): \(\left|f(x)-f(y)\right|\leq \sqrt{|x-y|} \)
+	\end{itemize}
+\end{example*}
+
+\begin{theorem}[Theorem 2.7.1 VdV\&W]
+	\label{thm:vdv2.7.1}
+	Let \(\calX\) be a bounded, convex subset of \(\SR^d\) with nonempty interior. Then, there exists a constant \(K\) depending only on \(\alpha\) and \(d\) such that 
+	\[
+		\log \calN\left(\eps,C_1^\alpha(\calX),\|\cdot\|_\infty\right) \leq K\lambda(\calX^1)\left(\frac{1}{\eps}\right)^{d/\alpha}
+	,\] 
+	where \(\lambda\) denotes Lebesgue measure and \(\calX^1 = \{x:d(x,\calX)<1\}\).
+\end{theorem}
+\begin{corollary}[Bracketing Numbers for \(\alpha\)-smooth Functions]
+    \label{corr:bracketing-alpha}
+	Let \(\calX\) be a bounded, convex subset of \(\SR^d\) with nonempty interior. There exists a constant \(K\) depending only on \(\alpha,\text{diam}(\calX)\) and \(d\) such that 
+	\[
+		\log \calN_{[\hspace{0.1em}]}\left(\eps,C_1^\alpha(\calX),L_r(Q)\right) \leq K\left(\frac{1}{\eps}\right)^{d/\alpha}
+	.\] 
+\end{corollary}
+\begin{proof}
+	Recall that \(\calN(\eps,\calF,\|\cdot\|_\infty = \calN_{[\hspace{0.1em}]}(2\eps,\calF,\|\cdot\|_\infty)\) and apply Theorem~\ref{thm:vdv2.7.1}.
+\end{proof}
+\begin{remark*}[Relaxing the Bound in \(C_1^\alpha\)]
+	Suppose we want to apply the results of Corollary~\ref{corr:bracketing-alpha} but to the slightly larger set \(C_M^\alpha(\calX)\). Pick an \(\eps,\|\cdot\|_\infty\) ball cover of \(C_1^\alpha(\calX)\) with centers at \(g_1,\dots,g_k\) and consider \(Mg_1,\dots,Mg_k \in C_M^\alpha(\calX)\). For every \(f\in C_M^\alpha(\calX)\), \(\|f-Mg_i\|_\infty = M\|f/M-g_i\| <\eps M\) for some \(1\leq i\leq k\) so \(Mg_1,\dots,Mg_k\) is an \(\eps M\) cover of \(C_M^\alpha(\calX)\). Applying Corollary~\ref{corr:bracketing-alpha} gives
+	\begin{align*}
+		\log\calN\left(\eps,C_M^\alpha(\calX),\|\cdot\|_\infty\right) 
+		&\leq \log\calN\left(\eps/M,C_1^\alpha(\calX),\|\cdot\|_\infty\right) \\
+		&\lesssim \left(\frac{1}{\eps/M}\right)^{d/\alpha} \lesssim \left(\frac{1}{\eps}\right)^{d/\alpha}
+	\end{align*}
+\end{remark*}
+\begin{example*}[Glivenko-Cantelli]
+	To apply 
+\end{example*}
+
 
 
