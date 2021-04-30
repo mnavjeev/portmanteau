@@ -53,7 +53,7 @@ This discussion roughly follows Van Der Vaart and Wellner Chapter 2.7. Results o
 	.\] 
 \end{corollary}
 \begin{proof}
-	Recall that \(\calN(\eps,\calF,\|\cdot\|_\infty = \calN_{[\hspace{0.1em}]}(2\eps,\calF,\|\cdot\|_\infty)\) and apply Theorem~\ref{thm:vdv2.7.1}.
+	Let \(f_1,\dots,f_p\) be the centers of \(\|\cdot\|_\infty\) balls of radius \(\eps\) that cover \(C_1^\alpha(\calX)\). The brackets \([f_i-\eps,f_i+\eps]\) cover \(C_1^\alpha\). Each bracket has \(L_r(Q)\) size at most \(2\eps\), for any \(r\). Apply Theorem~\ref{thm:vdv2.7.1}.	
 \end{proof}
 \begin{remark*}[Relaxing the Bound in \(C_1^\alpha\)]
 	Suppose we want to apply the results of Corollary~\ref{corr:bracketing-alpha} but to the slightly larger set \(C_M^\alpha(\calX)\). Pick an \(\eps,\|\cdot\|_\infty\) ball cover of \(C_1^\alpha(\calX)\) with centers at \(g_1,\dots,g_k\) and consider \(Mg_1,\dots,Mg_k \in C_M^\alpha(\calX)\). For every \(f\in C_M^\alpha(\calX)\), \(\|f-Mg_i\|_\infty = M\|f/M-g_i\| <\eps M\) for some \(1\leq i\leq k\) so \(Mg_1,\dots,Mg_k\) is an \(\eps M\) cover of \(C_M^\alpha(\calX)\). Applying Corollary~\ref{corr:bracketing-alpha} gives
@@ -64,8 +64,201 @@ This discussion roughly follows Van Der Vaart and Wellner Chapter 2.7. Results o
 	\end{align*}
 \end{remark*}
 \begin{example*}[Glivenko-Cantelli]
-	To apply 
+	To apply the bracketing Glivenko-Cantelli Theorem, Theorem~\ref{thm:vdv2.4.1}, we require that \(\calN_{[\hspace{0.1em}]}(\eps, \calF, L_1(P))<\infty\) for all \(\eps > 0\). Hence for \(\calF = C_M^\alpha(\calX) = \left\{f:\calX\to\SR:\|f\|_\alpha\leq M, \alpha > 0\right\}\) and \(\calX\) bounded and convex, by Corollary~\ref{corr:bracketing-alpha} that this is finite for any \(\eps > 0\).
 \end{example*}
+\begin{example*}[Donsker]
+	For the bracketing Donsker Theorem, Theorem~\ref{thm:donsker-bracketing}, we required that
+	\[
+		\int_{0}^{\infty} \sqrt{\log\calN_{[\hspace{0.1em}]}(\eps,\calF,L_2(P))}\;d\eps < \infty 
+	.\] 
+	Let \(\calX\) be a bounded, convex subset of \(\SR^d\) and consider \(C_m^\alpha(\calX)\). Then by Corollary~\ref{corr:bracketing-alpha}:
+	\begin{align*}
+		\int_{0}^{\infty} \sqrt{\log\calN_{[\hspace{0.1em}]}(\eps,C_m^\alpha(\calX), L_2(P))}\;d\eps 
+		&= \int_{0}^{2M} \sqrt{\log\calN_{[\hspace{0.1em}]}(\eps,C_M^\alpha(\calX),L_2(P))}\;d\eps \\
+		&\lesssim \int_{0}^{2M} \left(\frac{1}{\eps}\right)^{\frac{d}{2\alpha}} 
+	\end{align*}
+	So long as \(\frac{d}{2\alpha} < 1\) or (equivalently) \(d < 2\alpha\), this will be finite and the class will be Donsker. If \(d=1\) then this holds for \(\alpha > 1/2\) so the set of all bounded Lipschitz function is Donsker. If \(d=2\) then this holds for \(\alpha > 1\) so the set of all level functions with bounded derivatives and Lipschitz first order derivatives is bounded. In general in higher dimensions we need to add smoothness.
+\end{example*}
+\begin{theorem}[Monotone Donsker Class]
+	\label{thm:monotone-donsker}
+	The class \(\calF^{\text{\tiny m}}\) of monotone functions \(f:\SR\to[0,1]\) satisfies for every \(r\geq 1\):
+	\[
+		\log\calN_{[\hspace{0.1em}]}(\eps,\calF,L_r(Q)) \leq K\left(\frac{1}{\eps}\right)
+	.\] 
+	For a constant \(K\) depending only on \(r\) and every \(Q\).
+\end{theorem}
+\begin{remark*}
+	The above gives us that the class of monotone functions into \([0,1]\) is Glivenko-Cantelli and Donsker. This gives us another way of showing that the empirical CDF is Donsker as we can take 
+	\[
+	    \calF^{\text{\tiny ind}} = \left\{ \mathds{1}[x \leq b]: b\in\SR \right\}
+	.\]
+	Since \(\calF^{\text{\tiny ind}} \subset \calF^m\), \(\calF^{\text{\tiny ind}}\) is Donsker by Theorem~\ref{thm:monotone-donsker}.
+\end{remark*}
+We now turn to some examples to demonstrate the usefulness of the above results and demonstrate some other useful relationships.
+\begin{example*}[Classes of Differences]
+	Let \(\calG = \left\{f-g: f,g \in\calF\right\}\). How do we find \(\calN(\eps, \calG,\|\cdot\|)\)?\footnote{Recall that we used an argument of this nature in the proof of Theorem~\ref{thm:vdv2.5.2}.} Let \(f_1,\dots,f_k\) be a minimal set of \(\eps/2\) balls in \(\|\cdot\|\) that cover \(\calF\).\footnote{That is take \(k = \calN(\eps/2,\calF,\|\cdot\|)\)}. Form the functions
+	\[
+		\left.\begin{array}{cccc}
+		f_1 - f_1 & f_2 - f_1 & \cdots & f_k - f_1 \\
+		f_1 - f_2 & f_2 - f_2 & \cdots & f_k - f_2 \\ 
+		\vdots & \ddots & \ddots & \vdots \\
+		f_1 - f_K & f_2 - f_k & \cdots & f_k - f_k
+		\end{array} \right\}\parbox{6em}{\centering Label these \\ \(g_1,\dots,g_{k^2}\)}
+	\]
+	Then \(g_1,\dots, g_{k^2}\) is an \(\eps\)-cover for \(\calG\). If \(\phi = f-g\in\calG\) then there is a \(g_\ell\) function in \(\{g_1,..,g_{k^2}\}\) such that
+	\begin{align*}
+		\|\phi-g_\ell\| = \|f-g - (f_i - f_j)\| \leq \|f-f_i\| + \|g-f_j\| < \eps	
+	\end{align*}
+	So that \(\calN(\eps,\calG,\|\cdot\|) \leq  \calN^2(\eps/2,\calF,\|\cdot\|)\).
+\end{example*}
+\begin{example*}[Power Rules]
+	Recall the definition of \(\|f\|_\alpha\) (Definition~\ref{def:differntial-norm}). Suppose we are interested in \(\calF = \{f^2: \|f\|_\alpha \leq M\}\). If \(g_1,g_2\in\calF\) then \(g_1=f_1^2\) and \(g_2 = f_2^2\) for \(\|f_1\|_\alpha \leq M\) and \(\|f_2\|_\alpha \leq M\). Then
+	\begin{align*}
+		\|g_1-g_2\|_\infty = \|f_1^2-f_2^2\|_\infty = \|(f_1-f_2)(f_1+f_2)\|_\infty 	\leq \|f_1-f_2\|_\infty \|f_1 + f_2\|_\infty \leq  2M\|f_1-f_2\|_\infty
+	\end{align*}
+	Therefore, if \(g_1,\dots,g_K^2\) provide an \(\eps/2M\) cover of \(C_M^\alpha\) under \(\|\cdot\|_\infty\), then \(g_1,\dots,g_K^2\) provide an \(\eps\) cover of \(\calF\). This argument was also used in the proof of Theorem~\ref{thm:vdv2.5.2}. 
+\end{example*}
+\begin{remark*}
+	In the above example it is important that the functions are bounded. Otherwise, we may run into trouble when showing Donsker properties as the fourth moment of the envelope may not be finite, even if the second moment is. 
+\end{remark*}
+An example of when we are all ok is when the functions are Lipschitz. 
+\begin{theorem}[Lipschitz Combination of Donsker Classes]
+	\label{thm:lipschitz-donsker}
+	Let \(\calF_1,\dots,\calF_k\) be Donsker classes with envelopes \(F_1,\dots,F_k\) and \(\varphi:\SR^K\to\SR\) a Lipschitz function, i.e \(\varphi\) is such that 
+	\[
+		\left|\varphi(x_1,\dots,x_k) - \varphi(y_1,\dots,y_k)\right| \lesssim \|x-y\|^2 
+	.\]
+	Then if \(\E\left[\phi^2(F_1(x),\dots,F_k(x))\right] < \infty\), the class 
+	\[
+		\calG = \left\{\phi(f_1,\dots,f_k): f_i\in\calF_i\right\}
+	.\]
+	is Donsker.
+\end{theorem}
+\begin{example*}[Specification Testing]
+	Suppose we estimate the model
+	\[
+		Y = f(X,\theta) + \eps\hbox{ }\text{ with }\hbox{ }\E[\eps|X]=0
+	.\]
+	But, after we estimate the model, we want to test whether the model is correctly specified. That is we want to test
+	\begin{align*}
+		\centering
+		H_0&: \Pr\left(\E[Y|X=x] = f(x,\theta)\right) = 1,\text{ for some \(\theta\in\Theta\)} \\
+		H_1&: \Pr\left(\E[Y|X=x] = f(x,\theta)\right) < 1,\text{ for all } \theta\in\Theta
+	\end{align*}
+	\textit{First Approach: }If \(f(x,\theta_0) = \E[Y|X=x]\), then \(\E\left[(Y-f(X,\theta_0)\varphi(X)\right] = 0\) for all (integrable) \(\varphi(X)\). A first guess at a test would be to pick a set of functions \(\varphi_1,\dots,\varphi_k\) and test \(\E[(Y_i-f(X,\theta_0))\varphi_j(X)] = 0\) for all \(j\). A feasible way of doing so would be to stack \(\varphi= (\varphi_1,\dots,\varphi_k)'\) and use the test statistic
+	\[
+		F = \left(\mathbb{G}_n(Y_i-f(X_i,\hat\theta)\varphi(X_i)\right)'W\mathbb{G}_n(Y_i-f(X_i,\hat\theta)\varphi(X_i)
+	.\] 
+	For an appropriate choice of \(W\), \(F\) will be distributed \(\chi^2_k\) under the null hypothesis. The problem is that this test does not exhaust all the moment restrictions and so will not in general be consistent. 
 
+	\textit{Second Approach: } Insight from Bierens: How do we use an infinite number of moments?
+	\begin{lemma}[Bierens 1990]
+		\label{lemma:bierens-1990}
+		Let \(V\) be a random scalar with \(\E[|V|]<\infty\) and \(X\) be a bounded random vector in \(\SR^K\) such that \(\Pr(\E[V|X]=0)<1\). Then \[\calS = \left\{t\in\SR^K: \E\left[ve^{t'X}=0\right]\right\}\] is a set of Lebesgue measure zero.\footnote{This results is generalized in Stinchcombe and White (1998)}
+	\end{lemma}
+	What does this mean? If \(\E[Y|X=x]=f(x,\theta_0)\) then \(\E[(Y-f(X,\theta_0)e^{t'X}]=0\) for (almost) all \(t\in T\), which is some appropriately chosen compact set with positive Lebesgue measure. On the other hand, if \(\E[Y|X]\neq f(x,\theta_0)\) then \(\E[(Y-f(X,\theta_0)e^{t'X}]\neq0\) for ``most'' \(t\in T\).
 
+	The goal will be to build a test statistic based on this observation. The requirement that \(X\) is bounded is not restrictive as \(\E[V|X] = \E[V|\tanh(X)]\).  
 
+	\underline{Test Statistic:} Is \(\E[(Y-f(X,\theta_0)\exp(t'X)]=0\) for all \(t \in T\)? Take 
+	\[
+		T_n = \max_T \left|\mathbb{G}_n(Y-f(X_i,\hat\theta))e^{t'X_i}\right|
+	.\]
+	Under the null hypothesis \(T_n\) should be well behaved whereas under the alternative it may diverge. Analysis is in a few steps. 
+	
+	\underline{Step 1:} Deal with the difference between \(\hat\theta\) and \(\theta_0\). 
+
+	Suppose we estimate \(\hat\theta\) via nonlinear least squares. That is 
+	\[
+		\hat\theta = \arg\min_\Theta \frac{1}{n}\sum_{i=1}^n \left(y_i - f(x_i,\theta)\right)^2
+	.\] 
+	Using the first order condition and a (first order) Taylor expansion we see that 
+	\[
+		\sqrt{n}\left(\hat\theta-\theta_0\right) = \left[\P_n\frac{\partial f(X_i,\hat\theta)}{\partial \theta}\frac{\partial f(X_i,\bar\theta)}{\partial \theta'}\right]^{-1}\mathbb{G}_n \frac{\partial f(X_i,\hat\theta)}{\partial \theta}(Y_i-f(X_i,\theta_0))
+	.\]
+	Taking \(A =  \E\left[\frac{\partial f(X_i,\hat\theta)}{\partial \theta}\frac{\partial f(X_i,\bar\theta)}{\partial \theta'}\right]\) allows us to rewrite the above as 
+	\begin{equation}
+		\label{eq:specification-taylor}
+		\sqrt{n}(\hat\theta-\theta_0) = A^{-1}\mathbb{G}_n \frac{\partial f(X_i,\theta_0)}{\partial \theta}(Y_i-f(X_i,\theta_0)) + o_p(1)\tag{S1}
+	\end{equation}
+	where we note that there is a uniform consideration being hidden here in dealing with \(\bar\theta\) and we are assuming that \(\hat\theta\) is consistent (minor).
+
+	\underline{Step 2:} Study the process indexed by \(t\).
+	\[
+		\mathbb{G}_n (Y_i - f(X_i,\hat\theta))e^{t'X_i} = \underbrace{\mathbb{G}_n (Y_i - f(X_i,\theta_0))e^{t'X_i}}_{A} + \underbrace{\mathbb{G}_n(f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i}}_{B}
+	.\]
+	The first term on the right hand side here looks manageable, but what about the second? We will apply the delta method. To do so note that by first order Taylor expansion in \eqref{eq:specification-taylor}:
+	\[
+		\left(\P_n\frac{\partial f(x_i,\bar\theta)}{\partial \theta}e^{t'x_i}\right)\sqrt{n}(\theta_0-\hat\theta) \approx  \left(\P_n\frac{\partial f(X_i,\bar\theta)}{\partial \theta}(Y_i-f(X_i,\theta_0))\right)'A^{-1}\mathbb{G}_n\frac{\partial f(X_i,\theta_0)}{\partial \theta}(Y_i-f(X_i,\theta_0))
+	.\]
+	If we have 
+	\[
+		\sup_{t\in T,\theta\in\Theta} \bigg|\P_n \frac{\partial  f(X_i,\theta)}{\partial \theta}e^{t'X_i} - \underbrace{\E\frac{\partial  f(X_i,\theta)}{\partial \theta}e^{t'X_i}}_{:=b(t,\theta)}\bigg| = o_p(1)
+	.\]
+	and an appropriate continuity condition, then:
+	\[
+		\mathbb{G}_n(f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i} = \frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\mathbb{G}_n\frac{\partial f(X_i,\theta_0)}{\partial \theta}(f(X_i,\theta_0)-Y_i) + o_p(1)
+	.\] 
+	where the \(o_p(1)\) is uniform in \(t\), i.e.
+	\[
+		\sup_T \left|\mathbb{G}_n (f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i} - \frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\mathbb{G}_n\frac{\partial f(X_i,\theta_0)}{\partial \theta}\right| = o_p(1)
+	.\]
+	Then, putting \(A+B\) together, we have that 
+	\[
+		\mathbb{G}_n(Y_i-f(X_i,\hat\theta)e^{t'X_i} = \mathbb{G}_n (Y_i - f(X_i,\hat\theta))\left[e^{t'X_i}-\frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\frac{\partial f(X_i,\theta_0)}{\partial \theta_0}\right] + o_p(1)\tag{S2}
+	.\]
+
+	\underline{Step 3:} Find the limiting distribution in \(L_\infty(T)\): 
+	Let 
+	\[
+		\calF = \left\{(y-f(x,\theta_0)\left[e^{t'x}-\frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\frac{\partial f(x,\theta_0)}{\partial \theta}\right]: t\in T\right\}
+	.\] 
+	we want to show that \(\calF\) is Donsker. Let \(f = f_t, \tilde f = f_{\tilde t}\) for \(t,\tilde t \in T\) and \(f,\tilde f \in\calF\). Then
+	\begin{align*}
+		|f(x) - \tilde f(x)| 
+		&\leq |y-f(x,\theta_0)||e^{t'x}-e^{\tilde t'x}| + |y-f(x,\theta_0|\|A^{-1}\frac{\partial f(x,\theta_0)}{\partial \theta}\|	\|b(t,\theta_0)-b(\tilde t,\theta_0)\| \\
+		&\leq |y-f(x,\theta_0)|e^{\bar t' x}|x'(t-\tilde t)| + |y-f(x,\theta_0)| \|A^{-1}\frac{\partial f(x,\theta_0)}{\partial \theta}\|\|\E\frac{\partial f(x_i,\theta_0)}{\partial \theta}(e^{t'x}-e^{\tilde t'x})\|\\
+		&\lesssim |y-f(x,\theta_0)|\|t-\tilde t\| + |y-f(x,\theta_0)|\|\E|\frac{\partial f(x_i,\theta_0)}{\partial \theta_0}|\|\|t-\tilde t\| \\
+		&\lesssim \underbrace{|y-f(x,\theta_0)|\left[1+ \left\|\E\left|\frac{\partial f(x_i,\theta}{\partial \theta}\right|\right\|\right]}_{F(x,y)}\|t-\tilde t\|
+	\end{align*}
+	so \(\calF\) is Lipschitz in \(t\in T\). We can show that 
+	\[
+		\calN_{[\hspace{0.1em}]}(2\eps\|F\|_{P,2},\calF,L_2(P)) \leq \calN(\eps,T,\|\cdot\|) \leq  \left(\frac{d\cdot \text{diam}(T)}{\eps}\right)^d
+	.\]
+	so the uniform entropy condition needed for the bracketing Donsker Theorem, Theorem~\ref{thm:donsker-bracketing} is easily satisfied 
+	\[
+		\int_{0}^{\infty} \sqrt{\log\calN_{[\hspace{0.1em}]}(\eps,\calF,L_2(P))}\;d\eps < \infty 
+	.\] 
+	We conclude that 
+	\[
+		\mathbb{G}_n (Y_i - f(X_i,\hat\theta))e^{t'X_i}\wcov \mathbb{G}(T)\tag{S3}\label{eq:specification-donsker}
+	.\] 
+	for a tight Gaussian process on \(L_\infty(T)\).
+
+	\underline{Step 4:} Find the asymptotic distribution of the test statistic \(T_n\). By continuous mapping theorem 
+	\[
+		T_n \wcov \max_T \|\mathbb{G}(t)\|
+	.\]
+	However, using the result in~\eqref{eq:specification-donsker} we can generate any number of test statistics. For example, consider
+	\[
+		\tilde T_n = \int_T \P_n(Y_i-f(X_i,\hat\theta)e^{t'X_i})^2\;dt \wcov \int \mathbb{G}^2(t)\;dt = \|\mathbb{G}\|_{P,2}^2 
+	.\]
+
+	\underline{Step 5:} Consider the behavior under the alternative.
+
+	If the process is Glivenko-Cantelli even under the alternative, then 
+	\begin{align*}
+		\sup_T \left|\P_n(Y_i-f(X_i,\hat\theta))e^{t'X_i} - \E(Y_i-f(X_i,\theta_0))e^{t'X_i}\right| 
+		&\leq  \sup_T\left|\E (f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i}\right| + o_p(1)\\
+		&\lesssim \left|\E|f(X_i,\theta_0)-f(X_i,\hat\theta))\right| = o_p(1)
+	\end{align*}
+	So the function of \(t\) will converge uniformly in \(L_\infty(T)\)
+	\[
+	\P_n(Y_i-f(X_i,\hat\theta))e^{t'X_i}\to_p \E(Y_i-f(X_i,\theta_0)e^{t'X_i} 
+	.\]
+	By continous mapping theorem, 
+	\[
+		T_n =\sqrt{n}\max_T\|\P_n(Y_i-f(X_i,\hat\theta))e^{t'X_i}\|\to_p\infty 
+	.\] 
+	so the test is consistent.
+\end{example*}
