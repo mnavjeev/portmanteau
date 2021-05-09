@@ -154,7 +154,7 @@ An example of when we are all ok is when the functions are Lipschitz.
 	\textit{Second Approach: } Insight from Bierens: How do we use an infinite number of moments?
 	\begin{lemma}[Bierens 1990]
 		\label{lemma:bierens-1990}
-		Let \(V\) be a random scalar with \(\E[|V|]<\infty\) and \(X\) be a bounded random vector in \(\SR^K\) such that \(\Pr(\E[V|X]=0)<1\). Then \[\calS = \left\{t\in\SR^K: \E\left[ve^{t'X}=0\right]\right\}\] is a set of Lebesgue measure zero.\footnote{This results is generalized in Stinchcombe and White (1998)}
+		Let \(V\) be a random scalar with \(\E[|V|]<\infty\) and \(X\) be a bounded random vector in \(\SR^K\) such that \(\Pr(\E[V|X]=0)<1\). Then \[\calS = \left\{t\in\SR^K: \E\left[ve^{t'X}\right]=0\right\}\] is a set of Lebesgue measure zero.\footnote{This results is generalized in Stinchcombe and White (1998)}
 	\end{lemma}
 	What does this mean? If \(\E[Y|X=x]=f(x,\theta_0)\) then \(\E[(Y-f(X,\theta_0)e^{t'X}]=0\) for (almost) all \(t\in T\), which is some appropriately chosen compact set with positive Lebesgue measure. On the other hand, if \(\E[Y|X]\neq f(x,\theta_0)\) then \(\E[(Y-f(X,\theta_0)e^{t'X}]\neq0\) for ``most'' \(t\in T\).
 
@@ -197,21 +197,21 @@ An example of when we are all ok is when the functions are Lipschitz.
 	.\]
 	and an appropriate continuity condition, then:
 	\[
-		\mathbb{G}_n(f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i} = \frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\mathbb{G}_n\frac{\partial f(X_i,\theta_0)}{\partial \theta}(f(X_i,\theta_0)-Y_i) + o_p(1)
+		\mathbb{G}_n(f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i} = b'(t,\theta)A^{-1}\mathbb{G}_n\frac{\partial f(X_i,\theta_0)}{\partial \theta}(f(X_i,\theta_0)-Y_i) + o_p(1)
 	.\] 
 	where the \(o_p(1)\) is uniform in \(t\), i.e.
 	\[
-		\sup_T \left|\mathbb{G}_n (f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i} - \frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\mathbb{G}_n\frac{\partial f(X_i,\theta_0)}{\partial \theta}\right| = o_p(1)
+		\sup_T \left|\mathbb{G}_n (f(X_i,\theta_0)-f(X_i,\hat\theta))e^{t'X_i} - b'(t,\theta_0)A^{-1}\mathbb{G}_n\frac{\partial f(X_i,\theta_0)}{\partial \theta}\right| = o_p(1)
 	.\]
 	Then, putting \(A+B\) together, we have that 
 	\[
-		\mathbb{G}_n(Y_i-f(X_i,\hat\theta)e^{t'X_i} = \mathbb{G}_n (Y_i - f(X_i,\hat\theta))\left[e^{t'X_i}-\frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\frac{\partial f(X_i,\theta_0)}{\partial \theta_0}\right] + o_p(1)\tag{S2}
+		\mathbb{G}_n(Y_i-f(X_i,\hat\theta)e^{t'X_i} = \mathbb{G}_n (Y_i - f(X_i,\hat\theta))\left[e^{t'X_i}-b'(t,\theta_0)A^{-1}\frac{\partial f(X_i,\theta_0)}{\partial \theta_0}\right] + o_p(1)\tag{S2}
 	.\]
 
 	\underline{Step 3:} Find the limiting distribution in \(L_\infty(T)\): 
 	Let 
 	\[
-		\calF = \left\{(y-f(x,\theta_0)\left[e^{t'x}-\frac{\partial b(t,\theta_0)}{\partial \theta}A^{-1}\frac{\partial f(x,\theta_0)}{\partial \theta}\right]: t\in T\right\}
+		\calF = \left\{(y-f(x,\theta_0)\left[e^{t'x}-b'(t,\theta_0)A^{-1}\frac{\partial f(x,\theta_0)}{\partial \theta}\right]: t\in T\right\}
 	.\] 
 	we want to show that \(\calF\) is Donsker. Let \(f = f_t, \tilde f = f_{\tilde t}\) for \(t,\tilde t \in T\) and \(f,\tilde f \in\calF\). Then
 	\begin{align*}
