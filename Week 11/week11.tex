@@ -28,6 +28,16 @@ To establish these results we will make use of symmetrization results of the sor
 		\|X\|_{2,1}=\int_{0}^{\infty} \sqrt{\Pr\left(|X|>x\right)}\,dx 
 	.\] 
 \end{definition}
+\begin{lemma}[Generalized Symmetrization]
+	\label{lemma:generalized-symmetrization}
+	Let \(Z_1,\dots,Z_n\) be independent stochastic processes with mean zero and let \(\eps_1,\eps_2,\dots\) be independently generated Rademacher random variables.\footnote{Can basically just think of an independent stochastic process as independent data. Each data point represents a random functional on \(\calF\) (evaluate each function \(f\in\calF\) at \(Z_i\)).} Then:
+	\[
+	    \E^\star\Phi\bigg(\frac{1}{2}\bigg\|\sum_{i=1}^n \eps_iZ_i\bigg\|_\calF\bigg)
+		\leq \E^\star\bigg(\big\|\sum_{i=1}^n Z_i\big\|_\calF\bigg)
+		\leq \E^\star\bigg(2\bigg\|\sum_{i=1}^n \eps_i(Z_i-\ell_i)\bigg\|_\calF\bigg)
+	.\]
+	for every nondecreasing, convex \(\phi:\SR\to\SR\) and arbitrary functions \(\ell_i:\calF\to\SR\).
+\end{lemma}
 \begin{lemma}[Donkser Implication]
 	\label{lemma:donsker-implication}
 	Let \(Z_1,Z_2,\dots\) be i.i.d stochastic processes such that \(\sqrt{n}\sum_{i=1}^n Z_i\) converges weakly in \(\ell^\infty(\calF)\) to a tight Gaussian process. Then
@@ -35,6 +45,15 @@ To establish these results we will make use of symmetrization results of the sor
 		\lim_{x\to\infty}x^2\sup_n \P^\star\left(\frac{1}{\sqrt{n}}\bigg\|\sum_{i=1}^n Z_i\bigg\|_\calF > x\right) = 0
 	.\] 
 	In particular, the random variable \(\|Z_1\|^\star_\calF\) posssesses a weak second moment.
+\end{lemma}
+\begin{lemma}[Alternatice Weak Convergence Characterizations]
+	\label{lemma:convergence-characterizations}
+	Let \(Z_1,Z_2,\dots\) be i.i.d stochastic processes, linear in \(f\). Set \(\rho_Z(f,g) = \Var_Z\left(f-g\right)\) and \(\calF_\delta = \left\{f-g:\rho_Z(f,g)<\delta\right\}\). Then the following statemements are equivalent and imply that the sequence \(\E^\star\|n^{-1/2}\sum_{i=1}^n Z_i\|_\calF^r\) converges to \(\E\|\mathbb{G}\|_\calF^r\) for every \(0<r<2\):
+	\begin{enumerate}
+		\item \(n^{-1/2}\sum_{i=1}^n Z_i\) converges weakly to a tight limit in \(\ell^\infty(\calF)\);
+		\item \((\calF,\rho_Z)\) is totally bounded\footnote{See Definition~\ref{def:totally-bounded}.} and \(\|n^{-1/2}\sum_{i=1}^n Z_i\|_{\calF_{\delta_n}}\to_{p^\star}0\) for every \(\delta_n\downarrow 0\);
+		\item \((\calF,\rho_Z)\) is totally bounded and \(\E^\star\|n^{-1/2}\sum_{i=1}^n Z_i\|_{\calF_{\delta_n}}\to0\).
+	\end{enumerate}
 \end{lemma}
 \begin{lemma}[Multiplier Inequalities]
 	\label{lemma:vdv2.9.1}
@@ -47,7 +66,7 @@ To establish these results we will make use of symmetrization results of the sor
 	\end{align*}
 \end{lemma}
 
-This lemma is used to show the following theorem: 
+These lemmas are used to show the following theorem: 
 \begin{theorem}[Theorem 2.9.2, VdV\&W]
 	\label{thm:vdv2.9.2}
 	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i.i.d symmetric random variables with mean 0, variance 1, and \(\|\xi\|_{2,1} < \infty\), independent of \(X_1,\dots,X_n\). Then the sequence \(n^{-1/2}\sum_{i=1}^n \xi_1(\delta_{X_i}-P)\) converges to a tight limiting process in \(\ell^\infty(\calF)\) if and only if \(\calF\) is Donsker.
@@ -62,7 +81,9 @@ This lemma is used to show the following theorem:
 	   \|\xi\|_1\limsup_{n\to\infty}\E^\star\bigg\|\frac{1}{\sqrt{n}}\sum_{i=1}^n \eps_iZ_i\bigg\|_{F_\delta} 	
 	   &\leq \limsup_{n\to\infty}\E^\star\bigg\|\frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\bigg\|_{\calF_\delta} \\
 	   &\leq \|\xi\|_{2,1}\sup_{n_0\leq k}\E^\star\bigg\|\frac{1}{\sqrt{k}}\sum_{i=1}^k\eps_iZ_i\bigg\|_{\calF_\delta}
-	\end{align*} 
+	\end{align*}
+	for every \(n_0\) and \(\delta > 0\). By Lemma~\ref{lemma:generalized-symmetrization} we can remove the Rademacher variables \(\eps_i\) in this statment at the cost of changing the constants.
+	t
 \end{proof}
 
 
