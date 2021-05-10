@@ -1,1 +1,68 @@
-%! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
+\section{Delta Method and Applications to Statistics}
+\label{sec:delta-applications}
+
+We now look to apply the results of Section~\ref{sec:empirical-processes} to the Delta Method and other statistical problems. 
+
+\subsection{Multiplier Central Limit Theorems}%
+\label{subsec:mclt}
+
+This section follows Chapter 2.9 in Van der Vaart and Wellner. 
+
+With the notation \(Z_i = \delta_{X_i}-P\), the empirical central limit theorem can be written
+\[
+    \frac{1}{\sqrt{n}} \sum_{i=1}^n Z_i \wcov \mathbb{G}
+.\] 
+where \(\mathbb{G}\) is a tight stochastic process on \(\ell^\infty(\calF)\). In contrast, given i.i.d real-valued random variables \(\xi_1,\dots,\xi_n\) which are independent of \(Z_1,\dots,Z_n\), a multiplier central limit theorem would assert that 
+\[
+    \frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\wcov \mathbb{G}
+.\]
+A deeper result is a \emph{conditional multiplier central limit theorem}, which would assert that 
+\[
+    \frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\wcov \mathbb{G}
+.\] 
+To establish these results we will make use of symmetrization results of the sort seen in Lemma~\ref{lemma:vdv2.3.1}. First define the ``2-1'' norm:\footnote{I have no idea what this is actually called.}
+\begin{definition}[2-1 Norm]
+	\label{def:21norm}
+	For a random variable \(X:\Omega\to\SR\) define
+	\[
+		\|X\|_{2,1}=\int_{0}^{\infty} \sqrt{\Pr\left(|X|>x\right)}\,dx 
+	.\] 
+\end{definition}
+\begin{lemma}[Donkser Implication]
+	\label{lemma:donsker-implication}
+	Let \(Z_1,Z_2,\dots\) be i.i.d stochastic processes such that \(\sqrt{n}\sum_{i=1}^n Z_i\) converges weakly in \(\ell^\infty(\calF)\) to a tight Gaussian process. Then
+	\[
+		\lim_{x\to\infty}x^2\sup_n \P^\star\left(\frac{1}{\sqrt{n}}\bigg\|\sum_{i=1}^n Z_i\bigg\|_\calF > x\right) = 0
+	.\] 
+	In particular, the random variable \(\|Z_1\|^\star_\calF\) posssesses a weak second moment.
+\end{lemma}
+\begin{lemma}[Multiplier Inequalities]
+	\label{lemma:vdv2.9.1}
+	Let \(Z_1,\dots,Z_n\) be i.i.d stochastic processes with \(\E^\star\|Z_i\|_\calF<\infty\) independent of the Rademacher random variables \(\eps_1,\dots,\eps_n\). Then, for every i.i.d sample \(\xi_1,\dots,\xi_n\) of mean-zero symmetric random variables independent of \(Z_1,\dots,Z_n\) and any \(1\leq n_0\leq n\):
+	\begin{align*}
+		\|\xi\|_1\E^\star\bigg\|\frac{1}{\sqrt{n}}\sum_{i=1}^n \eps_iZ_i\bigg\|_\calF 
+		&\leq \E^\star\bigg\|\frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\bigg\|_\calF \\
+		&\leq (n_0-1)\E^\star\|Z_1\|_\calF\E\max_{1\leq i\leq n}\frac{|\xi_i|}{\sqrt{n}} \\ 
+		&\;\;\;\;\;+ \|\xi\|_{2,1}\max_{n_0\leq k\leq n}\E^\star\bigg\|\frac{1}{\sqrt{k}}\sum_{i=n_0}^k\eps_iZ_i \bigg\|_\calF 
+	\end{align*}
+\end{lemma}
+
+This lemma is used to show the following theorem: 
+\begin{theorem}[Theorem 2.9.2, VdV\&W]
+	\label{thm:vdv2.9.2}
+	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i.i.d symmetric random variables with mean 0, variance 1, and \(\|\xi\|_{2,1} < \infty\), independent of \(X_1,\dots,X_n\). Then the sequence \(n^{-1/2}\sum_{i=1}^n \xi_1(\delta_{X_i}-P)\) converges to a tight limiting process in \(\ell^\infty(\calF)\) if and only if \(\calF\) is Donsker.
+\end{theorem}
+\begin{proof}
+	Since we can replace any \(f\in\calF\) with \(f-Pf\) without changing the value of either the original or multiplier empirical process, it can be assumed without loss of generality that \(Pf=0\) for every \(f\). Marginal convergence of both sequences is equivalent to \(\calF\subset L_2(P)\). In light of Theorem~\ref{thm:vdv1.5.4} and Theorem~\ref{thm:vdv1.5.6}, it suffices to show that the asymptotic equicontinuity results for the empirical and multiplier processes are equivalent.
+
+	If \(\calF\) is Donsker then \(\Pr^\star\left(F>x\right)=o(x^{-2})\) by Lemma~\ref{lemma:donsker-implication}. By the same lemma, convergence of the multiplier process to a tight limit imples that \(\Pr^\star\left(|\xi F|>x\right)=o(x^{-2})\). In particular, \(\P^\star F <\infty\) in both cases. 
+
+	Since \(\|\xi\|_{2,1}<\infty\) implies the existence of a second moment, we have that \(\E^\star\max_{1\leq i\leq n}|\xi_i|/\sqrt{n}\to 0\) by Markov's Inequality. Applying Lemma~\ref{lemma:vdv2.9.1} gives
+	\begin{align*}
+	   \|\xi\|_1\limsup_{n\to\infty}\E^\star\bigg\|\frac{1}{\sqrt{n}}\sum_{i=1}^n \eps_iZ_i\bigg\|_{F_\delta} 	
+	   &\leq \limsup_{n\to\infty}\E^\star\bigg\|\frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\bigg\|_{\calF_\delta} \\
+	   &\leq \|\xi\|_{2,1}\sup_{n_0\leq k}\E^\star\bigg\|\frac{1}{\sqrt{k}}\sum_{i=1}^k\eps_iZ_i\bigg\|_{\calF_\delta}
+	\end{align*} 
+\end{proof}
+
+
