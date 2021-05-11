@@ -22,7 +22,7 @@ Empirical Processes:
    -- Verifying Uniform Entropy Bound for Bracketing Numbers
 
 Delta Method and Applications to Statistics:
-   -- Multiplier Central Limit Theorems	
+   -- Multiplier Central Limit Theorems.	
 
 **TO BE COVERED**.  
 Delta Method and Applications to Statistics. 
