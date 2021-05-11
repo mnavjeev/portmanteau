@@ -17,11 +17,12 @@ Empirical Processes:
    -- Maximal Inequalities.  
    -- Symmetrization.  
    -- Glivenko-Cantelli Theorems.  
-   -- Donsker Theorems.  
+   -- Donsker Theorems. 
+   -- VC Dimensions
+   -- Verifying Uniform Entropy Bound for Bracketing Numbers
+
+Delta Method and Applications to Statistics:
+   -- Multiplier Central Limit Theorems	
 
 **TO BE COVERED**.  
-Empirical Processes:  
-  -- Verifying Uniform Entropy Bound.  
-  -- VC Dimensions.  
-  
 Delta Method and Applications to Statistics. 
