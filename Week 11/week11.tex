@@ -1,3 +1,5 @@
+%! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
+
 \section{Delta Method and Applications to Statistics}
 \label{sec:delta-applications}
 
@@ -16,10 +18,11 @@ where \(\mathbb{G}\) is a tight stochastic process on \(\ell^\infty(\calF)\). In
 \[
     \frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\wcov \mathbb{G}
 .\]
-A deeper result is a \emph{conditional multiplier central limit theorem}, which would assert that 
+A deeper result is a \emph{conditional multiplier central limit theorem}, which asserts that for almost every sequence \(Z_1,Z_2,\dots\) 
 \[
     \frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\wcov \mathbb{G}
-.\] 
+.\]
+
 To establish these results we will make use of symmetrization results of the sort seen in Lemma~\ref{lemma:vdv2.3.1}. First define the ``2-1'' norm:\footnote{I have no idea what this is actually called.}
 \begin{definition}[2-1 Norm]
 	\label{def:21norm}
@@ -44,11 +47,11 @@ To establish these results we will make use of symmetrization results of the sor
 	\[
 		\lim_{x\to\infty}x^2\sup_n \P^\star\left(\frac{1}{\sqrt{n}}\bigg\|\sum_{i=1}^n Z_i\bigg\|_\calF > x\right) = 0
 	.\] 
-	In particular, the random variable \(\|Z_1\|^\star_\calF\) posssesses a weak second moment.
+	In particular, the random variable \(\|Z_1\|^\star_\calF\) possesses a weak second moment.
 \end{lemma}
-\begin{lemma}[Alternatice Weak Convergence Characterizations]
+\begin{lemma}[Alternative Weak Convergence Characterizations]
 	\label{lemma:convergence-characterizations}
-	Let \(Z_1,Z_2,\dots\) be i.i.d stochastic processes, linear in \(f\). Set \(\rho_Z(f,g) = \Var_Z\left(f-g\right)\) and \(\calF_\delta = \left\{f-g:\rho_Z(f,g)<\delta\right\}\). Then the following statemements are equivalent and imply that the sequence \(\E^\star\|n^{-1/2}\sum_{i=1}^n Z_i\|_\calF^r\) converges to \(\E\|\mathbb{G}\|_\calF^r\) for every \(0<r<2\):
+	Let \(Z_1,Z_2,\dots\) be i.i.d stochastic processes, linear in \(f\). Set \(\rho_Z(f,g) = \Var_Z\left(f-g\right)\) and \(\calF_\delta = \left\{f-g:\rho_Z(f,g)<\delta\right\}\). Then the following statements are equivalent and imply that the sequence \(\E^\star\|n^{-1/2}\sum_{i=1}^n Z_i\|_\calF^r\) converges to \(\E\|\mathbb{G}\|_\calF^r\) for every \(0<r<2\):
 	\begin{enumerate}
 		\item \(n^{-1/2}\sum_{i=1}^n Z_i\) converges weakly to a tight limit in \(\ell^\infty(\calF)\);
 		\item \((\calF,\rho_Z)\) is totally bounded\footnote{See Definition~\ref{def:totally-bounded}.} and \(\|n^{-1/2}\sum_{i=1}^n Z_i\|_{\calF_{\delta_n}}\to_{p^\star}0\) for every \(\delta_n\downarrow 0\);
@@ -67,14 +70,14 @@ To establish these results we will make use of symmetrization results of the sor
 \end{lemma}
 
 These lemmas are used to show the following theorem: 
-\begin{theorem}[Theorem 2.9.2, VdV\&W]
-	\label{thm:vdv2.9.2}
+\begin{theorem}[Unconditional Multiplier Central Limit Theorem]
+	\label{thm:unconditional-multiplier-clt}
 	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i.i.d symmetric random variables with mean 0, variance 1, and \(\|\xi\|_{2,1} < \infty\), independent of \(X_1,\dots,X_n\). Then the sequence \(n^{-1/2}\sum_{i=1}^n \xi_1(\delta_{X_i}-P)\) converges to a tight limiting process in \(\ell^\infty(\calF)\) if and only if \(\calF\) is Donsker.
 \end{theorem}
 \begin{proof}
 	Since we can replace any \(f\in\calF\) with \(f-Pf\) without changing the value of either the original or multiplier empirical process, it can be assumed without loss of generality that \(Pf=0\) for every \(f\). Marginal convergence of both sequences is equivalent to \(\calF\subset L_2(P)\). In light of Theorem~\ref{thm:vdv1.5.4} and Theorem~\ref{thm:vdv1.5.6}, it suffices to show that the asymptotic equicontinuity results for the empirical and multiplier processes are equivalent.
 
-	If \(\calF\) is Donsker then \(\Pr^\star\left(F>x\right)=o(x^{-2})\) by Lemma~\ref{lemma:donsker-implication}. By the same lemma, convergence of the multiplier process to a tight limit imples that \(\Pr^\star\left(|\xi F|>x\right)=o(x^{-2})\). In particular, \(\P^\star F <\infty\) in both cases. 
+	If \(\calF\) is Donsker then \(\Pr^\star\left(F>x\right)=o(x^{-2})\) by Lemma~\ref{lemma:donsker-implication}. By the same lemma, convergence of the multiplier process to a tight limit implies that \(\Pr^\star\left(|\xi F|>x\right)=o(x^{-2})\). In particular, \(\P^\star F <\infty\) in both cases. 
 
 	Since \(\|\xi\|_{2,1}<\infty\) implies the existence of a second moment, we have that \(\E^\star\max_{1\leq i\leq n}|\xi_i|/\sqrt{n}\to 0\) by Markov's Inequality. Applying Lemma~\ref{lemma:vdv2.9.1} gives
 	\begin{align*}
@@ -82,8 +85,60 @@ These lemmas are used to show the following theorem:
 	   &\leq \limsup_{n\to\infty}\E^\star\bigg\|\frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\bigg\|_{\calF_\delta} \\
 	   &\leq \|\xi\|_{2,1}\sup_{n_0\leq k}\E^\star\bigg\|\frac{1}{\sqrt{k}}\sum_{i=1}^k\eps_iZ_i\bigg\|_{\calF_\delta}
 	\end{align*}
-	for every \(n_0\) and \(\delta > 0\). By Lemma~\ref{lemma:generalized-symmetrization} we can remove the Rademacher variables \(\eps_i\) in this statment at the cost of changing the constants.
-	t
+	for every \(n_0\) and \(\delta > 0\). By Lemma~\ref{lemma:generalized-symmetrization} we can remove the Rademacher variables \(\eps_i\) in this statement at the cost of changing the constants. This gives us that \(\E^\star\|n^{-1/2}\sum_{i=1}^n Z_i\|_{\calF_{\delta_n}}\to 0\) if and only if \(\E^\star\|n^{-1/2}\sum_{i=1}^n \xi_iZ_i\|_{\calF_{\delta_n}}\to 0\). By Lemma~\ref{lemma:convergence-characterizations} this is equivalent to asymptotic equicontuity and weak convergence.
 \end{proof}
+\begin{corollary}[Unconditional Multiplier Central Limit Theorem]
+    \label{corr:unconditional-multiplier-clt}
+	Let \(\calF\) be Donsker with \(\|P\|_|calF <\infty\). Let \(\xi_1,\dots,\xi_n\) be i.i.d random variables with mean \(\mu\), variance \(\sigma^2\) and \(\|xi_i\|_{1,2} <\infty\) generated independently of \(X_1,\dots,X_n\). Then
+	\[
+		\frac{1}{\sqrt{n}}\sum_{i=1}^n \left(\xi_i\delta_{X_i}-\mu P\right)\wcov \mu\mathbb{G}+\sigma\mathbb{G}' +\sigma Z P
+	.\] 
+	where \(\mathbb{G}\) and \(\mathbb{G}'\) are independent (tight) processes on \(\ell^\infty(\calF)\) and are both independent of \(Z\sim N(0,1)\). The limiting process \(\mu\mathbb{G}+\sigma\mathbb{G}'+\sigma ZP\) is a mean zero Gaussian process\footnote{Mean Zero means that \((\mu\mathbb{G}+\sigma\mathbb{G}+\sigma ZP)f = 0\) for all \(f\in P\), Gaussian means that the marginals are normally distributed.} and covariance function \((\sigma^2+\mu^2)Pfg-\mu^2(Pf)(Pg)\).
+\end{corollary}
+We now want to show a conditional version of this result. That is, we want to show that we have weak convergence of the multiplier central limit theorem for almost all sequences \(Z_1,\dots,Z_n\).\footnote{And for this to be useful for bootstrap, we'd like the weak limit to be the same as the (non multiplier) empirical process.} For finite \(\calF\), this sort of result is a simple consequence of the Lindeberg central limit theorem. Before getting into it, it is useful to recall the central limit theorem as it applies to independent, but not necessarily identically distributed, data.
+
+\begin{theorem}[Lindeberg Central Limit Theorem]
+	\label{thm:lindeberg-clt}
+	Suppose that \(X_1,X_2,\dots\) is a sequence of independent random vectors in \(\SR^k\)with \(\E[X_i] = \mu_i\). Define \(V_n = \frac{1}{n}\sum_{i=1}^n \Var(X_i)\) and suppose the following \emph{Lindeberg Condition} is satisfied:
+	\begin{equation}
+		\label{eq:lindeberg-condition}
+		\tag{LC}
+		\lim_{n\to\infty} \frac{1}{n}\sum_{i=1}^n \E\left[\left\|X_i-\mu_i\right\|^2\mathds{1}\{\|X_i-\mu_i\|>\eps \sqrt{n}\}\right] = 0,\;\;\;\;\;\;\forall \eps >0
+	\end{equation}
+	Then 
+	\[
+		V_n^{-1/2}\frac{1}{\sqrt{n}}\sum_{i=1}^n (X_i-\mu_i) \wcov N\left(0,I_k\right)
+	.\] 
+\end{theorem}
+
+\begin{lemma}[Conditional Multiplier CLT for Finite Classes]
+	\label{lemma:conitional-multiplier-clt-finite}
+	Let \(Z_1,Z_2,\dots\) be i.i.d random vectors with \(\E Z_i =0\) and \(\E\|Z_i\|^2 <\infty\) independent of the i.i.d sequence \(\xi_1,\xi_2,\dots\) with \(\E\xi_i=0\) and \(\E\xi_i^2=1\). Then, conditionally on \(Z_1,Z_2,\dots,\)
+	\[
+		\frac{1}{\sqrt{n}}\sum_{i=1}^n \xi_iZ_i\wcov N\left(0, \Var(Z_1)\right)
+	,\]
+	for almost every sequence \(Z_1,Z_2,\dots\)
+\end{lemma}
+\begin{proof}
+	Treating \(Z_1,Z_2,\dots\) as just a stream of constant vectors, by the Lindeberg Central Limit Theorem, the statement is true for every sequence \(Z_1,Z_2,\dots\) such that, for every \(\eps > 0\),
+	\[
+		\frac{1}{n} \sum_{i=1}^n Z_iZ_i'\to \Var(Z_1)\andbox \frac{1}{n}\sum_{i=1}^n \|Z_i\|^2\E_\xi\left[\xi_i^2\left\{|\xi_i|\|Z_i\| > \eps\sqrt{n}\right\}\right]
+	.\]
+	By Kolmogrov Strong Law of Large Numbers, the first statement is true for almost all all sequences \(\left\{Z_i\right\}_{i=1}^\infty\). A finite second moment \(\E\|Z_i\|^2 <\infty\), implies that \(\max_{1\leq i\leq n}\|Z_i\|/\sqrt{n}\to0\) for almost all sequences, which gives that the second statement holds for almost all sequences \(\{Z_i\}_{i=1}^\infty\). Under a probability measure, the intersection of two (measurable) sets with measure 1 also has measure 1.
+\end{proof}
+
+Lemma~\ref{lemma:conitional-multiplier-clt-finite} provides the weak convergence of marginals in the multiplier processes. What remains is to show some version of asymptotic equicontinuity (Theorem~\ref{thm:vdv1.5.6} or \ref{thm:vdv1.5.7}) to show weak convergence in \(\ell^\infty(\calF)\). 
+
+Let \(\text{BL}_1\) be the set of all functions \(h:\ell^\infty(\calF)\to[0,1]\) such that \(|h(z_1)-h(z_2)\leq \|z_1-z_2\|_\calF\) for every \(z_1,z_2\). The following theorem (presented without proof) gives conditions for convergence of the multiplier central limit theorem. 
+
+\begin{theorem}[Conditional Mulitplier Central Limit Theorem]
+	\label{thm:conditional-multiplier-clt}
+	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i,i.d random variables with mean zero, variance 1, and \(\|\xi\|_{2,1}<\infty\), independent of \(X_1,\dots,X_n\). Define the multiplier process \(\mathbb{G}_n'=n^{-1/2}\sum_{i=1}^n \xi_i(\delta_{X_i}-P)\). Then the following assertions are equivalent:
+	\begin{enumerate}
+		\item \(\calF\) is Donsker with \(\mathbb{G}_n\wcov\mathbb{G}\) and \(P^\star\|f-Pf\|_\calF^2<\infty\);
+		\item \(\mathbb{G}_n'\wcov\mathbb{G}\) outer almost surely\footnote{Read for outer almost all sequences \(X_1,X_2,\dots\)} and \(\E_\xi h(\mathbb{G}_n')^\star-E_\xi h(\mathbb{G}_n')_\star\) converges almost surely to zero for every \(h\in \text{BL}_1\).
+	\end{enumerate}
+	Here \(h(\mathbb{G}_n')^\star\) and \(h(\mathbb{G}_n')_\star\) denote the measurable majorants and minorants with respect to \(\left(\xi_1,\dots,\xi_n,X_1,\dots,X_n\right)\) jointly.
+\end{theorem}
 
 
