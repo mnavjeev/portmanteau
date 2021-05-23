@@ -1,0 +1,158 @@
+%! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
+
+\subsection{Delta Method}%
+\label{subsec:delta-method}
+
+We now cover the standard Delta Method (for ``fully differentiable'' functions). First we want to define some more general notions of differentiability.
+
+\subsubsection{Differentiability}%
+\label{subsubsec:differentiability}
+
+Recall that a function \(f:\SR\to\SR\) is differntiable at a point \(x_0\) if the limit
+\[
+	\lim_{h\to0} \frac{f(x_0+h)-f(x)}{h} 
+.\] 
+exists. In this case we call the value of the limit the derivative of \(f\) at \(x_0\) and denote this as \(f'(x_0)\). The derivative is useful as it gives a linear approximation of \(f\) in a neihborhood of \(x_0\), that is the derivative can instead be written as a scalar  \(f'(x_0)\) such that
+\[
+	 \lim_{h\to 0}\frac{|f(x+h)-f(x)-f'(x)h|}{h} = 0 
+.\] 
+or, more familiarly, \(f(x+h)-f(x) = f'(x)h + o(h)\). This linear approximation property is the useful bit that we will use in econometrics, so we want notions of derivatives in general spaces to reflect this.
+\begin{example*}
+	Suppose \(\sqrt{n}\left(\hat\theta-\theta_0\right)\overset{L}{\to}N(0,\sigma^2)\). We want to get the asymptotic distribution of \(\hat\theta^2-\theta_0^2\). We'll use the derivative of \(f(x)=x^2; f'(x)=2x\) evaluated at \(\theta_0\) to say that 
+	\[
+		\sqrt{n}\left(\hat\theta^2-\theta_0^2\right) = 2\theta_0\sqrt{n}\left(\hat\theta-\theta_0\right) + o_p(1)
+	,\]
+	by taking \(h = \hat\theta-\theta_0\). Now note that we know the distribution of \(2\theta_0\sqrt{n}\left(\hat\theta-\theta_0\right) \overset{L}{\to} N(0,4\theta-0^2\sigma^2)\). We have leveraged the linearity property.
+\end{example*}
+
+Let's start by generalizing this property to functions in \(\SR^k\). This will allow us to differentiate between fully differentiable vs. directionally differentiable functions, an important distinction later on. All the definitions below will reflect the linearity property that  we desire.
+
+\begin{definition}[Differentiabiltiy in \(\SR^k\)]
+	\label{def:rk-differentiability}
+	A function \(f:\SR^k\to\SR^m\) is differentiable at \(x_0\in\SR^k\) if there exists a linear transformation \(f'(x_0):\SR^k\to\SR^m\) such that\footnote{That is there is a \(m\times k\) matrix  \(A_{x_0}\)} 
+	\begin{equation}
+		\label{eq:rk-differntiability}
+		\lim_{h\to 0}\frac{\|f(x+h)-f(x)-f'(x)h\|}{\|h\|}=0 
+	.\end{equation} 
+\end{definition}
+Note that this is very similar to our notion of differentiability from before. Let's see how this contrasts with our familiar notion of partial differentability and consider a function that has a gradient (i.e partial derivatives in the standard unit vector directions) but that we would not consider fully differentiable according to \defnref{def:rk-differentiability}.
+\begin{example*}[Directionally but not Fully Differentiable]
+	Consider the function \(f:\SR^k \to \SR\) given by:
+	\[
+		f(x,y) = 
+		\begin{cases}
+			\frac{x^2}{x+y}  & \text{if }(x,y)\neq (,0) \\
+			0 &\text{if }(x,y) = (0,0)
+		\end{cases}	
+	.\]
+	Let's consider the partial derivatives at \((0,0)\). Note that \(f(x,0) = x\) and  \(f(0,y) = 0\) so that
+	\[
+		\frac{\partial f}{\partial x}(0,0) = 1 \andbox \frac{\partial f}{\partial y}(0,0) = 0 \implies \nabla f(0,0) = \begin{bmatrix} 1 & 0 \end{bmatrix} 
+	.\] 
+	We might be tempted then to say that the gradient \(\nabla f(0,0)\) satisfies the requirements of the linear map  \(f'(0,0)\) in Definition~\ref{def:rk-differentiability}. However, let's consider approaching \((0,0)\) in the direction  \((h,h)\) for a real number \(h\to 0\). Note that \(f(h,h) = \frac{h}{2}\). Let's consider the limit in this direction
+	\begin{align*}
+		\lim_{h\to 0}\frac{|f(h,h) - f(0,0) - \nabla f(0,0)\cdot(h,h)|}{|(h,h)|} &= \lim_{h\to 0}\frac{|h/2 - h|}{|\sqrt{2}h|} = \frac{1}{2\sqrt{2}}\neq 0  
+	.\end{align*} 
+	So the gradient does not satisfy the conditions of Defintion~\ref{def:rk-differentiability}. In fact, no linear map will and so that function is not differentiable at \((0,0)\).
+\end{example*}
+\begin{remark*}
+	The notion of differentiability that we want requires the \textit{same} linear approximation to work uniformly (in all directions). But the partial derivatives that we are used to only look in one direction at a time. The existence of a gradient is necessary but not suffecient for Definition~\ref{def:rk-differentiability}.	
+\end{remark*}
+
+Let's generalize these defintiions to general spaces. In general, let \((A,\|\cdot\|_A)\) and \((B,\|\cdot\|_B)\) be Banach spaces (complete normed vector spaces).\footnote{In general, I think we only need metrizable topological spaces. This is what is said in Andres' notes and in Van Der Vaart and Wellner. However, all the definitions below are given in terms of norms so to avoid confusion we'll just assume these are complete normed spaces.} 
+
+\begin{definition}[Fréchet Differential]
+	\label{def:frechet-differentiable}
+	We say a function \(f:A\to B\) is Fréchet differentiable at a point \(x_0\in A\) if there exists a continuous linear function \(f_{x_0}':A\to B\) such that
+	\[
+		\lim_{\|h\|_A\to 0} \frac{\left\|f(x_0+h)-f(x_0)-f_{x_0}'(h)\right\|_B}{\|h\|_A} = 0 
+	.\] 
+	If this is the case we call the linear map \(f_{x_0}'\) the \textit{Fréchet Differential} at \(x_0\). 
+	We can alternatively formulate this
+	\[
+		\lim_{\eps\to 0}\;\sup_{h\in S} \frac{\|f(x+\eps_h)-f(x)-\eps f_{x_0}'(h)\|_b}{\eps} = 0 
+	.\] 
+	for all bounded (finite diameter) sets \(S \subset A\).
+\end{definition}
+\begin{example*}[Fréchet Differential]
+	Let \((A,\|\cdot\|_{\infty}) = (L^\infty, \|\cdot\|_\infty)\) and \((B,\|\cdot\|_{B}) = (\SR,|\cdot|)\). For a point \(t_0 \in T\) and a function \(x:T\to\SR \in L^\infty\), let \(f(x) = x(t_0)^2\). Fix \(x\) and consider the linear map on \(L^\infty\) into \(\SR\), \(f_x'(h) = 2x(t_0)h(t_0)\). Then
+	\begin{align*}
+		\lim_{ \|h\|_A\to 0} \frac{\left\|f(x+h)-f(x)-f_x'(h)\right\|_B}{\|h\|_A} &= \lim_{\|h\|\to 0}\frac{\left|\left(x(t_0)+h(t_0)^2\right)-x(t_0)^2 - 2x(t_0)h(t_0)\right|}{\|h\|_\infty}  	\\ 
+		&= \lim_{\|h\|_\infty \to 0}\frac{h(t_0)^2}{\|h\|_\infty} \\
+		&\leq \lim_{\|h\|_\infty\to0}\|h\|_\infty = 0
+	\end{align*}
+\end{example*}
+
+This generalizes the concept of a fully differentiable function, but what about directionally differentiable functions? For those we consider the Gateaux Differential. 
+\begin{definition}[Gateaux Differential]
+	\label{def:gateaux-differential}
+	A function \(f:A\to B\) is Gateaux differentiable at the point \(x_0\in A\) in the direction \(h\in A\) if there exists a linear map \(\Gamma_{x_0}:A\to B\) such that 
+	\[
+		\lim_{\eps\to0} \frac{\left\|f(x+\eps h)-f(x) - \eps\Gamma_x(h)\right\|_B}{\eps} = 0 
+	.\] 
+	In this case we call the map \(\Gamma_x(\cdot)\) the \textit{Gateaux Differential} in the direction \(h\) and denote \(df(x_0;h)=\Gamma_x(\cdot)\).
+\end{definition}
+Note that this is defined in each direction as opposed the the Fréchet differential which is defined uniformly for all directions. Whenever the Fréchet differential exists the Gateaux differential will exist and coincide with the Fréchet. 
+
+The definitions of Fréchet differentiability is not quite what we need however. The following refinement becomes more useful to applications in econometrics.
+
+\begin{definition}[Hadamard Differential]
+	\label{def:hadamard}
+	The function \(f:A\to B\) is Hadamard differentiable at the point \(x_0\in A\) if there exists a continous linear function \(f_{x_0}': A \to B\) with 
+	\[
+		\lim_{\eps\to 0}\sup_{h\in S} \frac{\left\|f(x+\eps h)-f(x)- \eps f_{x_0}'(h)\right\|_B}{\eps} =0
+	.\]
+	for all compact sets \(S\subset A\). If this is the case the continuous linear function \(f_{x_0}'\) is called the \textit{Hadamard Differential} at \(x_0\). 
+\end{definition}
+
+The key idea here is that tight random variables concentrate on compact sets, so Hadamard is what we need.
+
+\subsubsection{Standard Delta Method}%
+\label{subsubsec:standard-delta-method}
+
+We are now ready to review the Delta Method. This discussion follows Andres' notes as well as Chapter 3.9 in Van der Vaart and Wellner. 
+
+First recall some useful theorems.
+
+\begin{theorem}[Continuous Mapping Theorem]
+	\label{thm:cmt-2}
+	Suppose \(g_n:D\to E\) is a sequence of continuous maps with \(g_n(x_n)\to g(x)\) for some continuous map \(g\) and every convergent sequence \(x_n \to x\). Then if \(X_n\overset{L}{\to} X\)	in \(D\) then  \(g_n(X_n)\overset{L}{\to} g(X )\) in \(E\).
+\end{theorem}
+
+This is a slight refinment of the continous mapping theorem seen in Theorem~\ref{thm:cmt}, allowing for sequences of continuous maps.
+\begin{lemma}[Convergent Sequences are Compact]
+	\label{lemma:convergent-compact}
+	If a sequence \(\{x_n\}\) converges to a point \(x\), then the set  \( \left\{x,x_1,x_2,\dots\right\}\) is compact (in any topological space).
+\end{lemma}
+\begin{proof}
+	Let \(\{U_i\}_{i\in I}\) be an open cover of \(S = \{x,x_1,x_2,\dots\} \). Pick a set \(U_x\) in  \(\{U_i\}_{i\in I}\) such that \(x\in U_x\). This is an open neighborhood of \(x\) so there must exist a number \(N\) such that for all \(n \geq N\), \(x_n \in U_x\). For the finitely many points outside of  \(U_x\) we can find sets in \(\{U_i\}_{i\in I}\) that contain them. 
+\end{proof}
+
+We are now ready to show the Delta Method. 
+\begin{theorem}[Delta Method]
+	\label{thm:delta-method}
+	Let \(D\) and  \(E\) be Banach Spaces and \(\phi: D\to E\) be Hadamard differentiable at  \(\theta_0\) and suppose  \( \sqrt{n}(X_n-\theta_0)\overset{L}{\to} X\) in \(D\). Then \(\sqrt{n}\left(\phi(X_n)-\phi(\theta_0)\right)\overset{L}{\to}\phi'_{\theta_0}(X)\) where \(\phi'_{\theta_0}\) is the Hadamard Differential at \(\theta_0\).
+\end{theorem}
+\begin{proof}
+	The goal will be to apply Theorem~\ref{thm:cmt-2}.
+	Let \(g_n(h) = \sqrt{n}\left(\phi(\theta_0+\frac{h}{\sqrt{n}})-\phi(\theta_0)\right)\) and let \(g(h) = \phi'_{\theta_0}(h)\) and suppose  \(h_n\to h\). We want to show that \(g_n(h_n) \to g(h)\).
+	\begin{align*}
+		\lim_{n\to \infty} |g_n(h_n) - g(h)| 
+		&= \lim_{n\to \infty} \left|\sqrt{n}\left(\phi\left(\theta_0+h_n/\sqrt{n}\right) - \phi_{\theta_0}'(h)\right) - \phi_{\theta_0}'(h) \right| \\
+		\intertext{Fix \(\eps_n=1/\sqrt{n}\) and rewrite}
+		&= \lim_{n\to\infty} \left|\frac{1}{\eps_n}\left[\phi(\theta_0+h_n\eps_n)-\phi(\theta_0)- \eps_n \phi_{\theta_0}'(h)\right]\right|\\ 
+		&\leq  \lim_{n\to\infty} \left|\frac{1}{\eps_n}\left[\phi\left(\theta_0 + h_n\eps_n)\right) - \phi(\theta_0)-\eps_n\phi_{\theta_0}'(h_n)\right]\right| + \underbrace{\left|\phi'_{\theta_0}(h_n) - \phi'_{\theta_0}(h)\right|}_{\to 0\text{ by continuity of }\phi'_{\theta_0}} \\
+		\intertext{Since the last term goes to 0, consider only the first term and let \(S = \{h,h_1,h_2,\dots\}\):}
+		&\leq \lim_{\eps_n\to 0} \sup_{\tilde h\in S} \left|\frac{1}{\eps_n}\left[\phi(\theta_0+\tilde h\eps_n)-\phi(\theta_0)- \eps_n\phi_{\theta_0}'(\tilde h)\right]\right|
+	\end{align*}
+	By Lemma~\ref{lemma:convergent-compact} the set \(S\) is compact and so this goes to zero because \(\phi\) is Hadamard differentiable at \(\theta_0\). We can now apply Theorem~\ref{thm:cmt-2} to show that \(g_n\left(\sqrt{n}(X_n-\theta_0)\right)\overset{L}{\to} g(X)\). Plugging in we see that
+	\begin{align*}
+		g_n\left(\sqrt{n}(X_n-\theta_0)\right) 
+		&= \sqrt{n}\left(\phi\left(\theta_0+\frac{\sqrt{n}(X_n-\theta_0)}{\sqrt{n}} \right)-\phi(\theta_0)\right)\\
+		&= \sqrt{n}\left(\phi(X_n)-\phi(\theta_0)\right) \\
+		&\overset{L}{\to}\phi_{\theta_0}'(X)
+	\end{align*}
+\end{proof}
+
+
+
