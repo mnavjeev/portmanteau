@@ -138,7 +138,7 @@ We are now ready to show the Delta Method.
 	Let \(g_n(h) = \sqrt{n}\left(\phi(\theta_0+\frac{h}{\sqrt{n}})-\phi(\theta_0)\right)\) and let \(g(h) = \phi'_{\theta_0}(h)\) and suppose  \(h_n\to h\). We want to show that \(g_n(h_n) \to g(h)\).
 	\begin{align*}
 		\lim_{n\to \infty} |g_n(h_n) - g(h)| 
-		&= \lim_{n\to \infty} \left|\sqrt{n}\left(\phi\left(\theta_0+h_n/\sqrt{n}\right) - \phi_{\theta_0}'(h)\right) - \phi_{\theta_0}'(h) \right| \\
+		&= \lim_{n\to \infty} \left|\sqrt{n}\left(\phi\left(\theta_0+h_n/\sqrt{n}\right) - \phi(\theta_0)\right) - \phi_{\theta_0}'(h) \right| \\
 		\intertext{Fix \(\eps_n=1/\sqrt{n}\) and rewrite}
 		&= \lim_{n\to\infty} \left|\frac{1}{\eps_n}\left[\phi(\theta_0+h_n\eps_n)-\phi(\theta_0)- \eps_n \phi_{\theta_0}'(h)\right]\right|\\ 
 		&\leq  \lim_{n\to\infty} \left|\frac{1}{\eps_n}\left[\phi\left(\theta_0 + h_n\eps_n)\right) - \phi(\theta_0)-\eps_n\phi_{\theta_0}'(h_n)\right]\right| + \underbrace{\left|\phi'_{\theta_0}(h_n) - \phi'_{\theta_0}(h)\right|}_{\to 0\text{ by continuity of }\phi'_{\theta_0}} \\
@@ -153,6 +153,102 @@ We are now ready to show the Delta Method.
 		&\overset{L}{\to}\phi_{\theta_0}'(X)
 	\end{align*}
 \end{proof}
+\subsubsection{Delta Method Examples}%
+\label{subsubsec:delta-method-examples}
 
+We now turn to some examples to show the usefulness of Theorem~\ref{thm:delta-method}.
+\begin{example}[Regression Coeffecients]
+	\label{ex:beta-hat-delta-method}
+	Suppose \(\beta_0\in\SR^k\) and \( \sqrt{n}(\widehat\beta-\beta_0)\overset{L}{\to}N(0,\Sigma)\). Let \(\phi:\SR^k\to\SR^m\) be differentiable.\footnote{In \(\SR^k\) Fréchet and Hadamard differentiability are equivalent.} Then \(\sqrt{n}(\phi(\hat\beta)-\phi(\beta))\overset{L}{\to}\phi_{\beta_0}'(Z)\) where \(Z\sim N(0,\Sigma)\).
 
+	What does this mean? Recall that any continous linear map from \(\SR^k\) to \( \SR^m\) can be expressed as a matrix (an element of \(\SR^{m\times k}\)). Specifically we can write \(\phi = \left(\phi_1,\dots,\phi_m\right)'\), where each \(\phi_i:\SR^k\to \SR\). Then \(\phi'_{\beta_0} = \left(\nabla\phi_1(\beta_0),\dots,\nabla\phi_m(\beta_0)\right)' \in \SR^{m\times k}\). Then
+	\[
+		\phi_{\beta_0}'(Z) \sim N\left(0,\phi_{\beta_0}'\Sigma\phi_{\beta_0}\right)
+	.\]
+\end{example}
+\begin{example}[Uniform Semi-Parametric Inference]
+	\label{ex:semi-parametric-delta-method}
+	Suppose  \(Y=m(X,\beta_0)+\eps\) where \(\E[\eps|X]=0\) and \(\beta\in\SR^K\) and \(\{Y_i,X_i\}\) an i.i.d sample. Under usual assumptions we will get that  \(\sqrt{n}(\widehat\beta-\beta_0)\overset{L}{\to}N(0,\Sigma)\). To forecast \(\E[Y|X=x_0]=m(x_0,\beta_0)\) we want to use \(m(x_0,\widehat\beta)\). If \(m(x_0,\cdot)\) is differentiable we can use Delta Method (\thmref{thm:delta-method}) to show that \(\sqrt{n}(m(x_0,\widehat\beta)-m(x_0,\beta_0))\overset{L}{\to}\nabla_\beta m(x_0,\beta_0) Z\) where \(Z\sim N(0,\Sigma)\).
+
+	This is good for inference at a single point \(x_0\), but what if we want a uniform confidence interval for \(E[Y|X=x]\) for all points  \(x\) in some set \(X\). Let  \(\phi:\SR^k\to L^\infty(X)\) be given by \(\phi(\beta)=m(\cdot,\beta)\). That is, for each  \(\beta\) we can give an  \(m(x,\beta)\) for each point  \(x\in X\). This defines a function on  \(L^\infty(X)\). Assume that  \(\sup m(\cdot, \cdot)\) and  \(\nabla_\beta m(\cdot,\cdot)\) are continuous and  \(X\) is compact. Our guess for  \(\phi_{\beta_0}'\) is just  \(\phi_{\beta_0}'(\beta) =\nabla_\beta m(\cdot,\beta_0)\beta\). 
+	\begin{enumerate}
+		\item \(\phi_{\beta_0}':\SR^k\to L^\infty(X)\) is just like \(\phi:\SR^k\to L^{\infty}\), both take in a \(\beta\) and return a function on  \(X\). 
+		\item Clearly \(\phi_{\beta_0}'\) is linear  (in  \(\beta\)) and if  \(\beta_n\to\beta\) in  \(\SR^k\) then \(\phi'_{\beta_0}(\beta_n)\to \phi'_{\beta_0}(\beta)\) in  \(L^\infty(X)\). In other words, \(\phi_{\beta_0}'\) is continuous.
+		\begin{align*}
+			\|\phi'_{\beta_0}(\beta_n)-\phi_{\beta_0}'(\beta)\|_\infty 
+			&= \sup_{x\in X} \|\nabla_\beta m(x,\beta_0)(\beta_n-\beta)\| \leq \sup_{x\in X}\underbrace{\|\nabla_\beta m(x,\beta_0)\|}_{\text{ finite by compactness}}\cdot  \underbrace{\vphantom{\nabla_\beta}\|\beta_n-\beta\|}_{\to\, 0}
+		\end{align*}
+	\end{enumerate}
+	Given this guess for \(\phi_{\beta_0}'\) lets check Hadamard Differentiability (\defnref{def:hadamard}) at \(\beta_0\). Let \(B\) be an arbitrary compact set in  \(\SR^k\):
+	\begin{align*}
+		\lim_{\eps_n\to 0}\sup_{h\in B} \frac{\|\phi(\beta_0+\eps_nh)-\phi(\beta_0) -\eps_n\phi'_{\beta_0}(h)\|_\infty}{\eps_n} 
+		&= \lim_{\eps_n\to 0}\sup_{h\in B}\frac{\left\|m(x,\beta_0+\eps_nh)-m(x,\beta_0)-\eps_n\nabla_\beta m(x,\beta_0)h\right\|_\infty}{\eps_n}\\
+		\intertext{By mean value theorem, for some \(\bar{\beta}(x)\in [\beta_0, \beta_0+ \eps_nh]\):}
+		&= \lim_{\eps_n\to0}\sup_{h\in B}\sup_{x\in X}\left|\nabla_\beta m(x,\bar\beta(x))h-\nabla_\beta m(x,\beta_0)h\right|\\
+		&\leq \lim_{\eps_n\to 0}\sup_{h\in B}\sup_{x\in X}\|\nabla_\beta m(x,\bar\beta(x))-\nabla_\beta m(x,\beta_0)\|\cdot\|h\|
+	\end{align*}
+	The first term on the right goes to zero uniformly for all \(x\in X\) by continuity of \(m(\cdot,\cdot)\) and compactness of  \(X\). The second term is bounded by compactness of  \(B\) and so the whole thing goes to 0. Since \(\phi:\SR^k\to L^\infty(X)\), \(\phi(\beta)=m(\cdot,\beta)\) is Hadamard Differentiable at \(\beta_0\) with \(\phi_{\beta_0}'(\beta) = \nabla_\beta m(\cdot,\beta_0)\beta\), the Delta Method (\thmref{thm:delta-method}) gives us that
+	\[
+		\sqrt{n}\left(\widehat\beta-\beta_0\right)\overset{L}{\to} Z \implies \sqrt{n}(\phi(\widehat\beta)-\phi(\beta_0))\overset{L}{\to} \phi'_{\beta_0}(Z)
+	.\] 
+	in other words,
+	 \[
+		 \sqrt{n}\left(m(\cdot, \widehat\beta)-m(\cdot,\beta_0)\right)\overset{L}{\to}\nabla_\beta m(\cdot,\beta_0)Z
+	.\] 
+	where the convergence is in \(L^\infty(X)\), that is uniformly over  \(x\in X\).
+\end{example}
+
+\begin{example}[Uniform Standard Deviation Estimation]
+	\label{ex:uniform-variance-delta-method}
+	Suppose we have a class of function of square integrable functions, \(\calF=\{f:\SR^k\to \SR\}\) and \(X\in \SR^k\) is a random variable such that \(\E[f(X)]=0\) for all \(f\in\calF\). Suppose for each \(f\in\calF\) we want to study the limiting behavior of the empirical standard deviation \[\sqrt{\frac{1}{n}\sum_{i=1}^n f^2(x_i)}\]
+	By the delta method, since the derivative of \(\sqrt{x}\) is \(\frac{1}{2\sqrt{x}}\), if \(\sqrt{n}(\E_n f^2 -\E f^2)\to N(0,\sigma^2(f^2))\) then
+	\[
+		\sqrt{n}\left(\sqrt{\E_n f^2}-\sqrt{\E f^2}\right)\overset{L}{\to} N\left(0, \frac{1}{4}\sqrt{\sigma^2(f^2)}\right)	
+	.\] 
+	This is all good for a since function \(f\in \calF\), but suppose that we want to conduct inference uniformly over \(\calF\).  Let \(\calF^2 = \{f^2 : f\in\calF\}\). Assume that \(\calF^2\) is Donsker so that  \(\mathbb{G}_n\to\mathbb{G}\) for a tight element \(\mathbb{G}\) in \(L^\infty(\calF^2)\).  Also assume that \(0 < \inf_{f\in\calF}\E f^2<\sup_{f\in\calF}\E f^2<\infty\). 
+
+	Let \(\phi:L^\infty(\calF^2)\to L^\infty(\calF^2)\) by \(\phi(G)(f^2) = \sqrt{G(f^2)}\). It is useful here to recall that \(G \in L^\infty(\calF^2)\) is a (bounded) function from  \(\calF^2\to\SR\). Let's consider applying \(\phi\) to the function  \(\theta_0(f)=\E f^2\) and guess that \(\phi_0'(G)(f) = \frac{1}{2\sqrt{\E f^2}}G(f)\), which is clearly linear. It is also easy to verify continuity since \(\E f^2\) is bounded from below uniformly for \(f\in\calF\). Let's verify that this function satisfies the property required of the Hadamard Differential (\defnref{def:hadamard}). Let \(S\) be a compact set in  \(L^\infty(\calF)\):
+	\begin{align*}
+		\lim_{\eps_n\to 0}\sup_{h \in S}\frac{\|\phi(\theta_0+h\eps_n)-\phi(\theta_0)-\phi_0'(h\eps_n)\|}{\eps_n} 
+		&= \lim_{\eps_n\to 0}\sup_{h\in S} \sup_{f^2\in\calF^2}\frac{ \left|\sqrt{\theta_0(f^2)+\eps_nh(f^2)}-\sqrt{\theta_0(f^2)} - \eps_n\frac{h(f^2)}{2\sqrt{\theta_0(f^2)}} \right|}{\eps_n} \\
+		\intertext{Again applying mean value theorem, for some \(\bar\theta \in [\theta_0, \theta_0+\eps_n h]\) (containment is pointwise):} 
+		&= \lim_{\eps_n\to0}\sup_{h\in S}\sup_{f^2 \in \calF^2} \left|\frac{h(f^2)}{2\sqrt{\bar\theta_n(f^2)}} - \frac{h(f^2)}{2\sqrt{\theta_0(f^2)}}  \right| \\
+		&\leq \lim_{\eps_n\to 0}\sup_{h\in S}\sup_{f^2\in\calF^2}\left|\frac{1}{2\sqrt{\bar\theta_n(f^2)}}-\frac{1}{2\sqrt{\theta_0(f^2)}}\right|\left|h(f^2)\right|
+	\end{align*}
+	The first term goes to zero uniformly (WHY?) and the second term is bounded uniformly because \(S\) is compact. This verifies Hadamard differentiability. Applying the Delta Method then gives us that 
+	\[
+		\sqrt{n}\left(\sqrt{\E_n f^2}-\sqrt{\E f^2}\right)\overset{L}{\to} \frac{\mathbb{G}(f^2)}{2\sqrt{\E f^2}}\;\;\;\;\text{ uniformly for \(f\in\calF\)}
+	.\]
+\end{example}
+\begin{remark*} Comments on the delta method:
+	\begin{itemize}
+		\item Delta method is very powerful in infinite dimensions
+		\item Lots of examples, e.j going from uniofrm inference on the empirical CDF to inferenc on the empirical quantile process.
+		\item Domain and rules can be complicated, though have to be careful with norms.
+	\end{itemize}
+\end{remark*}
+
+\subsection{Directionally Differentiable Functions}%
+\label{subsec:directionally-differentiable}
+
+The Delta Method in Theorem~\ref{thm:delta-method} works if the function \(\phi\) is Hadamard Differentiable. However, what if we only have  \textit{directional differentiability} of \(\phi\)? Let's first review what directionally differentiable means. 
+\begin{definition}[Directional Hadamard Differential]
+	\label{def:directional-hadamard}
+	Let \(A\) and  \(B\) be Banach spaces and let  \(\phi: A_\phi \subseteq A \to B\). The map  \(\phi\) is Hadamard directionally differentiable at  \(\theta_0 \in A_{\phi}\) tangentially to a set  \(A_0 \subseteq A\) if there is a continuous map  \(\phi_{\theta_0}':A_0\to B\) such that 
+	\begin{equation}
+		\label{eq:directional-hadamard}
+		\lim_{\eps_n\to \infty}\frac{\left\|\phi(\theta_0 + \eps_n h_n)-\phi(\theta_0) - \eps_n\phi_{\theta_0}'(h)\right\|_A}{\eps_n} 
+	\end{equation}
+	for all \(h_n \to h\in A_0\) and \(\eps_n\downarrow 0\). In this case, the map \(\phi'_{\theta_0}\) is called the \textit{Hadamard directional differential} at \(\theta_0\) tangent to \(A_0\).
+\end{definition}
+\begin{remark}[Contrast to Full Hadamard Differentiability]
+	THINK ABOUT THIS	
+\end{remark}
+\begin{theorem}[Delta Method For Directionally Differentiable Functions]
+	\label{thm:directional-delta-method}
+	Suppose \(\sqrt{n}\left(\theta_n - \theta_0\right)\overset{L}{\to}\mathbb{Z}\) for a random element \(Z\) in \(D_0\). If \(\phi:D\to E\) is Hadamard directionally differentiable at \(\theta_0\) tangent to \(D_0\) at \(\theta_0\) with  directional differential \(\phi'_{\theta_0}\) then:
+	 \[
+		 \sqrt{n}\left(\phi(\theta_n) - \phi(\theta_0)\right)\overset{L}{\to} \phi'_{\theta_0}(Z)
+	,\] 
+\end{theorem}
 
