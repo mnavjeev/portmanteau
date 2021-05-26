@@ -8,11 +8,11 @@ We now cover the standard Delta Method (for ``fully differentiable'' functions).
 \subsubsection{Differentiability}%
 \label{subsubsec:differentiability}
 
-Recall that a function \(f:\SR\to\SR\) is differntiable at a point \(x_0\) if the limit
+Recall that a function \(f:\SR\to\SR\) is differentiable at a point \(x_0\) if the limit
 \[
 	\lim_{h\to0} \frac{f(x_0+h)-f(x)}{h} 
 .\] 
-exists. In this case we call the value of the limit the derivative of \(f\) at \(x_0\) and denote this as \(f'(x_0)\). The derivative is useful as it gives a linear approximation of \(f\) in a neihborhood of \(x_0\), that is the derivative can instead be written as a scalar  \(f'(x_0)\) such that
+exists. In this case we call the value of the limit the derivative of \(f\) at \(x_0\) and denote this as \(f'(x_0)\). The derivative is useful as it gives a linear approximation of \(f\) in a neighborhood of \(x_0\), that is the derivative can instead be written as a scalar  \(f'(x_0)\) such that
 \[
 	 \lim_{h\to 0}\frac{|f(x+h)-f(x)-f'(x)h|}{h} = 0 
 .\] 
@@ -25,7 +25,7 @@ or, more familiarly, \(f(x+h)-f(x) = f'(x)h + o(h)\). This linear approximation 
 	by taking \(h = \hat\theta-\theta_0\). Now note that we know the distribution of \(2\theta_0\sqrt{n}\left(\hat\theta-\theta_0\right) \overset{L}{\to} N(0,4\theta-0^2\sigma^2)\). We have leveraged the linearity property.
 \end{example*}
 
-Let's start by generalizing this property to functions in \(\SR^k\). This will allow us to differentiate between fully differentiable vs. directionally differentiable functions, an important distinction later on. All the definitions below will reflect the linearity property that  we desire.
+Let's start by generalizing this property to functions in \(\SR^k\). This will allow us to differentiate between fully differentiable vs directionally differentiable functions, an important distinction later on. All the definitions below will reflect the linearity property that  we desire.
 
 \begin{definition}[Differentiabiltiy in \(\SR^k\)]
 	\label{def:rk-differentiability}
@@ -35,7 +35,7 @@ Let's start by generalizing this property to functions in \(\SR^k\). This will a
 		\lim_{h\to 0}\frac{\|f(x+h)-f(x)-f'(x)h\|}{\|h\|}=0 
 	.\end{equation} 
 \end{definition}
-Note that this is very similar to our notion of differentiability from before. Let's see how this contrasts with our familiar notion of partial differentability and consider a function that has a gradient (i.e partial derivatives in the standard unit vector directions) but that we would not consider fully differentiable according to \defnref{def:rk-differentiability}.
+Note that this is very similar to our notion of differentiability from before. Let's see how this contrasts with our familiar notion of partial differentiability and consider a function that has a gradient (i.e partial derivatives in the standard unit vector directions) but that we would not consider fully differentiable according to \defnref{def:rk-differentiability}.
 \begin{example*}[Directionally but not Fully Differentiable]
 	Consider the function \(f:\SR^k \to \SR\) given by:
 	\[
@@ -53,13 +53,13 @@ Note that this is very similar to our notion of differentiability from before. L
 	\begin{align*}
 		\lim_{h\to 0}\frac{|f(h,h) - f(0,0) - \nabla f(0,0)\cdot(h,h)|}{|(h,h)|} &= \lim_{h\to 0}\frac{|h/2 - h|}{|\sqrt{2}h|} = \frac{1}{2\sqrt{2}}\neq 0  
 	.\end{align*} 
-	So the gradient does not satisfy the conditions of Defintion~\ref{def:rk-differentiability}. In fact, no linear map will and so that function is not differentiable at \((0,0)\).
+	So the gradient does not satisfy the conditions of Definition~\ref{def:rk-differentiability}. In fact, no linear map will and so that function is not differentiable at \((0,0)\).
 \end{example*}
 \begin{remark*}
-	The notion of differentiability that we want requires the \textit{same} linear approximation to work uniformly (in all directions). But the partial derivatives that we are used to only look in one direction at a time. The existence of a gradient is necessary but not suffecient for Definition~\ref{def:rk-differentiability}.	
+	The notion of differentiability that we want requires the \textit{same} linear approximation to work uniformly (in all directions). But the partial derivatives that we are used to only look in one direction at a time. The existence of a gradient is necessary but not sufficient for Definition~\ref{def:rk-differentiability}.	
 \end{remark*}
 
-Let's generalize these defintiions to general spaces. In general, let \((A,\|\cdot\|_A)\) and \((B,\|\cdot\|_B)\) be Banach spaces (complete normed vector spaces).\footnote{In general, I think we only need metrizable topological spaces. This is what is said in Andres' notes and in Van Der Vaart and Wellner. However, all the definitions below are given in terms of norms so to avoid confusion we'll just assume these are complete normed spaces.} 
+Let's generalize these definitions to general spaces. In general, let \((A,\|\cdot\|_A)\) and \((B,\|\cdot\|_B)\) be Banach spaces (complete normed vector spaces).\footnote{In general, I think we only need metrizable topological spaces. This is what is said in Andres' notes and in Van Der Vaart and Wellner. However, all the definitions below are given in terms of norms so to avoid confusion we'll just assume these are complete normed spaces.} 
 
 \begin{definition}[Fréchet Differential]
 	\label{def:frechet-differentiable}
@@ -92,13 +92,13 @@ This generalizes the concept of a fully differentiable function, but what about 
 	.\] 
 	In this case we call the map \(\Gamma_x(\cdot)\) the \textit{Gateaux Differential} in the direction \(h\) and denote \(df(x_0;h)=\Gamma_x(\cdot)\).
 \end{definition}
-Note that this is defined in each direction as opposed the the Fréchet differential which is defined uniformly for all directions. Whenever the Fréchet differential exists the Gateaux differential will exist and coincide with the Fréchet. 
+Note that this is defined in each direction as opposed the Fréchet differential which is defined uniformly for all directions. Whenever the Fréchet differential exists the Gateaux differential will exist and coincide with the Fréchet. 
 
 The definitions of Fréchet differentiability is not quite what we need however. The following refinement becomes more useful to applications in econometrics.
 
 \begin{definition}[Hadamard Differential]
 	\label{def:hadamard}
-	The function \(f:A\to B\) is Hadamard differentiable at the point \(x_0\in A\) if there exists a continous linear function \(f_{x_0}': A \to B\) with 
+	The function \(f:A\to B\) is Hadamard differentiable at the point \(x_0\in A\) if there exists a continuous linear function \(f_{x_0}': A \to B\) with 
 	\[
 		\lim_{\eps\to 0}\sup_{h\in S} \frac{\left\|f(x+\eps h)-f(x)- \eps f_{x_0}'(h)\right\|_B}{\eps} =0
 	.\]
@@ -119,7 +119,7 @@ First recall some useful theorems.
 	Suppose \(g_n:D\to E\) is a sequence of continuous maps with \(g_n(x_n)\to g(x)\) for some continuous map \(g\) and every convergent sequence \(x_n \to x\). Then if \(X_n\overset{L}{\to} X\)	in \(D\) then  \(g_n(X_n)\overset{L}{\to} g(X )\) in \(E\).
 \end{theorem}
 
-This is a slight refinment of the continous mapping theorem seen in Theorem~\ref{thm:cmt}, allowing for sequences of continuous maps.
+This is a slight refinement of the continuous mapping theorem seen in Theorem~\ref{thm:cmt}, allowing for sequences of continuous maps.
 \begin{lemma}[Convergent Sequences are Compact]
 	\label{lemma:convergent-compact}
 	If a sequence \(\{x_n\}\) converges to a point \(x\), then the set  \( \left\{x,x_1,x_2,\dots\right\}\) is compact (in any topological space).
@@ -161,7 +161,7 @@ We now turn to some examples to show the usefulness of Theorem~\ref{thm:delta-me
 	\label{ex:beta-hat-delta-method}
 	Suppose \(\beta_0\in\SR^k\) and \( \sqrt{n}(\widehat\beta-\beta_0)\overset{L}{\to}N(0,\Sigma)\). Let \(\phi:\SR^k\to\SR^m\) be differentiable.\footnote{In \(\SR^k\) Fréchet and Hadamard differentiability are equivalent.} Then \(\sqrt{n}(\phi(\hat\beta)-\phi(\beta))\overset{L}{\to}\phi_{\beta_0}'(Z)\) where \(Z\sim N(0,\Sigma)\).
 
-	What does this mean? Recall that any continous linear map from \(\SR^k\) to \( \SR^m\) can be expressed as a matrix (an element of \(\SR^{m\times k}\)). Specifically we can write \(\phi = \left(\phi_1,\dots,\phi_m\right)'\), where each \(\phi_i:\SR^k\to \SR\). Then \(\phi'_{\beta_0} = \left(\nabla\phi_1(\beta_0),\dots,\nabla\phi_m(\beta_0)\right)' \in \SR^{m\times k}\). Then
+	What does this mean? Recall that any continuous linear map from \(\SR^k\) to \( \SR^m\) can be expressed as a matrix (an element of \(\SR^{m\times k}\)). Specifically we can write \(\phi = \left(\phi_1,\dots,\phi_m\right)'\), where each \(\phi_i:\SR^k\to \SR\). Then \(\phi'_{\beta_0} = \left(\nabla\phi_1(\beta_0),\dots,\nabla\phi_m(\beta_0)\right)' \in \SR^{m\times k}\). Then
 	\[
 		\phi_{\beta_0}'(Z) \sim N\left(0,\phi_{\beta_0}'\Sigma\phi_{\beta_0}\right)
 	.\]
@@ -223,7 +223,7 @@ We now turn to some examples to show the usefulness of Theorem~\ref{thm:delta-me
 \begin{remark*} Comments on the delta method:
 	\begin{itemize}
 		\item Delta method is very powerful in infinite dimensions
-		\item Lots of examples, e.j going from uniofrm inference on the empirical CDF to inferenc on the empirical quantile process.
+		\item Lots of examples, e.j going from uniform inference on the empirical CDF to inference on the empirical quantile process.
 		\item Domain and rules can be complicated, though have to be careful with norms.
 	\end{itemize}
 \end{remark*}
@@ -237,18 +237,71 @@ The Delta Method in Theorem~\ref{thm:delta-method} works if the function \(\phi\
 	Let \(A\) and  \(B\) be Banach spaces and let  \(\phi: A_\phi \subseteq A \to B\). The map  \(\phi\) is Hadamard directionally differentiable at  \(\theta_0 \in A_{\phi}\) tangentially to a set  \(A_0 \subseteq A\) if there is a continuous map  \(\phi_{\theta_0}':A_0\to B\) such that 
 	\begin{equation}
 		\label{eq:directional-hadamard}
-		\lim_{\eps_n\to \infty}\frac{\left\|\phi(\theta_0 + \eps_n h_n)-\phi(\theta_0) - \eps_n\phi_{\theta_0}'(h)\right\|_A}{\eps_n} 
+		\lim_{n\to \infty}\frac{\left\|\phi(\theta_0 + \eps_n h_n)-\phi(\theta_0) - \eps_n\phi_{\theta_0}'(h)\right\|_B}{\eps_n} = 0
 	\end{equation}
 	for all \(h_n \to h\in A_0\) and \(\eps_n\downarrow 0\). In this case, the map \(\phi'_{\theta_0}\) is called the \textit{Hadamard directional differential} at \(\theta_0\) tangent to \(A_0\).
 \end{definition}
-\begin{remark}[Contrast to Full Hadamard Differentiability]
-	THINK ABOUT THIS	
-\end{remark}
+\begin{example}[Directional Differentiability]
+	\label{ex:max-directional-differential}
+	Let's consider the function \(\phi:\SR\to\SR_+, x\mapsto \max\{x,0\}\). We want to show that this function is Hadamard directionally differentiable tangent to \(\SR\) at any point \(x_0\in\SR\) with directional differential given by 
+	\[
+		\phi_{x_0}'(h) = \begin{cases}
+			h & \text{if } x_0 > 0 \\
+			\max\{h,0\} &\text{if } x_0=0\\
+			0 & \text{if } x_0 < 0
+		\end{cases}
+	.\] 
+	Intuitively, we can see why this would be the case. If \(x_0\) is above zero then locally in a neighborhood around \(x_0\), \(\phi(x)\) is equal to \(x\), if \(x_0\) equals zero then in any neighborhood around \(x_0\) \(\phi(x)\) is equal to \(x\) if \(x > 0\) and \(0\) otherwise, and if \(x_0\) is less than zero then \(\phi(x)\) is equal to zero uniformly in a neighborhood around \(x_0\).
+
+	We can clearly see that this is a continuous function in \(h\) for any \(x_0\) so what remains is to verify \cref{eq:directional-hadamard}. Take any \(x_0\) and any sequence \(h_n\to h\) and \(\eps_n\downarrow 0\).
+	\begin{align}
+		\label{eq:ex-max-differential}
+		\lim_{n\to\infty}\frac{\left|\max\{x_0 + \eps_nh_n, 0\} - \max\{x_0,0\} - \eps_n \phi_{\theta_0}'(h)\right|}{\eps_n}\tag{Ex-1}
+	\end{align}
+	Formally apply the intuition above: if \(x_0 > 0\) eventually we will have \(x_0 + \eps_nh_n > 0\). In this case \eqref{eq:ex-max-differential} will reduce to:
+	\[
+		\lim_{n\to\infty}\frac{\left|x_0 + \eps_nh_n - x_0 - \eps_n h\right|}{\eps_n} = \lim_{n\to\infty} h_n - h = 0 
+	.\]
+	If \(x_0 < 0\) then eventually we will have \(x_0 + \eps_nh_n <0\), then \eqref{eq:ex-max-differential} reduces to: 
+	\[
+		\lim_{n\to\infty} \frac{\left| -\eps_n \phi_{\theta_0}'(h)\right|}{\eps_n} = 0
+	.\]
+	Finally, if \(x_0 = 0\) then \eqref{eq:ex-max-differential} reduces to:
+	\[
+		\lim_{n\to\infty} \frac{\left|\max\{\eps_nh_n,0\} - \eps_n\max\{h,0\}\right|}{\eps_n} = \lim_{n\to\infty}\left|\max\{h_n,0\}-\max\{h,0\}\right| =0
+	.\] 
+	where in the first equality we use that \(\eps_n\) is decreasing towards zero and in the second we continuity of \(\max\{x,0\}\).
+\end{example}
 \begin{theorem}[Delta Method For Directionally Differentiable Functions]
 	\label{thm:directional-delta-method}
-	Suppose \(\sqrt{n}\left(\theta_n - \theta_0\right)\overset{L}{\to}\mathbb{Z}\) for a random element \(Z\) in \(D_0\). If \(\phi:D\to E\) is Hadamard directionally differentiable at \(\theta_0\) tangent to \(D_0\) at \(\theta_0\) with  directional differential \(\phi'_{\theta_0}\) then:
+	Suppose \(\sqrt{n}\left(\theta_n - \theta_0\right)\overset{L}{\to}X\) for a random element \(X\) in \(A_0\). If \(\phi:A\to B\) is Hadamard directionally differentiable at \(\theta_0\) tangent to \(A_0\) at \(\theta_0\) with  directional differential \(\phi'_{\theta_0}\) then:
 	 \[
-		 \sqrt{n}\left(\phi(\theta_n) - \phi(\theta_0)\right)\overset{L}{\to} \phi'_{\theta_0}(Z)
+		 \sqrt{n}\left(\phi(\theta_n) - \phi(\theta_0)\right)\overset{L}{\to} \phi'_{\theta_0}(X)
 	,\] 
 \end{theorem}
-
+\begin{proof}
+	Proof follows the same steps as \Cref{thm:delta-method}. Again take \(g_n(h) = \sqrt{n}\left(\phi(\theta_0 + \frac{h}{\sqrt{n}})-\phi(\theta_0)\right)\) and \(g(h) = \phi_{\theta_0}'(h)\).We want to apply \Cref{thm:cmt-2} so we want to show that if \(h_n \to h \), \(g_n(h_n)\to g(h)\) for any sequence \(h_n\) converging to an \(h \in A_0\). Letting \(\eps_n=1/\sqrt{n}\) and following verbatim the first two lines in the proof of \Cref{thm:delta-method} gives us that
+	\begin{align*}
+	\lim_{n\to\infty}\left|g_n(h_n)-g(h)\right| = \lim_{n\to \infty}\frac{\left|\phi(\theta_0+\eps_nh_n)-\phi(\theta_0)-\eps_n\phi_{\theta_0}'(h)\right|}{\eps_n} 
+	\end{align*}
+	Applying the definition of Hadamard directional differentiability we see that this term goes to zero as \(\eps_n\to 0\) and \(h_n\to h\). Rest of the proof follows exactly that of \Cref{thm:delta-method}.
+\end{proof}
+\begin{example}[Delta Method for Directionally Differentiable Functions]
+	Suppose \(\E[X^2] < \infty\) and we have an i.i.d sample from \(X\), \(X_1,X_2,\dots\) with \(X_i\sim X\). Let \(\theta_0 = \E[X]\) and \(\hat \theta_n = \frac{1}{n}\sum_{i=1}^n X_i\). By the Lindeberg Central Limit Theorem (\Cref{thm:lindeberg-clt}) we have that
+	\[
+		\sqrt{n}\left(\hat\theta_n-\theta_0\right)\overset{L}{\to} N(0,\sigma_X^2)
+	.\] 
+	Suppose are interested in conducting inference on the quantity \(\phi(\theta_0) = \max\{\theta_0,0\}\). In \Cref{ex:max-directional-differential} we verified that \(\phi(\cdot)\) is directionally differentiable everywhere tangent to \(\SR\) with Hadamard directional differential at (arbitrary point) \(x_0\):
+	\[
+		\phi_{x_0}'(h) = \begin{cases}
+			h & \text{if }x_0 > 0 \\
+			\max\{h,0\} & \text{if }x_0=0\\
+			0 &\text{if }x_0 < 0
+		\end{cases}
+	.\] 
+	So we can apply \Cref{thm:directional-delta-method} to get that
+	\[
+		\sqrt{n}\left(\max\{\hat\theta_n,0\} - \max\{\theta_0,n\}  \right)\overset{L}{\to} \phi_{\theta_0}'(\sigma_X Z)
+	.\] 
+	where \(Z\sim N(0,1)\).
+\end{example}
