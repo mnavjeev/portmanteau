@@ -116,7 +116,7 @@ First recall some useful theorems.
 
 \begin{theorem}[Continuous Mapping Theorem]
 	\label{thm:cmt-2}
-	Suppose \(g_n:D\to E\) is a sequence of continuous maps with \(g_n(x_n)\to g(x)\) for some continuous map \(g\) and every convergent sequence \(x_n \to x\). Then if \(X_n\overset{L}{\to} X\)	in \(D\) then  \(g_n(X_n)\overset{L}{\to} g(X )\) in \(E\).
+	Suppose \(g_n:D\to E\) is a sequence of continuous maps with \(g_n(x_n)\to g(x)\) for some continuous map \(g\) and every convergent sequence \(x_n \to x\) with \(x \in D_0\) and \(\Pr(X \in D_0) = 1\). Then if \(X_n\overset{L}{\to} X\)	in \(D\) then  \(g_n(X_n)\overset{L}{\to} g(X )\) in \(E\).
 \end{theorem}
 
 This is a slight refinement of the continuous mapping theorem seen in Theorem~\ref{thm:cmt}, allowing for sequences of continuous maps.
@@ -301,7 +301,9 @@ The Delta Method in Theorem~\ref{thm:delta-method} works if the function \(\phi\
 	.\] 
 	So we can apply \Cref{thm:directional-delta-method} to get that
 	\[
-		\sqrt{n}\left(\max\{\hat\theta_n,0\} - \max\{\theta_0,n\}  \right)\overset{L}{\to} \phi_{\theta_0}'(\sigma_X Z)
+		\sqrt{n}\left(\max\{\hat\theta_n,0\} - \max\{\theta_0,n\}  \right)\overset{L}{\to} \phi_{\theta_0}'\left(\sigma_X Z\right)
 	.\] 
 	where \(Z\sim N(0,1)\).
 \end{example}
+
+
