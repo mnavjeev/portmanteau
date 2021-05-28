@@ -135,7 +135,7 @@ Let \(\text{BL}_1\) be the set of all bounded Lipschitz functions. That is the s
 .\] 
 It turns out that weak convergence is equivalent to convergence in the bounded Lipschitz metric. 
 \begin{theorem}[Weak Convergence and the Bounded Lipschitz Metric]
-	\label{thm:weak-convergence-bounded-lipschits}
+	\label{thm:weak-convergence-bounded-lipschitz}
 	Weak convergence of separable (\Cref{def:separable-process}) Borel probability measures on a metric space \(\mathbb{D}\) corresponds to convergence in a topology that is metrizable by the bounded Lipschitz metric.
 \end{theorem}
 
@@ -160,4 +160,25 @@ The following theorems (presented without proof) gives conditions for convergenc
 	Here \(h(\mathbb{G}_n')^\star\) and \(h(\mathbb{G}_n')_\star\) denote measurable majorants and minorants with respect to \(\left(\xi_1,\dots,\xi_n,X_1,\dots,X_n\right)\) jointly.
 \end{theorem}
 
+\subsection{The Emprirical Bootstrap}%
+\label{subsec:empirical-bootstrap}
 
+\Cref{subsec:mclt} gives results that are useful for establishing the consistency of the multiplier bootstrap. We now quickly describe the empirical bootstrap and give some results. Let \(\P_n\) be the empirical measure of an i.i.d sample \(X_1,\dots,X_n\) from a probability measure \(P\). Given the sample values, let \(\hat X_1,\dots,\hat X_n\) be an i.i.d sample from \(\P_n\). The \emph{bootstrap empirical distribution} is the empirical measure \(\hat \P_n = n^{-1}\sum_{i=1}^n  \delta_{\hat X_i}\) and the \emph{bootstrap empirical process} \(\hat{\mathbb{G}}_n\) is given 
+\[
+	\hat{\mathbb{G}}_n = \sqrt{n}\left(\hat \P_n - \P_n\right) = \frac{1}{\sqrt{n}}\sum_{i=1}^n \left(M_{ni}-1\right)\delta_{X_i}
+.\] 
+where \(M_{ni}\) is the number of times that \(X_i\) is redrawn from the original samples. We can also define a bootstrap empirical process where we draw \(k\) bootstrap values, \(\hat X_1,\dots,\hat X_k\). The corresponding bootstrap empirical process is 
+\[
+	\hat{\mathbb{G}}_{n,k} = \sqrt{k}\left(\hat\P_k-\P_n\right)=\frac{1}{\sqrt{k}}\sum_{i=1}^n \left(M_{ki}-\frac{k}{n}\right)\delta_{X_i}
+.\]
+In either case, it is important that the vector \((M_{k1},\dots,M_{kn})\) is independent of \(X_1,\dots,X_n\), that is multinomially distributed with parameters \(k\) and probabilities \(\frac{1}{n},\dots,\frac{1}{n}\) for any random sample of size \(n\).
+
+Let \(\E_M\) denote the expectation with respect to the distribution of \((M_{k1},\dots M_{kn})\). In light of \Cref{thm:weak-convergence-bounded-lipschitz} which equates weak convergence of a sequence of probability measures to convergence in the bounded Lipschitz metric, the following theorem establishes the consistency of the bootstrap. 
+\begin{theorem}[Consistency of the Empirical Bootstrap]
+	\label{thm:consistency-empirical-bootstrap}
+	Let \(\calF\) be a Donsker class of measurable functions such that \(\calF_\delta\) is measurable for every \(\delta > 0\). Then
+	\[
+		\sup_{h\in\text{BL}_1}\left|\E_M h(\hat{\mathbb{G}}_{n,k_n}) - \E h(\mathbb{G})\right| \overset{P^\star}\to 0
+	.\] 
+	as \(n\to \infty\) for any sequence \(k_n\to \infty\). Furthermore the sequence \(\E_M h(\hat{\mathbb{G}}_{n,k_n})^\star - \E_M h(\hat{\mathbb{G}}_{n,k_n})_\star\) converges to zero in probability for every \(h\in \text{BL}_1\). If \(\P^\star\|f-Pf\|^2_\calF<\infty\), then the convergence is also outer almost surely.
+\end{theorem}
