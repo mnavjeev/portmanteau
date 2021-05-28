@@ -72,7 +72,7 @@ To establish these results we will make use of symmetrization results of the sor
 These lemmas are used to show the following theorem: 
 \begin{theorem}[Unconditional Multiplier Central Limit Theorem]
 	\label{thm:unconditional-multiplier-clt}
-	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i.i.d symmetric random variables with mean 0, variance 1, and \(\|\xi\|_{2,1} < \infty\), independent of \(X_1,\dots,X_n\). Then the sequence \(n^{-1/2}\sum_{i=1}^n \xi_1(\delta_{X_i}-P)\) converges to a tight limiting process in \(\ell^\infty(\calF)\) if and only if \(\calF\) is Donsker.
+	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i.i.d symmetric random variables with mean zero, variance one, and \(\|\xi\|_{2,1} < \infty\), independent of \(X_1,\dots,X_n\). Then the sequence \(n^{-1/2}\sum_{i=1}^n \xi_1(\delta_{X_i}-P)\) converges to a tight limiting process in \(\ell^\infty(\calF)\) if and only if \(\calF\) is Donsker.
 \end{theorem}
 \begin{proof}
 	Since we can replace any \(f\in\calF\) with \(f-Pf\) without changing the value of either the original or multiplier empirical process, it can be assumed without loss of generality that \(Pf=0\) for every \(f\). Marginal convergence of both sequences is equivalent to \(\calF\subset L_2(P)\). In light of Theorem~\ref{thm:vdv1.5.4} and Theorem~\ref{thm:vdv1.5.6}, it suffices to show that the asymptotic equicontinuity results for the empirical and multiplier processes are equivalent.
@@ -89,7 +89,7 @@ These lemmas are used to show the following theorem:
 \end{proof}
 \begin{corollary}[Unconditional Multiplier Central Limit Theorem]
     \label{corr:unconditional-multiplier-clt}
-	Let \(\calF\) be Donsker with \(\|P\|_|calF <\infty\). Let \(\xi_1,\dots,\xi_n\) be i.i.d random variables with mean \(\mu\), variance \(\sigma^2\) and \(\|xi_i\|_{1,2} <\infty\) generated independently of \(X_1,\dots,X_n\). Then
+	Let \(\calF\) be Donsker with \(\|P\|_\calF <\infty\). Let \(\xi_1,\dots,\xi_n\) be i.i.d random variables with mean \(\mu\), variance \(\sigma^2\) and \(\|\xi_i\|_{1,2} <\infty\) generated independently of \(X_1,\dots,X_n\). Then
 	\[
 		\frac{1}{\sqrt{n}}\sum_{i=1}^n \left(\xi_i\delta_{X_i}-\mu P\right)\wcov \mu\mathbb{G}+\sigma\mathbb{G}' +\sigma Z P
 	.\] 
@@ -129,14 +129,33 @@ We now want to show a conditional version of this result. That is, we want to sh
 
 Lemma~\ref{lemma:conitional-multiplier-clt-finite} provides the weak convergence of marginals in the multiplier processes. What remains is to show some version of asymptotic equicontinuity (Theorem~\ref{thm:vdv1.5.6} or \ref{thm:vdv1.5.7}) to show weak convergence in \(\ell^\infty(\calF)\). 
 
-Let \(\text{BL}_1\) be the set of all functions \(h:\ell^\infty(\calF)\to[0,1]\) such that \(|h(z_1)-h(z_2)\leq \|z_1-z_2\|_\calF\) for every \(z_1,z_2\). The following theorem (presented without proof) gives conditions for convergence of the multiplier central limit theorem. 
+Let \(\text{BL}_1\) be the set of all bounded Lipschitz functions. That is the set of all functions \(h:\ell^\infty(\calF)\to[0,1]\) such that \(|h(z_1)-h(z_2)\leq \|z_1-z_2\|_\calF\) for every \(z_1,z_2\). Using the bounded Lipschitz functions, we can define a metric (the bounded Lipschitz metric) between two distribtutions on a space \(\mathbb{D}\). 
+\[
+	d_{\text{BL}}(L_1,L_2) = \sup_{f\in \text{BL}_1} \bigg|\inf f\,dL_1 - \int f\,dL_2\bigg|
+.\] 
+It turns out that weak convergence is equivalent to convergence in the bounded Lipschitz metric. 
+\begin{theorem}[Weak Convergence and the Bounded Lipschitz Metric]
+	\label{thm:weak-convergence-bounded-lipschits}
+	Weak convergence of separable (\Cref{def:separable-process}) Borel probability measures on a metric space \(\mathbb{D}\) corresponds to convergence in a topology that is metrizable by the bounded Lipschitz metric.
+\end{theorem}
+
+The following theorems (presented without proof) gives conditions for convergence of the multiplier central limit theorem. First the other probability version is given under the same conditions as \Cref{thm:unconditional-multiplier-clt} then the almost sure version is given under only slightly stronger conditions. 
+
+\begin{theorem}[Conditional Multiplier Central Limit Theorem]
+	\label{thm:conditional-multiplier-clt-probability}
+	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i.i.d random variables with mean zero, variance one and \(\|\xi\|_{2,1}<\infty\), independent of \(X_1,\dots,X_n\). Let \(\mathbb{G}_n'=n^{1/2}\sum_{i=1}^n \xi_i\left(\delta_{X_i}-p\right)\). Then the following assertions are equivalent:
+	\begin{enumerate}
+		\item \(\calF\) is Donsker;
+		\item  \(\sup_{h\in\text{BL}_1}\left|\E_\xi h(\mathbb{G}_n')-\E h(\mathbb{G})\right|\to 0\) in outer probability and the sequence \(\mathbb{G}_n'\) is asymptotically measurable.
+	\end{enumerate}
+\end{theorem}
 
 \begin{theorem}[Conditional Mulitplier Central Limit Theorem]
 	\label{thm:conditional-multiplier-clt}
 	Let \(\calF\) be a class of measurable functions. Let \(\xi_1,\dots,\xi_n\) be i,i.d random variables with mean zero, variance 1, and \(\|\xi\|_{2,1}<\infty\), independent of \(X_1,\dots,X_n\). Define the multiplier process \(\mathbb{G}_n'=n^{-1/2}\sum_{i=1}^n \xi_i(\delta_{X_i}-P)\). Then the following assertions are equivalent:
 	\begin{enumerate}
 		\item \(\calF\) is Donsker with \(\mathbb{G}_n\wcov\mathbb{G}\) and \(P^\star\|f-Pf\|_\calF^2<\infty\);
-		\item \(\mathbb{G}_n'\wcov\mathbb{G}\) outer almost surely\footnote{Read for outer almost all sequences \(X_1,X_2,\dots\)} and \(\E_\xi h(\mathbb{G}_n')^\star-E_\xi h(\mathbb{G}_n')_\star\) converges almost surely to zero for every \(h\in \text{BL}_1\).
+		\item \(\sup_{h\in\text{BL}_1}\left|\E_\xi h(\mathbb{G}_n')-\E h(\mathbb{G})\right|\to 0\) outer almost surely and the sequence \(\E_\xi h(\mathbb{G}_n')^\star - \E_\xi h(\mathbb{G})_\star\) converges to zero almost surely for every \(h\in \text{BL}_1\). 
 	\end{enumerate}
 	Here \(h(\mathbb{G}_n')^\star\) and \(h(\mathbb{G}_n')_\star\) denote measurable majorants and minorants with respect to \(\left(\xi_1,\dots,\xi_n,X_1,\dots,X_n\right)\) jointly.
 \end{theorem}
