@@ -22,7 +22,10 @@ Empirical Processes:
    -- Verifying Uniform Entropy Bound for Bracketing Numbers.  
 
 Delta Method and Applications to Statistics:  
-   -- Multiplier Central Limit Theorems.	
+   -- Multiplier Central Limit Theorems.  
+   -- Empirical Bootstrap.  
+   -- Delta Method for Fully Differentiable Functions.  
+   -- Delta Method for Directionally Differentiable Functions.  
 
 **TO BE COVERED**.  
-Delta Method and Applications to Statistics. 
+Inference on Directionally Differentiable Functions (Fang and Santos 2019) 
