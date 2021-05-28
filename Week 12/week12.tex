@@ -173,13 +173,13 @@ We now turn to some examples to show the usefulness of Theorem~\ref{thm:delta-me
 	This is good for inference at a single point \(x_0\), but what if we want a uniform confidence interval for \(E[Y|X=x]\) for all points  \(x\) in some set \(X\). Let  \(\phi:\SR^k\to L^\infty(X)\) be given by \(\phi(\beta)=m(\cdot,\beta)\). That is, for each  \(\beta\) we can give an  \(m(x,\beta)\) for each point  \(x\in X\). This defines a function on  \(L^\infty(X)\). Assume that  \(\sup m(\cdot, \cdot)\) and  \(\nabla_\beta m(\cdot,\cdot)\) are continuous and  \(X\) is compact. Our guess for  \(\phi_{\beta_0}'\) is just  \(\phi_{\beta_0}'(\beta) =\nabla_\beta m(\cdot,\beta_0)\beta\). 
 	\begin{enumerate}
 		\item \(\phi_{\beta_0}':\SR^k\to L^\infty(X)\) is just like \(\phi:\SR^k\to L^{\infty}\), both take in a \(\beta\) and return a function on  \(X\). 
-		\item Clearly \(\phi_{\beta_0}'\) is linear  (in  \(\beta\)) and if  \(\beta_n\to\beta\) in  \(\SR^k\) then \(\phi'_{\beta_0}(\beta_n)\to \phi'_{\beta_0}(\beta)\) in  \(L^\infty(X)\). In other words, \(\phi_{\beta_0}'\) is continuous.
+		\item Clearly  \(\phi_{\beta_0}'\) is linear  (in  \(\beta\)) and if  \(\beta_n\to\beta\) in  \(\SR^k\) then \(\phi'_{\beta_0}(\beta_n)\to \phi'_{\beta_0}(\beta)\) in  \(L^\infty(X)\). In other words, \(\phi_{\beta_0}'\) is continuous.
 		\begin{align*}
 			\|\phi'_{\beta_0}(\beta_n)-\phi_{\beta_0}'(\beta)\|_\infty 
 			&= \sup_{x\in X} \|\nabla_\beta m(x,\beta_0)(\beta_n-\beta)\| \leq \sup_{x\in X}\underbrace{\|\nabla_\beta m(x,\beta_0)\|}_{\text{ finite by compactness}}\cdot  \underbrace{\vphantom{\nabla_\beta}\|\beta_n-\beta\|}_{\to\, 0}
 		\end{align*}
 	\end{enumerate}
-	Given this guess for \(\phi_{\beta_0}'\) lets check Hadamard Differentiability (\defnref{def:hadamard}) at \(\beta_0\). Let \(B\) be an arbitrary compact set in  \(\SR^k\):
+	Given this guess for \(\phi_{\beta_0}'\) lets check Hadamard Differentiability (\defnref{def:hadamard}) at \(\beta_0\). Let \(B\) be an arbitrary compact set in  \(\SR^k\):\footnote{We should note that even if we restrict \(\beta_0\) to be in some set \(\Theta \subset \SR^k\), compactness is invariant to superspaces. That is, let \(A \subset \Theta\) be compact with respect to the subspace topology on \(\Theta\). Then \(A\) is compact with respect to \(\SR^k\).}
 	\begin{align*}
 		\lim_{\eps_n\to 0}\sup_{h\in B} \frac{\|\phi(\beta_0+\eps_nh)-\phi(\beta_0) -\eps_n\phi'_{\beta_0}(h)\|_\infty}{\eps_n} 
 		&= \lim_{\eps_n\to 0}\sup_{h\in B}\frac{\left\|m(x,\beta_0+\eps_nh)-m(x,\beta_0)-\eps_n\nabla_\beta m(x,\beta_0)h\right\|_\infty}{\eps_n}\\
@@ -274,7 +274,7 @@ The Delta Method in Theorem~\ref{thm:delta-method} works if the function \(\phi\
 \end{example}
 \begin{theorem}[Delta Method For Directionally Differentiable Functions]
 	\label{thm:directional-delta-method}
-	Suppose \(\sqrt{n}\left(\theta_n - \theta_0\right)\overset{L}{\to}X\) for a random element \(X\) in \(A_0\). If \(\phi:A\to B\) is Hadamard directionally differentiable at \(\theta_0\) tangent to \(A_0\) at \(\theta_0\) with  directional differential \(\phi'_{\theta_0}\) then:
+	Suppose \(\sqrt{n}\left(\theta_n - \theta_0\right)\overset{L}{\to}X\) for a random element \(X\) in \(A_0\). If \(\phi:A\to B\) is Hadamard directionally differentiable at \(\theta_0\) tangent to \(A_0\) with  directional differential \(\phi'_{\theta_0}\) then:
 	 \[
 		 \sqrt{n}\left(\phi(\theta_n) - \phi(\theta_0)\right)\overset{L}{\to} \phi'_{\theta_0}(X)
 	,\] 
