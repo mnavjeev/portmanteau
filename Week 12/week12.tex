@@ -215,7 +215,7 @@ We now turn to some examples to show the usefulness of Theorem~\ref{thm:delta-me
 		&= \lim_{\eps_n\to0}\sup_{h\in S}\sup_{f^2 \in \calF^2} \left|\frac{h(f^2)}{2\sqrt{\bar\theta_n(f^2)}} - \frac{h(f^2)}{2\sqrt{\theta_0(f^2)}}  \right| \\
 		&\leq \lim_{\eps_n\to 0}\sup_{h\in S}\sup_{f^2\in\calF^2}\left|\frac{1}{2\sqrt{\bar\theta_n(f^2)}}-\frac{1}{2\sqrt{\theta_0(f^2)}}\right|\left|h(f^2)\right|
 	\end{align*}
-	The first term goes to zero uniformly (WHY?) and the second term is bounded uniformly because \(S\) is compact. This verifies Hadamard differentiability. Applying the Delta Method then gives us that 
+	The first term goes to zero uniformly and the second term is bounded uniformly because \(S\) is compact.\footnote{Recall that \(h \in S \in L^\infty(\calF^2)\). This means that \(h\) is a bounded function from \(\calF^2\) onto \(\SR\) so that \(\eps_n h \to 0\). Compactness of \(S\) gives uniform boundedness which then gives uniform convergence of \(\eps_n h\) over \(S\).} This verifies Hadamard differentiability. Applying the Delta Method then gives us that 
 	\[
 		\sqrt{n}\left(\sqrt{\E_n f^2}-\sqrt{\E f^2}\right)\overset{L}{\to} \frac{\mathbb{G}(f^2)}{2\sqrt{\E f^2}}\;\;\;\;\text{ uniformly for \(f\in\calF\)}
 	.\]
