@@ -85,15 +85,6 @@ Note that a set is open if and only if \(A = A^\circ\).
 \end{definition}
 By De-Morgan's law and closure of the topology under arbitrary union we can see that this intersection always gives a closed set. A set is closed if and only if \(A = \bar{A}\).
 
-\begin{lemma}[]
-	\label{lemma:prelim}
-	Suppose \(x \in \bar{A}\), then for every neighborhood of  \(x\),  \(V_x\), we have that  \(V_x \cap A \neq \emptyset\).
-\end{lemma}
-\begin{proof}
-	Let \(x \in \bar{A}\) and suppose for some neighborhood  \(V_x\) of \(x\) we have that  \(V_x \cap A = \emptyset\). Then we know that  \(V_x^\circ \cap A = \emptyset\). Take  \(\tilde A = \bar A \cap (V_x^\circ)^c\). We can verify that this is a smaller closed set that also contains  \(A\).
-\end{proof}
-
-
 \begin{definition}[Boundary]
 	\label{def:boundary}
 	The boundary of a set \(A\), denoted  \(\delta A\), is  \(\bar{A}\setminus A^\circ\).
@@ -106,6 +97,13 @@ A useful concept when talking about convergence under a topology is that of a ne
 	For a point \(x \in X\) a set  \(V\) is a neighborhood of  \(X\) if  \(x \in V^\circ\).
 \end{definition}
 
+\begin{lemma}[]
+	\label{lemma:prelim}
+	Suppose \(x \in \bar{A}\), then for every neighborhood of  \(x\),  \(V_x\), we have that  \(V_x \cap A \neq \emptyset\).
+\end{lemma}
+\begin{proof}
+	Let \(x \in \bar{A}\) and suppose for some neighborhood  \(V_x\) of \(x\) we have that  \(V_x \cap A = \emptyset\). Then we know that  \(V_x^\circ \cap A = \emptyset\). Take  \(\tilde A = \bar A \cap (V_x^\circ)^c\). We can verify that this is a smaller closed set that also contains  \(A\).
+\end{proof}
 We can now use the topology to define limit points and convergence.
 
 \begin{definition}[Limit Point]
