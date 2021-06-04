@@ -1,16 +1,8 @@
 % Week 4 notes, starting off at the end of the theorem 2.5
 
-\textbf{Intuition: Why is Tightness + Convergence of Marginals Enough?}
-
-\begin{itemize}
-	\item Tightness: \(P(X\in K)\geq 1-\eps\) for some \underline{\textit{compact}} set \(K\).
-	\begin{itemize}
-		\item In a metric space, compact means for any \(\eps >0 \) there are a finite set of points that approximate the whole set well. 
-		\begin{itemize}
-			\item But! For a finite set of points we have convergence of marginals
-		\end{itemize}
-	\end{itemize}
-\end{itemize}
+\begin{remark*}[Intuition]
+	Why is tightness and convergence of marginals enough? From tightness we have that \(P(X\in K) \geq 1-\eps\) for some \underline{compact} set \(K\). In a metric space, compact means that for every \(\eps>0\) there are a finite set of points that approximate the whole set within an error of \(\eps\). For a finite set of points we have convergence of marginal distributions by standard central limit theorem.
+\end{remark*}
 
 Showing convergence of marginal distributions is straightforward by CLT. Next, we cover how to show tightness. Then Theorem~\ref{thm:vdv1.5.4} gives convergence of the entire process.To verify tightness we want a better description than the definition of asymptotic tightness. Two approaches
 \begin{enumerate}
@@ -25,14 +17,9 @@ The general idea here is that, for any \(\eps > 0\), we can partition the index 
 	 \lim\sup_{n\to\infty} \P\left(\max_i \sup_{s,t\in T_i}\left|X_n(s)-X_n(t)\right|>\eps\right)<\eta
 .\]
 
-\textbf{Intuition: Why should we expect this to work?}
-\begin{itemize}
-	\item Tightness means that you concentrate on a compact set
-	\begin{itemize}
-		\item Compact set is well described by a finite \# of functions 
-	\end{itemize}
-\end{itemize}
-
+\begin{remark*}[Intuition]
+	Why should we expect this to work?	Tightness means that the probability measure concentrates on a compact set. A compact set in \(\ell^\infty(X)\) is well approximated by a finite number of functions. 
+\end{remark*}
 \begin{theorem}[Theorem 1.5.6 VdV\&W]
 	\label{thm:vdv1.5.6}
 	A sequence of random maps \(X_n \in \ell^\infty(T)\) is asymptotically tight if and only if \(X_n(t)\) is asymptotically tight in  \(\SR\) for every  \(t\) and, for all  \(\eps,\eta > 0\) there is a partition  \(T = \cup_{i=1}^n T_i\) such that 
