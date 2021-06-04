@@ -1,0 +1,76 @@
+%! TEX root = /Users/manunavjeevan/Documents/UCLA/Third Year/Reading Group/wcep.tex
+
+\subsection{Inference on Directionally Differentiable Functions}%
+\label{subsec:fang-santos-2019}
+
+In this section we'll briefly cover the results in Fang and Santos (2019, ReStud). Specifically, we'll want to cover how bootstrap methods differ when functions are only directionally (as opposed to fully) differentiable.
+
+Throughout this discussion, let's let \(\hat\theta_n^*\) denote a ``bootstrapped version'' of \(\hat\theta_n\) and assume the limiting distribution of \(r_n\{\hat\theta_n-\theta_0\}\) can be consistently estimated by the conditional law of 
+\[
+    r_n\left\{\hat\theta_n^* - \hat\theta_n\right\}
+.\] 
+
+In order to allow for diverse resampling schemes, simply appose that \(\hat\theta_n^*\) is a function of the data \(\{X_i\}\) and some random weights \(\{W_i\}\) that are independent of \(\{X_i\}\). Recall that from \Cref{thm:lipschitz-donsker} weak convergence of probability measures on a space \(X\) is equivalent to convergence in the bounded lipschitz metric
+\[
+	d_{\text{\tiny BL}}\left(P_1,P_2\right) = \sup_{f\in \text{BL}_1(A)} \left|\int f(a)\,dP_1 - \int f(a) dP_2\right|
+.\] 
+The above is summarized in the following assumption:
+\begin{assumption}[Assumption 3, Fang and Santos (2019)]
+	\label{assm:fs-3}
+	Asumme that
+	\begin{enumerate}
+		\item \(\hat\theta^*_n:\{X_i,W_i\}_{i=1}^n \to \mathbb{D}_\phi\) with \(\{W_i\}\) independent of \(X_i\).
+		\item \(\hat\theta_n^*\) satisfies \(\sup_{f\in\text{BL}_1(\mathbb{D})}|\E[f(r_n\{\hat\theta^*_n-\hat\theta_n\}|\{X_i\}]-\E[f(\mathbb{G}_0)]|=o_p(1)\).
+		\item \(r_n\{\hat\theta_n^*-\hat\theta_n\}\) is asymptotically measurable (jointly in \(\{X_i,W_i\}\)).
+		\item \(f(r_n\{\hat\theta_n^*-\hat\theta_n\})\) is a measurable function of \(\{W_i\}\), outer almost surely in \(\{X_i\}\) for any continuous and bounded \(f:\mathbb{D}\to\SR\).
+	\end{enumerate}
+\end{assumption}
+We will then be interested in bootstrap procedures to estimate the distribution of \(r_n\{\phi(\hat\theta_n)-\phi(\theta_0)\}\). Now give an important theorem characterizing when we can use a plug in bootstrap estimator, \(\phi(\hat\theta^*_n)\).
+\begin{theorem}[Theorem 3.1, Fang and Santos (2019)]
+	\label{thm:fs-3.1}
+	Assume that \(\mathbb{D}\) and \(\mathbb{E}\) are Banach spaces with norms \(\|\cdot\|_{\mathbb{D}}\) and \(\|\cdot\|_{\mathbb{E}}\). Also assume that \(\theta_0\in \mathbb{D}_{\phi}\), the domain of \(\phi\), and that \(r_n\{\hat\theta_n-\theta_0\}\overset{L}{\to} \mathbb{G}_0\) for some tight gaussian element \(\mathbb{G}_0\). Then under \Cref{assm:fs-3} it follows that \(\phi\) is fully Hadamard differentiable at \(\theta_0\in \mathbb{D}_\phi\) tangentially to the support of \(\mathbb{G}_0\) \emph{if and only if}:
+	\begin{equation}
+		\label{eq:fs-3.1}
+		\sup_{f\in \text{BL}_1(\mathbb{E})} |\E[f(r_n\{\phi(\hat\theta_n^*)-\phi(\hat\theta_n)\})|\{X_i\}_{i=1}^n] - \E[f(\phi_{\theta_0}'(\mathbb{G}_0))]|=o_p(1)
+	\end{equation}
+\end{theorem}
+This is a positive result if your function \(\phi\) is fully Hadamard differentiable (\Cref{def:hadamard}), but a negative result otherwise. For example, the standard bootstrap would fail if the function \(\phi\) is only Hadamard directionally differentiable tangent to the support of \(\mathbb{G}_0\) (\Cref{def:directional-hadamard}), as in the case of \Cref{ex:max-directional-differential}. 
+
+The following supplemental theorem forms the backbone of the proof of \Cref{thm:fs-3.1}. 
+\begin{theorem}[Theorem S.3.1, Fang and Santos (2019)]
+	\label{thm:fs-s.3.1}
+	Assume that \(\mathbb{D}\) and \(\mathbb{E}\) are Banach spaces with norms \(\|\cdot\|_{\mathbb{D}}\) and \(\|\cdot\|_{\mathbb{E}}\). Also assume that \(\theta_0\in \mathbb{D}_{\phi}\), the domain of \(\phi\), and that \(r_n\{\hat\theta_n-\theta_0\}\overset{L}{\to} \mathbb{G}_0\) for some tight gaussian element \(\mathbb{G}_0\) that contains zero in it's support. Finally assume that \(\phi:\mathbb{D}_\phi\subseteq\mathbb{D}\to \mathbb{E}\) is Hadamard directionally differentiable at \(\theta_0\) tangent to the support of \(\mathbb{G}_0\). Then under \Cref{assm:fs-3} the following statments are equivalent:
+	\begin{enumerate}
+		\item \(\E[f(\phi_{\theta_0}'(\mathbb{G}_0))]= \E[f(\phi_{\theta_0}'(\mathbb{G}_0+a_0)-\phi_{\theta_0}'(a_0))]\) for all \(a_0\in \supp(\mathbb{G}_0)\) and \(f\in \text{BL}_1(\mathbb{E})\).
+		\item \(\sup_{f\in\text{BL}_1(\mathbb{E})}|\E[f(r_n\{\phi(\hat\theta_n^*)-\phi(\hat\theta_n)\})| \{X_i\}_{i=1}^n]-\E[f(\phi_{\theta_0}'(\mathbb{G}_0)]|=o_p(1)\)
+	\end{enumerate}
+\end{theorem}
+This is useful as, using \Cref{thm:lipschitz-donsker}, the second statment is equivalent to weak convergence of the bootstrap distribution, \(r_n\{\phi(\hat\theta_n^*)-\phi(\hat\theta_n)\}\) to the limiting distribution of \(r_n\{\phi(\hat\theta)-\phi(\theta_0)\}\) given by \(\phi_{\theta_0}'(\mathbb{G}_0)\) via \Cref{thm:directional-delta-method}. The first statement can then be shown to be equivalent to full Hadamard differentiability of \(\phi\) at \(\theta_0\).\footnote{One direction is easy, only the returning direction is difficult.}
+
+Given this negative result for naïve bootstrap inference on directionally diffentiable functions, Fang and Santos propose a modified bootstrap procedure that is consistent more generally. To use thie valid bootstrap procedure we will need a consistent estimator for the Hadamard directional differential \(\hat\theta_n'\) in the following sense:
+\begin{assumption}[Assumption 4, Fang and Santos (2019)]
+	\label{assm:fs-4}
+	The map \(\hat\theta_n':\mathbb{D}\to\mathbb{E}\) is a function \(\{X_i\}_{i=1}^n\) such that for every compact set \(K\subseteq\mathbb{D}_0\) and every \(\eps>0\):
+	\begin{equation}
+		\label{eq:fs-4}
+		\lim_{\delta\downarrow 0}\limsup_{n\to\infty}\, P\left(\sup_{h\in K^\delta} \|\hat\phi_n'(h)-\phi_{\theta_0}'(h)\|_{\mathbb{E}}>\eps\right) =0
+	\end{equation}
+	where we recall that \(K^\delta = \{x: d(x,K)<\delta\} \) is the \(\delta\)-expansion of \(K\).
+\end{assumption}
+\begin{remark*}[Remark 3.3, Fang and Santos (2019)]
+	In certain applications, for example if \(\mathbb{D}=\SR^d\) or if \(\mathbb{D}\) is separable and \(r_n\{\hat\theta_n^*-\hat\theta_n\}\) is Borel measurable as a function of \(\{X_i,W_i\}\) then \eqref{eq:fs-4} can be relaxed to verifying the following 
+	\begin{equation}
+		\label{eq:fs-3.3}
+		\sup_{h\in K}\|\hat\phi_n'(h)-\phi'_{\theta_0}(h)\|_{\mathbb{E}} = o_p(1)
+	\end{equation}
+	for any compact set \(K\subseteq \mathbb{D}\).
+\end{remark*}
+In either case, we get the following consistent bootstrap procedure that works even if the function \(\phi\) is only Hadamard directionally differentiable.
+\begin{theorem}[Theorem 3.2, Fang and Santos (2019)]
+	\label{thm:fs-3.2}
+	Assume that \(\mathbb{D}\) and \(\mathbb{E}\) are Banach spaces with norms \(\|\cdot\|_{\mathbb{D}}\) and \(\|\cdot\|_{\mathbb{E}}\). Also assume that \(\theta_0\in \mathbb{D}_{\phi}\), the domain of \(\phi\), and that \(r_n\{\hat\theta_n-\theta_0\}\overset{L}{\to} \mathbb{G}_0\) for some tight gaussian element \(\mathbb{G}_0\) that contains zero in it's support. Finally assume that \(\phi:\mathbb{D}_\phi\subseteq\mathbb{D}\to \mathbb{E}\) is Hadamard directionally differentiable at \(\theta_0\) tangent to the support of \(\mathbb{G}_0\). Then under \Cref{assm:fs-3} and \Cref{assm:fs-4}
+	\[
+		\sup_{f\in\text{BL}_1(\mathbb{E})}|\E[f(\hat\phi_n'(r_n\{\hat\theta_n^*-\hat\theta_n\}))|\{X_i\}_{i=1}^n]-\E[f(\phi_{\theta_0}'(\mathbb{G}_0))]|=o_p(1)
+	.\] 
+\end{theorem}
+\Cref{thm:fs-3.2} shows that the conditional distribution of \(\hat\phi_n'(r_n\{\hat\theta^*_n-\hat\theta_n\})\) given the data is a consistent estimator of the limiting distribution of \(r_n\{\phi(\hat\theta_n)-\phi(\theta_0)\}\).
