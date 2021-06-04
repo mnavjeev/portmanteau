@@ -26,6 +26,5 @@ Delta Method and Applications to Statistics:
    -- Empirical Bootstrap.  
    -- Delta Method for Fully Differentiable Functions.  
    -- Delta Method for Directionally Differentiable Functions.  
+   -- Inference on Directionally Differentiable Functions (Fang and Santos 2019) 
 
-**TO BE COVERED**.  
-Inference on Directionally Differentiable Functions (Fang and Santos 2019) 
