@@ -139,7 +139,7 @@ We are now ready to show the Delta Method.
 		&= \lim_{n\to \infty} \left|\sqrt{n}\left(\phi\left(\theta_0+h_n/\sqrt{n}\right) - \phi(\theta_0)\right) - \phi_{\theta_0}'(h) \right| \\
 		\intertext{Fix \(\eps_n=1/\sqrt{n}\) and rewrite}
 		&= \lim_{n\to\infty} \left|\frac{1}{\eps_n}\left[\phi(\theta_0+h_n\eps_n)-\phi(\theta_0)- \eps_n \phi_{\theta_0}'(h)\right]\right|\\ 
-		&\leq  \lim_{n\to\infty} \left|\frac{1}{\eps_n}\left[\phi\left(\theta_0 + h_n\eps_n)\right) - \phi(\theta_0)-\eps_n\phi_{\theta_0}'(h_n)\right]\right| + \underbrace{\left|\phi'_{\theta_0}(h_n) - \phi'_{\theta_0}(h)\right|}_{\to 0\text{ by continuity of }\phi'_{\theta_0}} \\
+		&\leq  \lim_{n\to\infty} \left|\frac{1}{\eps_n}\left[\phi\left(\theta_0 + h_n\eps_n\right) - \phi(\theta_0)-\eps_n\phi_{\theta_0}'(h_n)\right]\right| + \underbrace{\left|\phi'_{\theta_0}(h_n) - \phi'_{\theta_0}(h)\right|}_{\to 0\text{ by continuity of }\phi'_{\theta_0}} \\
 		\intertext{Since the last term goes to 0, consider only the first term and let \(S = \{h,h_1,h_2,\dots\}\):}
 		&\leq \lim_{\eps_n\to 0} \sup_{\tilde h\in S} \left|\frac{1}{\eps_n}\left[\phi(\theta_0+\tilde h\eps_n)-\phi(\theta_0)- \eps_n\phi_{\theta_0}'(\tilde h)\right]\right|
 	\end{align*}
@@ -302,6 +302,5 @@ The Delta Method in Theorem~\ref{thm:delta-method} works if the function \(\phi\
 		\sqrt{n}\left(\max\{\hat\theta_n,0\} - \max\{\theta_0,0\}  \right)\overset{L}{\to} \phi_{\theta_0}'\left(\sigma_X Z\right)
 	.\] 
 	where \(Z\sim N(0,1)\).
-
 \end{example}
 
